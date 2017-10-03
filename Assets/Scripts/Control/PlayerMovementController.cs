@@ -33,6 +33,6 @@ public class PlayerMovementController : MonoBehaviour {
 
         
 
-        controller.Move(movement * Time.deltaTime);
+        controller.Move(movement * speed * Time.deltaTime);
 	}
 }
