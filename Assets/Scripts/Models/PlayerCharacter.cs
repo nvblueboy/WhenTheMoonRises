@@ -14,8 +14,8 @@ Description: This is a script representing the player character and their curren
 
 // PlayerCharacter
 public class PlayerCharacter : MonoBehaviour {
-    public int hp, stamina, strength, defense, intuition, experience, level;
-    private int currHP, currStamina;
+    public int hp, stamina, strength, defense, intuition,
+        experience, level, currHP, currStamina;
 
     // Awake
     void Awake()
