@@ -17,7 +17,7 @@ public class DayTrigger : MonoBehaviour {
     public int collectedItems=0;
     public string level;
     Collider2D col;
-    PhaseController Status;
+    PhaseController State;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,16 +25,16 @@ public class DayTrigger : MonoBehaviour {
         {
             if (col.CompareTag("Player"))
             {
-                if (collectedItems < Status.NeededCollectibles())
+                if (collectedItems < State.NeededCollectibles())
                 {
                     collectedItems++;
-                    if (collectedItems == Status.NeededCollectibles())
+                    if (collectedItems == State.NeededCollectibles())
                     {
-                        Status.setInventory(++collectedItems);
-                        Status.resetCollectibles();   //reset collected items counter
-                        Status.setDayMode(true);      //set phase to day
-                        Status.setCycle();            //increment cycle counter (new day)
-                        level = "Day" + Status.getCycle().ToString();
+                        State.setInventory(++collectedItems);
+                        State.resetCollectibles();   //reset collected items counter
+                        State.setDayMode(true);      //set phase to day
+                        State.setCycle();            //increment cycle counter (new day)
+                        level = "Day" + State.getCycle().ToString();
                         SceneManager.LoadScene(level);
                     }
                 }
