@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class PlayerMovementController : MonoBehaviour {
 
     public float speed;
+    public Text countText;
 
     private CharacterController controller;
+    private int shardCount;
+    private int collectWin = 2;  //temp value - must inheret from global config
 
     // Use this for initialization
     void Start() {
@@ -17,6 +20,7 @@ public class PlayerMovementController : MonoBehaviour {
             Debug.LogError("There's no Character controller on: " + transform.name);
         }
 
+        SetCountText();
     }
 
     // Update is called once per frame
@@ -37,5 +41,26 @@ public class PlayerMovementController : MonoBehaviour {
 
         controller.Move(movement * speed * Time.deltaTime);
     }
+
+    //Collect star shards
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("StarShard"))
+        {
+            collision.gameObject.SetActive(false);
+            shardCount++;
+            SetCountText();
+
+        }
+    }
+
+    //Collectibles Counter
+    void SetCountText()
+    {
+        countText.text = "Star shards: " + shardCount.ToString();
+        if (shardCount >= collectWin)
+            countText.color = Color.green;         
+    }
+
 
 }
