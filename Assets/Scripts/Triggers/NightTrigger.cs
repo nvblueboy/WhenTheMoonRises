@@ -18,23 +18,23 @@ public class NightTrigger : MonoBehaviour {
     string level = "";
 
     Collider2D col;
-    PhaseController State;
+    PhaseController Status;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         {
             if (col.CompareTag("Player"))
             {
-                if (State.getActions() < State.NeededActions())
+                if (Status.getActions() < Status.NeededActions())
                 {
-                    State.addAction(); //increment actions counter
+                    Status.addAction(); //increment actions counter
 
-                    if (State.getActions() == State.NeededActions()) //check if actions target is reached - transition to day
+                    if (Status.getActions() == Status.NeededActions()) //check if actions target is reached - transition to day
                     {
-                        State.resetActions(); //reset actions counter
-                        State.setDayMode(false);      //set phase to night
+                        Status.resetActions(); //reset actions counter
+                        Status.setDayMode(false);      //set phase to night
 
-                        level = "Night" + State.getCycle().ToString();
+                        level = "Night" + Status.getCycle().ToString();
                         SceneManager.LoadScene(level);
                     }
                 }
