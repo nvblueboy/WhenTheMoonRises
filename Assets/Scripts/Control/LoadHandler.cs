@@ -15,50 +15,28 @@ Description: This is a script for handling loading game data
 // LoadHandler
 public class LoadHandler : MonoBehaviour {
 
-    /*
-    Name: Load
-    Parameters: PlayerCharacter player
-    */
-    public static void Load(PlayerCharacter player)
+    // Load
+	public void Load()
     {
         Debug.Log("Attempt to load");
         if(canLoad())
         {
-            LoadPlayerPosition(player);
-            LoadPlayerStats(player);
+            LoadPlayerPosition();
         }
     }
 
-    /*
-    Name: LoadPlayerPosition
-    Parameters: PlayerCharacter player
-    */
-    private static void LoadPlayerPosition(PlayerCharacter player)
+    // LoadPlayerPosition
+    void LoadPlayerPosition()
     {
         Vector2 playerPosition = new Vector2(PlayerPrefs.GetFloat(
             Constants.PlayerX), PlayerPrefs.GetFloat(Constants.PlayerY));
-        player.transform.position = playerPosition;        
-    }
+        transform.position = playerPosition;
 
-    /*
-    Name: LoadPlayerStats
-    Parameters: PlayerCharacter player
-    */
-    private static void LoadPlayerStats(PlayerCharacter player)
-    {
-        player.hp = PlayerPrefs.GetInt(Constants.MaxHP);
-        player.stamina = PlayerPrefs.GetInt(Constants.MaxStamina);
-        player.currHP = PlayerPrefs.GetInt(Constants.CurrHP);
-        player.currStamina = PlayerPrefs.GetInt(Constants.CurrStamina);
-        player.strength = PlayerPrefs.GetInt(Constants.Strength);
-        player.intuition = PlayerPrefs.GetInt(Constants.Intuition);
-        player.defense = PlayerPrefs.GetInt(Constants.Defense);
-        player.experience = PlayerPrefs.GetInt(Constants.Experience);
-        player.level = PlayerPrefs.GetInt(Constants.Level);
+        Debug.Log("Loaded player position: " + playerPosition.ToString());
     }
 
     // canLoad
-    private static bool canLoad()
+    bool canLoad()
     {
         return !(PlayerPrefs.GetString(Constants.SaveExists) == "");        
     }

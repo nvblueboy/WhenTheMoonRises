@@ -14,43 +14,19 @@ Description: This is a script for handling saving game data
 
 // SaveHandler
 public class SaveHandler : MonoBehaviour {
-
-   /*
-   Name: Save
-   Parameters: PlayerCharacter player
-   */
-    public static void Save(PlayerCharacter player)
+       
+    // Save
+    public void Save()
     {
         Debug.Log("Game saved");
-        SavePlayerPosition(player);
-        SavePlayerStats(player);     
+        SavePlayerPosition();        
     }
-
-   /*
-   Name: SavePlayerPosition
-   Parameters: PlayerCharacter player
-   */
-    private static void SavePlayerPosition(PlayerCharacter player)
+    
+    // SavePlayerPosition
+    void SavePlayerPosition()
     {
         PlayerPrefs.SetString(Constants.SaveExists, "true");
-        PlayerPrefs.SetFloat(Constants.PlayerX, player.transform.position.x);
-        PlayerPrefs.SetFloat(Constants.PlayerY, player.transform.position.y);
-    }
-
-   /*
-   Name: SavePlayerPosition
-   Parameters: PlayerCharacter player
-   */
-   private static void SavePlayerStats(PlayerCharacter player)
-   {
-        PlayerPrefs.SetInt(Constants.MaxHP, player.hp);
-        PlayerPrefs.SetInt(Constants.MaxStamina, player.stamina);
-        PlayerPrefs.SetInt(Constants.CurrHP, player.currHP);
-        PlayerPrefs.SetInt(Constants.CurrStamina, player.currStamina);
-        PlayerPrefs.SetInt(Constants.Strength, player.strength);
-        PlayerPrefs.SetInt(Constants.Defense, player.defense);
-        PlayerPrefs.SetInt(Constants.Intuition, player.intuition);
-        PlayerPrefs.SetInt(Constants.Experience, player.experience);
-        PlayerPrefs.SetInt(Constants.Level, player.level);
-   }
+        PlayerPrefs.SetFloat(Constants.PlayerX, transform.position.x);
+        PlayerPrefs.SetFloat(Constants.PlayerY, transform.position.y);
+    }	
 }

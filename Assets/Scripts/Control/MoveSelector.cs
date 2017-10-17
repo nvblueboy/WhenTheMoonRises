@@ -14,61 +14,33 @@ public class MoveSelector : MonoBehaviour {
     public int currentSelection = 0;
 
     private float oldValue;
-    private bool hasFallen;
-    private bool isRising;
-
-    private float oldSelect = 0;
-
-    public Fighter fighter;
+    private float threshold = .00f;
 
 	// Use this for initialization
 	void Start () {
-        if (fighter == null)
-        {
-            Debug.LogWarning("There is no fighter class attached!");
-        }
-        currentSelection = 0;
         updateTextBoxes();
 	}
-
-    // Update is called once per frame
-    void Update() {
-        float _old = Mathf.Abs(oldValue);
-        float _new = Mathf.Abs(Input.GetAxis("Vertical"));
-        if (_old > _new)
-        {
-            //If the old value is greater than the new value, the value must be falling (the player has let off the key)
-            hasFallen = true;
-            isRising = false;
-        }
-        if (_new > _old)
-        {
-            //If the new value is greater than the old value, the key must have been pressed.
-            isRising = true;
-        }
-        if (isRising && hasFallen) {
-            hasFallen = false;
+	
+	// Update is called once per frame
+	void Update () {
+        if (Mathf.Abs(oldValue) <= threshold && Mathf.Abs(Input.GetAxis("Vertical")) > threshold) {
             if (Input.GetAxis("Vertical") > 0) {
                 currentSelection--;
             } else {
                 currentSelection++;
             }
             if (currentSelection < 0) {
-                currentSelection = moves.Count-1;
+                currentSelection += moves.Count;
             }
-            if (currentSelection >= moves.Count) {
-                currentSelection = 0;
+            if (currentSelection > moves.Count) {
+                currentSelection -= moves.Count;
             }
             updateTextBoxes();
         }
 
-        if (Input.GetAxis("Jump") > 0 && oldSelect == 0)
-        {
-            fighter.setSelectedMove(moves[currentSelection]);
-        }
 
         oldValue = Input.GetAxis("Vertical");
-        oldSelect = Input.GetAxis("Jump");
+
     }
 
     public void updateTextBoxes() {

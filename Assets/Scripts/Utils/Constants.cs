@@ -14,15 +14,6 @@ public class Constants {
     public static string PlayerX = "playerX";
     public static string PlayerY = "playerY";
     public static string CollectedShards = "collectedShards";
-    public static string MaxHP = "maxHP";
-    public static string MaxStamina = "maxHP";
-    public static string CurrHP = "currHP";
-    public static string CurrStamina = "currStamina";
-    public static string Strength = "strength";
-    public static string Intuition = "intuition";
-    public static string Defense = "defense";
-    public static string Experience = "experience";
-    public static string Level = "level";
 
     // Keys for storing general game state
     public static string SaveExists = "saveExists";
