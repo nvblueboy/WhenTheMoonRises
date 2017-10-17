@@ -16,8 +16,11 @@ and contain common stats between them
 // Fighter
 public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
-        level, currHP, currStamina;    
+        level, currHP, currStamina;
 
+    private string selectedMove;
+
+    private Queue<string> moveQueue = new Queue<string>();
     /*
     Name: increaseStrength
     Parameters: int increase
@@ -119,5 +122,34 @@ public class Fighter : MonoBehaviour {
             return;
         }
         currStamina = stamina;
+    }
+
+    /*
+     * Name: setSelectedMove
+     * Parameters: string move
+     * Description: sets selectedMove variable to be accessed by the fight controller. 
+     */
+     public void setSelectedMove(string move)
+    {
+        moveQueue.Enqueue(move);
+    }
+
+    /*
+     * Name: getSelectedMove
+     * Parameters: bool clear
+     * Description: returns the selected move string. If clear is true, it clears the string.
+     */
+    public string getSelectedMove(bool clear)
+    {
+        string ret = null;
+        if (moveQueue.Count > 0)
+        {
+            ret = moveQueue.Peek();
+            if (clear)
+            {
+                moveQueue.Dequeue();
+            }
+        }
+        return ret;
     }
 }
