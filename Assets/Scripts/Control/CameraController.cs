@@ -40,12 +40,22 @@ public class CameraController : MonoBehaviour {
             transform.position += diff;
         }
 
+        Vector2 direction = new Vector2(0, 0);
         //If toFollow is moving slowly enough, move the camera to bring it to center.
-        if (diff.magnitude<threshold) {
-            //Because cameraOffset points towards the player, multiply it by -1 to flip the vector.
-            Vector2 direction = cameraOffset * -1 * resetSpeed * Time.deltaTime;
-            transform.position += new Vector3(direction.x, direction.y);
+        if (diff.x < threshold)
+        {
+            direction += new Vector2(cameraOffset.x, 0);
         }
+        if (diff.y < threshold)
+        {
+            direction += new Vector2(0, cameraOffset.y);
+        }
+        transform.position += new Vector3(direction.x, direction.y) * -1 * resetSpeed * Time.deltaTime;
+        //if (diff.magnitude<threshold) {
+        //    //Because cameraOffset points towards the player, multiply it by -1 to flip the vector.
+        //    Vector2 direction = cameraOffset * -1 * resetSpeed * Time.deltaTime;
+        //    transform.position += new Vector3(direction.x, direction.y);
+        //}
 
         //This is to track the difference between frames -- keep this at the end of the function.
         oldLocation = toFollow.transform.position;

@@ -125,11 +125,11 @@ public class Fighter : MonoBehaviour {
     }
 
     /*
-     * Name: setSelectedMove
+     * Name: addSelectedMove
      * Parameters: string move
      * Description: sets selectedMove variable to be accessed by the fight controller. 
      */
-     public void setSelectedMove(string move)
+     public void addSelectedMove(string move)
     {
         moveQueue.Enqueue(move);
     }
