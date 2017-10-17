@@ -15,7 +15,6 @@ Description: This is a script for controlling changes to the game state
 // GameController
 public class GameController : MonoBehaviour {
     private static GameController instance;
-    public PlayerCharacter player;
     
     // Instance
     public static GameController Instance
@@ -25,8 +24,8 @@ public class GameController : MonoBehaviour {
 
     // Awake
     void Awake () {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();         
-        DontDestroyOnLoad(this.gameObject);        
+
+        DontDestroyOnLoad(this.gameObject);
     }
 	
 	// Update
