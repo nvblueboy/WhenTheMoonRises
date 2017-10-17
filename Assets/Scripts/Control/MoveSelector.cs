@@ -64,7 +64,7 @@ public class MoveSelector : MonoBehaviour {
 
         if (Input.GetAxis("Jump") > 0 && oldSelect == 0)
         {
-            fighter.setSelectedMove(moves[currentSelection]);
+            fighter.addSelectedMove(moves[currentSelection]);
         }
 
         oldValue = Input.GetAxis("Vertical");
