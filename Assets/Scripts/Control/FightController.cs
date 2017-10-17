@@ -38,7 +38,9 @@ public class FightController : MonoBehaviour {
                 Debug.Log("Player uses " + selectedMove);
                 //This block runs when the player has selected a move. Run any logic needed to process the move.
 
-                statusText.GetComponent<Text>().text = "You used " + selectedMove + "! It's not very effective...";
+                string status = processMove(player, enemy, selectedMove);
+
+                statusText.GetComponent<Text>().text = "You used " + selectedMove + "! "+status;
 
                 //Set the state to display_wait to allow the player time to read what's happened.
                 state = "display_wait";
@@ -52,7 +54,8 @@ public class FightController : MonoBehaviour {
             string selectedMove = enemy.getMove();
             Debug.Log("Enemy uses " + selectedMove);
 
-            statusText.GetComponent<Text>().text = "The enemy used " + selectedMove + "! It's not very effective...";
+            string status = processMove(enemy, player, selectedMove);
+            statusText.GetComponent<Text>().text = "The enemy used " + selectedMove + "! " + status;
 
             //Set the state to display_wait to allow the player time to read what's happened.
             state = "display_wait";
@@ -69,6 +72,15 @@ public class FightController : MonoBehaviour {
         }
         updateUI();
 	}
+
+    string processMove(Fighter attack, Fighter defend, string move)
+    {
+        Debug.Log("Entering processMove");
+        Debug.Log("Attacker: " + attack);
+        Debug.Log("Defender: " + defend);
+
+        return "It's not very effective...";
+    }
 
     void updateUI() {
         //This function should be called every time the UI needs to be updated.
