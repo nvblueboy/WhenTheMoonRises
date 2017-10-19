@@ -27,5 +27,10 @@ public class Move {
         this.damage = _damage;
         this.staminaCost = _staminaCost;
         this.turns = _turns;
-    }	
+    }
+
+    public override string ToString()
+    {
+        return name + ": " + damage + " damage, " + staminaCost + " stamina, " + turns + " turns";
+    }
 }

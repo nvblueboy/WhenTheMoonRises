@@ -24,6 +24,12 @@ public class FightController : MonoBehaviour {
         state = "player";
         //Link this controller to the enemy.
         enemy.fightController = this;
+
+        //Get all moves initialized.
+        MoveUtils.InitMoves();
+
+
+        InitializeFighters();
 	}
 	
 	// Update is called once per frame
@@ -79,7 +85,28 @@ public class FightController : MonoBehaviour {
         Debug.Log("Attacker: " + attack);
         Debug.Log("Defender: " + defend);
 
+        Move moveObj = MoveUtils.GetMove(move);
+
+        Debug.Log(moveObj);
+
+        int defendDamage = moveObj.damage;
+
+        int attackStaminaChange = moveObj.staminaCost;
+
+
+        defend.takeDamage(defendDamage);
+        attack.spendStamina(attackStaminaChange);
+
         return "It's not very effective...";
+    }
+
+    void InitializeFighters()
+    {
+        player.currHP = player.hp;
+        player.currStamina = player.stamina;
+
+        enemy.currHP = enemy.hp;
+        enemy.currStamina = enemy.stamina;
     }
 
     void updateUI() {

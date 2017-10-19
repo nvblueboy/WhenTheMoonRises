@@ -30,7 +30,7 @@ public class Enemy : Fighter {
         {
             //This is where all fancy logic will go to process what the enemy will do.
 
-            selectedMove = "nothing";
+            selectedMove = "Punch";
             addSelectedMove(selectedMove);
         }
         //For now...
