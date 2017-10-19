@@ -9,35 +9,58 @@ Email: reyer101@mail.chapman.edu
 Course: CPSC-340-01
 Assignment: Semester Project
 
-Description: This is a script for handling loading game data
+Description: This is a script for loading game and player data
 */
 
 // LoadHandler
-public class LoadHandler : MonoBehaviour {
+public class LoadHandler : MonoBehaviour { 
 
-    // Load
-	public void Load()
+    /*
+    Name: Load
+     Parameters: PlayerCharacter player
+    */
+    public static void Load(PlayerCharacter player)
     {
         Debug.Log("Attempt to load");
-        if(canLoad())
+        if (canLoad())
         {
-            LoadPlayerPosition();
+            LoadPlayerPosition(player);
+            LoadPlayerStats(player);
         }
-    }
-
-    // LoadPlayerPosition
-    void LoadPlayerPosition()
+    }  
+     
+    /*
+    Name: LoadPlayerPosition
+    Parameters: PlayerCharacter player
+    */
+    private static void LoadPlayerPosition(PlayerCharacter player)
     {
         Vector2 playerPosition = new Vector2(PlayerPrefs.GetFloat(
-            Constants.PlayerX), PlayerPrefs.GetFloat(Constants.PlayerY));
-        transform.position = playerPosition;
-
+            Constants.PlayerX), PlayerPrefs.GetFloat(Constants.PlayerY));        
+        player.transform.position = playerPosition;
         Debug.Log("Loaded player position: " + playerPosition.ToString());
-    }
-
-    // canLoad
-    bool canLoad()
+    }  
+         
+     /*
+     Name: LoadPlayerStats
+     Parameters: PlayerCharacter player
+     */
+     private static void LoadPlayerStats(PlayerCharacter player)
+     {
+        player.hp = PlayerPrefs.GetInt(Constants.MaxHP);
+        player.stamina = PlayerPrefs.GetInt(Constants.MaxStamina);
+        player.currHP = PlayerPrefs.GetInt(Constants.CurrHP);
+        player.currStamina = PlayerPrefs.GetInt(Constants.CurrStamina);
+        player.strength = PlayerPrefs.GetInt(Constants.Strength);
+        player.intuition = PlayerPrefs.GetInt(Constants.Intuition);
+        player.defense = PlayerPrefs.GetInt(Constants.Defense);
+        player.experience = PlayerPrefs.GetInt(Constants.Experience);
+        player.level = PlayerPrefs.GetInt(Constants.Level);
+     }
+  
+    // canLoad    
+    private static bool canLoad()
     {
-        return !(PlayerPrefs.GetString(Constants.SaveExists) == "");        
-    }
+        return !(PlayerPrefs.GetString(Constants.SaveExists) == "");
+    } 
 }
