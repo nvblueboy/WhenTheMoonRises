@@ -23,7 +23,8 @@ public class MoveUtils {
         List<Move> moves = new List<Move>
         {
             new Move("Punch", 10, 10, 1),
-            new Move("Fireball", 50, 40, 1)
+            new Move("Fireball", 50, 40, 1),
+            new Move("Kick", 20, 20, 1)
         };
 
 

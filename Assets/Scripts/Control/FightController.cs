@@ -82,22 +82,42 @@ public class FightController : MonoBehaviour {
     string processMove(Fighter attack, Fighter defend, string move)
     {
         Debug.Log("Entering processMove");
-        Debug.Log("Attacker: " + attack);
-        Debug.Log("Defender: " + defend);
+        Debug.Log("Before Turn, Attacker: " + attack);
+        Debug.Log("Before Turn, Defender: " + defend);
 
+        //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
-
         Debug.Log(moveObj);
 
+        //Calculate amount of damage done.
         int defendDamage = moveObj.damage;
 
         int attackStaminaChange = moveObj.staminaCost;
-
-
+    
+        //Mark what health was beforehand for deciding how to describe the move.
+        int oldDefendHealth = defend.currHP;
+ 
         defend.takeDamage(defendDamage);
         attack.spendStamina(attackStaminaChange);
 
-        return "It's not very effective...";
+        Debug.Log("Before Turn, Attacker: " + attack);
+        Debug.Log("Before Turn, Defender: " + defend);
+
+        float damageChange = 1f - ((float)defend.currHP / (float)oldDefendHealth);
+
+        Debug.Log(damageChange);
+
+
+        //This chunk needs to be much cooler.
+        if (damageChange > .6f)
+        {
+            return "It's super effective!";
+        } else if (damageChange <= .1f)
+        {
+            return "It's not very effective...";
+        }
+
+        return "";
     }
 
     void InitializeFighters()
