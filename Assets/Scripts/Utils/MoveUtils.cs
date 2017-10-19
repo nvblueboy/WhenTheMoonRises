@@ -28,10 +28,11 @@ public class MoveUtils {
 
     /*
    Name: Moves
+   Parameters: string name
    Returns: Dictionary<string, Move> 
    */
-    public static Dictionary<string, Move> Moves()
+    public static Move GetMove(string name)
     {
-        return moveDict;
+        return moveDict[name];        
     }   	
 }
