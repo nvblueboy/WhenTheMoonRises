@@ -18,6 +18,18 @@ public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
         level, currHP, currStamina;
 
+    public FightController fightController;
+    
+    public override string ToString()
+    {
+        return "HP: " + hp + 
+            " Stamina: " + stamina + 
+            " Strength: " + strength +
+            " Defense: " + defense +
+            " Level: " + level +
+            " CurrHP: " + currHP +
+            " CurrStamina: " + currStamina;
+    }
     private string selectedMove;
 
     private Queue<string> moveQueue = new Queue<string>();
@@ -80,6 +92,7 @@ public class Fighter : MonoBehaviour {
         }
         currHP = 0;
         // Player dead at this point so do stuff
+        fightController.onFighterDead(this);
     }
 
     /*
