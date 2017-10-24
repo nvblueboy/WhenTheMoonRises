@@ -13,19 +13,25 @@ Description: This is a class representing a move to be used in the Fight scene b
 */
 
 // Move
-public class Move {
-    public int damage, staminaCost, turns;
+public class Move {    
     public string name;
 
     /*
-   Name: Move
-   Parameters: string _name, int _damage, int _staminaCost, int _turns
+    Name: Move
+    Parameters: string _name
    */
-    public Move(string _name, int _damage, int _staminaCost, int _turns)
+   public Move(string _name)
+   {
+       this.name = _name;
+   }
+
+   /*
+  Name: processMove
+  Parameters: Fighter attacker, Fighter target
+  Returns: Dictionary<string, int>
+  */
+    public Dictionary<string, int> processMove(Fighter attacker, Fighter target)
     {
-        this.name = _name;
-        this.damage = _damage;
-        this.staminaCost = _staminaCost;
-        this.turns = _turns;
+        return null;
     }	
 }

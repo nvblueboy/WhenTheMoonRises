@@ -17,6 +17,7 @@ and contain common stats between them
 public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
         level, currHP, currStamina;
+    public string weapon;
 
     private string selectedMove;
 
@@ -99,15 +100,16 @@ public class Fighter : MonoBehaviour {
     /*
     Name: spendStamina
     Parameters: int spent
+    Returns: bool
     */
-    public void spendStamina(int spent)
+    public bool spendStamina(int spent)
     {
         if (stamina - spent >= 0)
         {
             currStamina -= spent;
-            return;
+            return true;            
         }
-        currStamina = 0;
+        return false;        
     }
 
     /*
