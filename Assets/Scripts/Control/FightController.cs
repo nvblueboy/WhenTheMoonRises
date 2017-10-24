@@ -18,13 +18,16 @@ public class FightController : MonoBehaviour {
     private float waitStart;
     private string nextState;
 
+    private bool gameOver = false;
+    private string finalStatus;
+
 	// Use this for initialization
 	void Start () {
         //Set the "state" string to "player" if the player should go first, "enemy" if not.
         state = "player";
-        //Link this controller to the enemy.
+        //Link this controller to both fighters.
         enemy.fightController = this;
-
+        player.fightController = this;
         //Get all moves initialized.
         MoveUtils.InitMoves();
 
@@ -41,17 +44,38 @@ public class FightController : MonoBehaviour {
             string selectedMove = player.getSelectedMove(true);
             if (selectedMove != null)
             {
-                Debug.Log("Player uses " + selectedMove);
-                //This block runs when the player has selected a move. Run any logic needed to process the move.
+                //Check if the player has enough stamina for this move.
+                int stam = player.currStamina;
+                Move m = MoveUtils.GetMove(selectedMove);
+                if (stam >= m.staminaCost)
+                {
+                    Debug.Log("Player uses " + selectedMove);
+                    //This block runs when the player has selected a move. Run any logic needed to process the move.
 
-                string status = processMove(player, enemy, selectedMove);
+                    string status = processMove(player, enemy, selectedMove);
 
-                statusText.GetComponent<Text>().text = "You used " + selectedMove + "! "+status;
+                    setStatus("You used " + selectedMove + "! " + status);
 
-                //Set the state to display_wait to allow the player time to read what's happened.
-                state = "display_wait";
-                waitStart = Time.time;
-                nextState = "enemy";
+                    //Set the state to display_wait to allow the player time to read what's happened.
+                    state = "display_wait";
+                    waitStart = Time.time;
+                    if (gameOver)
+                    {
+                        nextState = "end";
+                    }
+                    else
+                    {
+                        nextState = "enemy";
+                    }
+                } else
+                {
+                    setStatus("You don't have enough stamina!");
+
+                    //Set the state to display_wait.
+                    state = "display_wait";
+                    waitStart = Time.time;
+                    nextState = "player";
+                }
             }
         }
         if(state=="enemy")
@@ -61,12 +85,19 @@ public class FightController : MonoBehaviour {
             Debug.Log("Enemy uses " + selectedMove);
 
             string status = processMove(enemy, player, selectedMove);
-            statusText.GetComponent<Text>().text = "The enemy used " + selectedMove + "! " + status;
+            setStatus("The enemy used " + selectedMove + "! " + status);
 
             //Set the state to display_wait to allow the player time to read what's happened.
             state = "display_wait";
             waitStart = Time.time;
-            nextState = "player";
+            if (gameOver)
+            {
+                nextState = "end";
+            }
+            else
+            {
+                nextState = "player";
+            }
         }
 
         if (state == "display_wait")
@@ -76,14 +107,42 @@ public class FightController : MonoBehaviour {
                 state = nextState;
             }
         }
+
+        if (state == "end")
+        {
+            setStatus(finalStatus);
+        }
+
         updateUI();
+
+        Debug.Log(nextState + " " + state);
 	}
+
+    private void setStatus(string status)
+    {
+        statusText.GetComponent<Text>().text = status;
+    }
+
+    public void onFighterDead(Fighter f)
+    {
+        if (f == player)
+        {
+            Debug.Log("Player died");
+            finalStatus = "You died!";
+        } else if (f == enemy)
+        {
+            Debug.Log("Enemy died");
+            finalStatus = "The enemy died!";
+        }
+
+        gameOver = true;
+    }
 
     string processMove(Fighter attack, Fighter defend, string move)
     {
-        Debug.Log("Entering processMove");
-        Debug.Log("Before Turn, Attacker: " + attack);
-        Debug.Log("Before Turn, Defender: " + defend);
+        //Debug.Log("Entering processMove");
+        //Debug.Log("Before Turn, Attacker: " + attack);
+        //Debug.Log("Before Turn, Defender: " + defend);
 
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
@@ -100,8 +159,8 @@ public class FightController : MonoBehaviour {
         defend.takeDamage(defendDamage);
         attack.spendStamina(attackStaminaChange);
 
-        Debug.Log("Before Turn, Attacker: " + attack);
-        Debug.Log("Before Turn, Defender: " + defend);
+        //Debug.Log("Before Turn, Attacker: " + attack);
+        //Debug.Log("Before Turn, Defender: " + defend);
 
         float damageChange = 1f - ((float)defend.currHP / (float)oldDefendHealth);
 

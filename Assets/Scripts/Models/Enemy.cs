@@ -15,7 +15,6 @@ Description: This is a script representing an Enemy and its current state
 // Enemy
 public class Enemy : Fighter {
 
-    public FightController fightController;
 
     // Awake
     void Awake()

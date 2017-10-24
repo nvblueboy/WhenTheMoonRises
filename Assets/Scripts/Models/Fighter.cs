@@ -18,6 +18,7 @@ public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
         level, currHP, currStamina;
 
+    public FightController fightController;
     
     public override string ToString()
     {
@@ -91,6 +92,7 @@ public class Fighter : MonoBehaviour {
         }
         currHP = 0;
         // Player dead at this point so do stuff
+        fightController.onFighterDead(this);
     }
 
     /*
