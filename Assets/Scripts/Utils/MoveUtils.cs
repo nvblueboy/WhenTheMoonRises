@@ -19,14 +19,11 @@ public class MoveUtils {
    // InitMoves
     public static void InitMoves()
     {
-        // Initialize moves here
         List<Move> moves = new List<Move>
         {
-            new Move("Punch", 10, 10, 1),
-            new Move("Fireball", 50, 40, 1),
-            new Move("Kick", 20, 20, 1)
-        };
-
+            // Player moves
+            new StandardAttack("Standard Attack")           
+        };       
 
         moveDict = new Dictionary<string, Move>();
         foreach (Move m in moves)

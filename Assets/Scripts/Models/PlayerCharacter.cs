@@ -14,7 +14,7 @@ Description: This is a script representing the player character and their curren
 
 // PlayerCharacter
 public class PlayerCharacter : Fighter {
-    public int intuition, experience;
+    public int intuition, experience;    
     
     // Awake
     void Awake()

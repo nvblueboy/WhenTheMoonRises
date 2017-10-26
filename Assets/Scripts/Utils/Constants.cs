@@ -28,6 +28,10 @@ public class Constants {
     public static string SaveExists = "saveExists";
     public static string TimeOfDay = "timeOfDay";
     public static string DaysComplete = "daysComplete";
-   
-    // Any other saved items here...	
+
+    // Any other saved items here...
+
+    // Keys for returned move dictionaries
+    public static string HP = "HP";
+    public static string Stamina = "Stamina";
 }
