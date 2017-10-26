@@ -30,8 +30,19 @@ public class Move {
   Parameters: Fighter attacker, Fighter target
   Returns: Dictionary<string, int>
   */
-    public Dictionary<string, int> processMove(Fighter attacker, Fighter target)
+    public virtual Dictionary<string, int> processMove(Fighter attacker, Fighter target)
     {
+
         return null;
-    }	
+    }
+
+    /*
+  Name: moveEligible
+  Parameters: Fighter attacker
+  Returns: bool
+  */
+    public virtual bool moveEligible(Fighter attacker)
+    {
+        return true;
+    }
 }
