@@ -45,9 +45,8 @@ public class FightController : MonoBehaviour {
             if (selectedMove != null)
             {
                 //Check if the player has enough stamina for this move.
-                int stam = player.currStamina;
                 Move m = MoveUtils.GetMove(selectedMove);
-                if (stam >= m.staminaCost)
+                if (m.moveEligible(player))
                 {
                     Debug.Log("Player uses " + selectedMove);
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
@@ -148,35 +147,25 @@ public class FightController : MonoBehaviour {
         Move moveObj = MoveUtils.GetMove(move);
         Debug.Log(moveObj);
 
-        //Calculate amount of damage done.
-        int defendDamage = moveObj.damage;
+        Dictionary<string, int> moveData = moveObj.processMove(attack, defend);
 
-        int attackStaminaChange = moveObj.staminaCost;
-    
-        //Mark what health was beforehand for deciding how to describe the move.
-        int oldDefendHealth = defend.currHP;
- 
-        defend.takeDamage(defendDamage);
-        attack.spendStamina(attackStaminaChange);
+        Debug.Log(moveData);
 
         //Debug.Log("Before Turn, Attacker: " + attack);
         //Debug.Log("Before Turn, Defender: " + defend);
 
-        float damageChange = 1f - ((float)defend.currHP / (float)oldDefendHealth);
+        //Apply effects to attacker/defender.
 
-        Debug.Log(damageChange);
-
-
-        //This chunk needs to be much cooler.
-        if (damageChange > .6f)
+        if (moveData.ContainsKey(Constants.HP))
         {
-            return "It's super effective!";
-        } else if (damageChange <= .1f)
-        {
-            return "It's not very effective...";
+            Debug.Log("It contains the key yay");
+            defend.takeDamage(moveData[Constants.HP]);
         }
 
-        return "";
+        //Calculate damage string here.
+
+
+        return "It sucked.";
     }
 
     void InitializeFighters()
