@@ -84,7 +84,15 @@ public class FightController : MonoBehaviour {
             Debug.Log("Enemy uses " + selectedMove);
 
             string status = processMove(enemy, player, selectedMove);
-            setStatus("The enemy used " + selectedMove + "! " + status);
+
+            if(selectedMove == Constants.Stunned)
+            {
+                setStatus(status);
+            }
+            else
+            {
+                setStatus("The enemy used " + selectedMove + "! " + status);
+            }            
 
             //Set the state to display_wait to allow the player time to read what's happened.
             state = "display_wait";
@@ -143,6 +151,12 @@ public class FightController : MonoBehaviour {
         //Debug.Log("Before Turn, Attacker: " + attack);
         //Debug.Log("Before Turn, Defender: " + defend);
 
+        // Check if attacker is stunned 
+        if(move == Constants.Stunned)
+        {
+            return attack.name + " is stunned!";
+        }
+
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
         Debug.Log(moveObj);
@@ -160,6 +174,17 @@ public class FightController : MonoBehaviour {
         {
             Debug.Log("It contains the key yay");
             defend.takeDamage(moveData[Constants.HP]);
+        }
+
+        if (moveData.ContainsKey(Constants.Stunned))
+        {
+            Debug.Log("Move is a stun move");
+            int turns = moveData[Constants.Stunned];
+            for(int i = 0; i < turns; ++i)
+            {
+                // Will add "Stunned" move to defender move queue for i turns
+                defend.addSelectedMove(Constants.Stunned);
+            }
         }
 
         //Calculate damage string here.

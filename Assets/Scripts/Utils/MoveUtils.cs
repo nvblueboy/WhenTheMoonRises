@@ -22,8 +22,11 @@ public class MoveUtils {
         List<Move> moves = new List<Move>
         {
             // Player moves
+            new Move("Stunned"),
             new StandardAttack("Standard Attack"),
-            new StrongSwing("Strong Swing")
+            new StrongSwing("Strong Swing"),
+            new FlourFlick("Flour Flick"),
+            new SpinAttack("Spin Attack")
         };       
 
         moveDict = new Dictionary<string, Move>();

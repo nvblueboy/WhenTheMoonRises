@@ -17,7 +17,7 @@ and contain common stats between them
 public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
         level, currHP, currStamina;
-    public string weapon;
+    public string weapon, name;
 
     public FightController fightController;
     
