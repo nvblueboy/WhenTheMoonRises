@@ -19,11 +19,18 @@ public class MoveUtils {
    // InitMoves
     public static void InitMoves()
     {
-        // Initialize moves here
-        Move sampleMove = new Move("name", 1, 1, 1);
+        List<Move> moves = new List<Move>
+        {
+            // Player moves
+            new StandardAttack("Standard Attack"),
+            new StrongSwing("Strong Swing")
+        };       
 
-        // Add moves to dictionary here
-        moveDict.Add(sampleMove.name, sampleMove);
+        moveDict = new Dictionary<string, Move>();
+        foreach (Move m in moves)
+        {
+            moveDict.Add(m.name, m);
+        }
     }
 
     /*

@@ -17,7 +17,20 @@ and contain common stats between them
 public class Fighter : MonoBehaviour {
     public int hp, stamina, strength, defense, 
         level, currHP, currStamina;
+    public string weapon;
 
+    public FightController fightController;
+    
+    public override string ToString()
+    {
+        return "HP: " + hp + 
+            " Stamina: " + stamina + 
+            " Strength: " + strength +
+            " Defense: " + defense +
+            " Level: " + level +
+            " CurrHP: " + currHP +
+            " CurrStamina: " + currStamina;
+    }
     private string selectedMove;
 
     private Queue<string> moveQueue = new Queue<string>();
@@ -80,6 +93,7 @@ public class Fighter : MonoBehaviour {
         }
         currHP = 0;
         // Player dead at this point so do stuff
+        fightController.onFighterDead(this);
     }
 
     /*
@@ -99,15 +113,16 @@ public class Fighter : MonoBehaviour {
     /*
     Name: spendStamina
     Parameters: int spent
+    Returns: bool
     */
-    public void spendStamina(int spent)
+    public bool spendStamina(int spent)
     {
         if (stamina - spent >= 0)
         {
             currStamina -= spent;
-            return;
+            return true;            
         }
-        currStamina = 0;
+        return false;        
     }
 
     /*
