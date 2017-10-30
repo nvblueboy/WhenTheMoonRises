@@ -33,6 +33,23 @@ public class FightController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //If the objects are not linked, let the developer know.
+        if (player==null)
+        {
+            Debug.LogError("The FightController has no player attached.");
+        }
+        if (enemy == null)
+        {
+            Debug.LogError("The FightController has no enemy attached.");
+        }
+        if (moveSelector == null)
+        {
+            Debug.LogError("The FightController has no moveSelector attached.");
+        }
+        if (statusText == null)
+        {
+            Debug.LogError("The FightController has no statusText attached.");
+        }
         //Set the "state" string to "player" if the player should go first, "enemy" if not.
         state = "player";
         //Link this controller to both fighters.

@@ -35,7 +35,7 @@ public class MoveSelector : MonoBehaviour {
 	void Start () {
         if (fighter == null)
         {
-            Debug.LogWarning("There is no fighter class attached!");
+            Debug.LogWarning("There is no fighter class attached to the move selector.");
         }
         currentSelection = 0;
         updateTextBoxes();
