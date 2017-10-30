@@ -26,7 +26,8 @@ public class MoveUtils {
             new StandardAttack("Standard Attack"),
             new StrongSwing("Strong Swing"),
             new FlourFlick("Flour Flick"),
-            new SpinAttack("Spin Attack")
+            new SpinAttack("Spin Attack"),
+            new Guard("Guard")
         };       
 
         moveDict = new Dictionary<string, Move>();
