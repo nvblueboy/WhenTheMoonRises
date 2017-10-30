@@ -13,9 +13,10 @@ public class FightController : MonoBehaviour {
 
     public Fighter player; //This should be replaced with the player class eventually.
     public Enemy enemy;
-
+    
     public float waitTime = 5f; //This is how long display text should wait before setting the next state.
     private float waitStart;
+    private int defenseEffect, baseDefense;
     private string nextState;
 
     private bool gameOver = false;
@@ -24,7 +25,9 @@ public class FightController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //Set the "state" string to "player" if the player should go first, "enemy" if not.
-        state = "player";
+        state = "player";        
+        defenseEffect = 0;
+        baseDefense = player.defense;
         //Link this controller to both fighters.
         enemy.fightController = this;
         player.fightController = this;
@@ -40,7 +43,7 @@ public class FightController : MonoBehaviour {
 
         if (state == "player")
         {
-            //See if the player has selected a move by getting the string and then seeing if it's null.
+            //See if the player has selected a move by getting the string and then seeing if it's null.            
             string selectedMove = player.getSelectedMove(true);
             if (selectedMove != null)
             {
@@ -48,6 +51,20 @@ public class FightController : MonoBehaviour {
                 Move m = MoveUtils.GetMove(selectedMove);
                 if (m.moveEligible(player))
                 {
+                    // Check if player stats need to be changed this turn 
+                    Debug.Log("Defense effect: " + defenseEffect);           
+                    if (defenseEffect - 1 > 0)
+                    {
+                        Debug.Log("defenseEffect -= 1");
+                        defenseEffect -= 1;
+                    }
+                    else
+                    {
+                        // Reset defense
+                        Debug.Log("Defense should be reset now");
+                        player.defense = baseDefense;
+                    }
+
                     Debug.Log("Player uses " + selectedMove);
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
 
@@ -185,6 +202,12 @@ public class FightController : MonoBehaviour {
                 // Will add "Stunned" move to defender move queue for i turns
                 defend.addSelectedMove(Constants.Stunned);
             }
+        }
+
+        if(moveData.ContainsKey(Constants.DefenseEffect))
+        {
+            Debug.Log("moveData containes DefenseEffect: " + moveData[Constants.DefenseEffect]);
+            defenseEffect += moveData[Constants.DefenseEffect];
         }
 
         //Calculate damage string here.
