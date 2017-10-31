@@ -34,4 +34,6 @@ public class Constants {
     // Keys for returned move dictionaries
     public static string HP = "HP";
     public static string Stamina = "Stamina";
+    public static string Stunned = "Stunned";
+    public static string DefenseEffect = "DefenseEffect";
 }

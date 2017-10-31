@@ -9,6 +9,7 @@ public class StrongSwing : Move {
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target)
     {
         int damage = 0;
+        attacker.spendStamina(2);
         switch(attacker.weapon)
         {
             case "Rolling Pin":
