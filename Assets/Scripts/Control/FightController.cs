@@ -244,8 +244,24 @@ public class FightController : MonoBehaviour {
 
         if (moveData.ContainsKey(Constants.HP))
         {
-            Debug.Log("It contains the key yay");
-            defend.takeDamage(moveData[Constants.HP]);
+            Debug.Log("It contains the key yay");           
+            int damage = moveData[Constants.HP];            
+            if (defend.defense <= 4)
+            {
+                defend.takeDamage(damage);
+            }
+            else if(5 <= enemy.defense && enemy.defense <= 9)
+            {
+                defend.takeDamage(damage - 1);
+            }
+            else if (10 <= enemy.defense && enemy.defense <= 19)
+            {
+                defend.takeDamage(damage - 2);
+            }
+            else
+            {
+                defend.takeDamage(damage - 3);
+            }
         }
 
         if (moveData.ContainsKey(Constants.Stunned))
