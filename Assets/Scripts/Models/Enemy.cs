@@ -15,7 +15,6 @@ Description: This is a script representing an Enemy and its current state
 // Enemy
 public class Enemy : Fighter {
 
-    public FightController fightController;
 
     // Awake
     void Awake()
@@ -25,9 +24,16 @@ public class Enemy : Fighter {
 
     public string getMove()
     {
-        //This is where all fancy logic will go to process what the enemy will do.
+        string selectedMove = getSelectedMove(false);
+        if (selectedMove == null)
+        {
+            //This is where all fancy logic will go to process what the enemy will do.
+
+            selectedMove = "Standard Attack";
+            addSelectedMove(selectedMove);
+        }
         //For now...
-        return "nothing";
+        return getSelectedMove(true);
     }
 }
 

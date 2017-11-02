@@ -15,6 +15,7 @@ public class PhaseController : MonoBehaviour {
     private bool isDay;    //Day status
 
 
+
     //Day or Night
     public bool dayMode()
     {
@@ -81,21 +82,11 @@ public class PhaseController : MonoBehaviour {
     }
 
 
-
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-
     public void addAction()
     {
         actionCount++;
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
