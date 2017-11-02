@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /*
 Name: Rabah Habiss
@@ -13,17 +14,24 @@ Assignment: Semester Project
 
 public class LevelManager : MonoBehaviour
 {
-    public int shardsTotal;
-    public int shardsCount = 0;
+    private string round;
+    private int starsTotal;
+    private int starsCount = 0;
+    private int actionCount = 0;
+    private int cycleCount;
+    private int starsInventory = 0;
+    private bool isDay;    //Day mode
+
     public Text totalText;
     public Text countText;
 
     // Use this for initialization
     void Start()
     {
-        CountTotalShardsInLevel();
+        CountTotalStarsInLevel();
         countText.text = "- /";
     }
+
 
     // Update is called once per frame
     void Update()
@@ -31,17 +39,83 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    void CountTotalShardsInLevel()
+    void CountTotalStarsInLevel()
     {
-        shardsTotal = GameObject.FindGameObjectsWithTag("StarShard").Length;
-        totalText.text = shardsTotal.ToString();
+        starsTotal = GameObject.FindGameObjectsWithTag("StarShard").Length;
+        totalText.text = starsTotal.ToString();
     }
 
-    public void CollectShard()
+    public void CollectStar()
     {
-        shardsCount++;
-        countText.text = shardsCount.ToString() + " /";
+        
+        starsCount++;
+        countText.text = starsCount.ToString() + " /";
+        //win condition
+        //Description: ..
+        if (starsCount == starsTotal)
+        {
+
+            SetInventory(starsTotal);
+            ResetStarsCount();   //reset collected items counter
+            setDayMode(true);      //set phase to day
+            addCycle();            //increment cycle counter (new day)
+            round = "Day" + getCycle().ToString(); //set new level name and load it
+            SceneManager.LoadScene(round);
+        }
     }
 
+    public int GetStarsCollected()
+    {
+        return starsCount;
+    }
+
+
+    public void ResetStarsCount()
+    {
+        starsCount = 0;
+        countText.text = starsCount.ToString() + " /";
+    }
+
+    public int GetTotalStars()
+    {
+        return starsTotal;
+    }
+
+    public void SetInventory(int starsCollected)
+    {
+        starsInventory += starsCollected;
+    }
+
+    
+    /*   Day Mode   */
+
+    public void setDayMode(bool day)
+    {
+        isDay = day;
+    }
+
+    //Round Count (Day+Night)
+    public int getCycle()
+    {
+        return cycleCount;
+    }
+
+    public void addCycle()
+    {
+        cycleCount++;
+    }
+
+
+    /*   Night Mode   */
+    //implement actions trigger here
+    public int getActions()
+    {
+        return actionCount;
+    }
+
+    public void addAction()
+    {
+        actionCount++;
+    }
 
 }
