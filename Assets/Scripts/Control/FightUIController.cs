@@ -15,8 +15,10 @@ public class FightUIController : MonoBehaviour {
     private int oldPlayerStamina;
 
     public Text enemyHP;
+    public Text enemyStamina;
 
     private int oldEnemyHP;
+    private int oldEnemyStamina;
 
 	// Use this for initialization
 	void Start () {
@@ -27,22 +29,28 @@ public class FightUIController : MonoBehaviour {
 	void Update () {
         if (player.currHP != oldPlayerHP)
         {
-            playerHP.text = player.currHP.ToString();
+            playerHP.text = player.currHP.ToString() + "/" + player.hp.ToString();
         }
 
         if (player.currStamina != oldPlayerStamina)
         {
-            playerStamina.text = player.currStamina.ToString();
+            playerStamina.text = player.currStamina.ToString() + "/" + player.stamina.ToString();
         }
 
         if (enemy.currHP != oldEnemyHP)
         {
-            enemyHP.text = enemy.currHP.ToString();
+            enemyHP.text = enemy.currHP.ToString() + "/" + enemy.hp.ToString();
+        }
+
+        if (enemy.currStamina != oldEnemyStamina)
+        {
+            enemyStamina.text = enemy.currStamina.ToString() + "/" + enemy.stamina.ToString();
         }
 
 
         oldPlayerHP = player.currHP;
         oldPlayerStamina = player.currStamina;
         oldEnemyHP = enemy.currHP;
+        oldEnemyStamina = enemy.currStamina;
 	}
 }

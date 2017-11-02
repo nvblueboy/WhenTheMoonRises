@@ -28,8 +28,8 @@ public class Enemy : Fighter {
         if (selectedMove == null)
         {
             //This is where all fancy logic will go to process what the enemy will do.
-
-            selectedMove = "Standard Attack";
+            string[] moves = { "Standard Attack", "Strong Swing", "Spin Attack" };
+            selectedMove = moves[Random.Range(0, 2)];
             addSelectedMove(selectedMove);
         }
         //For now...

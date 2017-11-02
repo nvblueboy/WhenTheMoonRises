@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightController : MonoBehaviour {
 
@@ -10,6 +11,9 @@ public class FightController : MonoBehaviour {
 
     public GameObject moveSelector;
     public GameObject statusText;
+
+    public GameObject moveSelectorDisplay;
+    public GameObject statusTextDisplay;
 
     public Fighter player; //This should be replaced with the player class eventually.
     public Enemy enemy;
@@ -134,7 +138,14 @@ public class FightController : MonoBehaviour {
 
         if (state == "end")
         {
-            setStatus(finalStatus);
+            setStatus(finalStatus + " Press space to play again.");
+
+            if (Input.GetAxis("Jump") > 0)
+            {
+                //The player is ready to leave the fight.
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
 
         updateUI();
@@ -228,11 +239,11 @@ public class FightController : MonoBehaviour {
     void updateUI() {
         //This function should be called every time the UI needs to be updated.
         if(state == "player") {
-            moveSelector.SetActive(true);
-            statusText.SetActive(false);
+            moveSelectorDisplay.SetActive(true);
+            statusTextDisplay.SetActive(false);
         } else {
-            moveSelector.SetActive(false);
-            statusText.SetActive(true);
+            moveSelectorDisplay.SetActive(false);
+            statusTextDisplay.SetActive(true);
         }
     }
 }
