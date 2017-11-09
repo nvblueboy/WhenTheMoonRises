@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        Vector3 diff = toFollow.transform.position - oldLocation; //The amount toFollow has moved in the last frame.
+        /*Vector3 diff = toFollow.transform.position - oldLocation; //The amount toFollow has moved in the last frame.
         Vector2 cameraOffset = transform.position - toFollow.transform.position; //The difference between the camera and toFollow (on the plane z = 0)
         //Note: cameraOffset is the vector pointing TOWARDS the player.
 
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour {
         }
         if (diff.y < threshold)
         {
-            direction += new Vector2(0, cameraOffset.y);
+            direction += new Vector2(0, cameraOffset.z);
         }
         transform.position += new Vector3(direction.x, direction.y) * -1 * resetSpeed * Time.deltaTime;
         //if (diff.magnitude<threshold) {
@@ -58,6 +58,8 @@ public class CameraController : MonoBehaviour {
         //}
 
         //This is to track the difference between frames -- keep this at the end of the function.
-        oldLocation = toFollow.transform.position;
+        oldLocation = toFollow.transform.position;*/
+
+        transform.position = toFollow.transform.position + offset;
 	}
 }

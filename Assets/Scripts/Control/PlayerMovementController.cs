@@ -29,7 +29,7 @@ public class PlayerMovementController : MonoBehaviour {
             horiz = 0f;
         }
 
-        Vector3 movement = new Vector3(horiz, vert, 0);
+        Vector3 movement = new Vector3(horiz, 0, vert);
 
         
 
