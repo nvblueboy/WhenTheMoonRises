@@ -53,4 +53,16 @@ public class SaveHandler : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.Experience, player.experience);
         PlayerPrefs.SetInt(Constants.Level, player.level);
     }
+
+    /*
+    Name: SaveInventory
+    Parameters: PlayerCharacter player
+    */
+    public static void SaveInventory(PlayerCharacter player)
+    {        
+        for(int i = 0; i < player.inventory.Length; ++i)
+        {
+            PlayerPrefs.SetString(Constants.Inventory + i.ToString(), player.inventory[i]);
+        }
+    }
 }
