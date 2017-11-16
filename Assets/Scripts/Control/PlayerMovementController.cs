@@ -8,10 +8,14 @@ public class PlayerMovementController : MonoBehaviour {
 
     private CharacterController controller;
 
+    private float yPosition;
+
 	// Use this for initialization
 	void Start () {
         controller = this.GetComponent<CharacterController>();
-        
+
+        yPosition = this.transform.position.y;
+
         if(controller==null) {
             Debug.LogError("There's no Character controller on: " + transform.name);
         }
@@ -28,41 +32,32 @@ public class PlayerMovementController : MonoBehaviour {
         
         float angle = Mathf.Atan2(vert, horiz) * Mathf.Rad2Deg;
 
-        Debug.Log(angle);
-
         if (angle > -22.5 && angle <= 22.5)
         {
-            Debug.Log("right");
             movement = new Vector2(1, 0).normalized;
         } else if (angle > -67.5 && angle <= -22.5)
         {
-            Debug.Log("downRight");
             movement = new Vector2(1, -1).normalized;
         } else if (angle > -112.5 && angle <= -67.5)
         {
-            Debug.Log("down");
             movement = new Vector2(0, -1).normalized;
         } else if (angle > -157.5 && angle <= -112.5)
         {
-            Debug.Log("downLeft");
             movement = new Vector2(-1, -1).normalized;
         } else if (angle > 157.5 || angle < -157.5)
         {
-            Debug.Log("left");
             movement = new Vector2(-1, 0).normalized;
         } else if (angle > 112.5 && angle <= 157.5)
         {
-            Debug.Log("upLeft");
             movement = new Vector2(-1, 1).normalized;
         } else if (angle > 67.5 && angle <= 112.5)
         {
-            Debug.Log("up");
             movement = new Vector2(0, 1).normalized;
         } else if (angle > 22.5 && angle <= 67.5)
         {
-            Debug.Log("upRight");
             movement = new Vector2(1, 1).normalized;
         }
+
 
         if (horiz == 0 && vert == 0)
         {
@@ -72,5 +67,7 @@ public class PlayerMovementController : MonoBehaviour {
         Vector3 movement3d = new Vector3(movement.x, 0, movement.y);
 
         controller.Move(movement3d * speed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x, yPosition, transform.position.z);
 	}
 }
