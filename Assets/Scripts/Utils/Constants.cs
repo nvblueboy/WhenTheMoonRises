@@ -10,6 +10,12 @@ public class Constants {
         {7, 64}, {8, 128}, {9, 256}, {10, 512} 
     };
 
+    // Maps a string item name to a resource location
+    public static Dictionary<string, string> items = new Dictionary<string, string>
+    {
+        {"Ladder", "Items/Ladder"}  
+    };
+
     // Keys for storing player info
     public static string PlayerX = "playerX";
     public static string PlayerY = "playerY";
@@ -30,6 +36,7 @@ public class Constants {
     public static string DaysComplete = "daysComplete";
 
     // Any other saved items here...
+    public static string Inventory = "inventory";
 
     // Keys for returned move dictionaries
     public static string HP = "HP";
