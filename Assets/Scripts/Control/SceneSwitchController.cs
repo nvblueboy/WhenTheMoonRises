@@ -9,22 +9,40 @@ public class SceneSwitchController : MonoBehaviour {
 
     private bool oldSave;
     private bool upToDate;
+   
+    public FightController fc;
+    public GameObject fc_go;
 
 
 	// Use this for initialization
 	void Start () {
         save = false;
         upToDate = true;
+
+        fc = null;
 	}
 
     void Awake()
     {
         Debug.Log("Awake");
+
+        DontDestroyOnLoad(this.gameObject);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if (save && !oldSave)
+        if (fc != null)
+        {
+            Debug.Log(fc.state);
+            if (fc.state == "post-fight")
+            {
+                save = false;
+                Destroy(fc_go);
+            }
+        }
+
+
+        if (save && !oldSave)
         {
             upToDate = false;
         }
@@ -43,6 +61,7 @@ public class SceneSwitchController : MonoBehaviour {
         oldSave = save;
 	}
 
+
     void updateData()
     {
         if (save)
@@ -58,8 +77,21 @@ public class SceneSwitchController : MonoBehaviour {
                     go.transform.parent = this.transform;
                 }
             }
+            SceneManager.LoadScene("Fight");
         } else
         {
+            List<GameObject> rootObjects = new List<GameObject>();
+            Scene scene = SceneManager.GetActiveScene();
+            scene.GetRootGameObjects(rootObjects);
+
+            foreach (GameObject go in rootObjects)
+            {
+                if (go != this.gameObject)
+                {
+                    Destroy(go);
+                }
+            }
+
             List<Transform> tList = new List<Transform>();
             foreach(Transform t in this.transform)
             {
@@ -70,6 +102,7 @@ public class SceneSwitchController : MonoBehaviour {
             {
                 child.parent = null;
             }
+
         }
     }
 }

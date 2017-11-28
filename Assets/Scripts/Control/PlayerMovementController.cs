@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour {
 
+    public bool freeze;
+
     public float speed;
 
     private CharacterController controller;
@@ -15,6 +17,8 @@ public class PlayerMovementController : MonoBehaviour {
         controller = this.GetComponent<CharacterController>();
 
         yPosition = this.transform.position.y;
+
+        freeze = false;
 
         if(controller==null) {
             Debug.LogError("There's no Character controller on: " + transform.name);
