@@ -26,7 +26,6 @@ public class LoadHandler : MonoBehaviour {
         {
             LoadPlayerPosition(player);
             LoadPlayerStats(player);
-            LoadInventory(player);
         }
     }  
      
@@ -58,21 +57,7 @@ public class LoadHandler : MonoBehaviour {
         player.experience = PlayerPrefs.GetInt(Constants.Experience);
         player.level = PlayerPrefs.GetInt(Constants.Level);
      }
-
-    /*
-   Name: LoadInventory
-   Parameters: PlayerCharacter player
-   */
-    private static void LoadInventory(PlayerCharacter player)
-    {        
-        string item;
-        for (int i = 0; i < player.inventory.Length; ++i)
-        {
-            item = PlayerPrefs.GetString(Constants.Inventory + i.ToString(), "");
-            player.inventory[i] = item;           
-        }
-    }
-
+  
     // canLoad    
     private static bool canLoad()
     {

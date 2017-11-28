@@ -14,8 +14,13 @@ Description: This is a script representing the player character and their curren
 
 // PlayerCharacter
 public class PlayerCharacter : Fighter {
-    public int intuition, experience;
-    public string[] inventory;        
+    public int intuition, experience;    
+    
+    // Awake
+    void Awake()
+    {
+
+    }      
    
     // levelUp
     private void levelUp()
@@ -50,20 +55,5 @@ public class PlayerCharacter : Fighter {
     {
         currHP = hp;
         currStamina = stamina;
-    }
-
-    /*
-    Name: addItem
-    Parameters: string item
-    */
-    public void addItem(string item)
-    {
-        for(int i = 0; i < inventory.Length; ++i)
-        {
-            if(inventory[i] == "")
-            {
-                inventory[i] = item;
-            }
-        }
-    }
+    }   
 }
