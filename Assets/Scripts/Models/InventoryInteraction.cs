@@ -21,6 +21,7 @@ public class InventoryInteraction : Interaction {
         if(hasPreReq() && !hasInteracted)
         {
             player.addItem(resultItem);
+            hasInteracted = true;
             Debug.Log(resultItem + " was added to you inventory.");            
         }
     }

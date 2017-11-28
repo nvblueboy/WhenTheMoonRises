@@ -63,6 +63,7 @@ public class PlayerCharacter : Fighter {
             if(inventory[i] == "")
             {
                 inventory[i] = item;
+                return;
             }
         }
     }

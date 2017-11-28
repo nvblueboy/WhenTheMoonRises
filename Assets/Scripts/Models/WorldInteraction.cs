@@ -23,6 +23,7 @@ public class WorldInteraction : Interaction {
         {
             // spawns the resulting interaction item at the specified location
             Instantiate(Resources.Load("Items/" + resultItem), spawnPosition, new Quaternion());
+            hasInteracted = true;
         }
     }	
 }
