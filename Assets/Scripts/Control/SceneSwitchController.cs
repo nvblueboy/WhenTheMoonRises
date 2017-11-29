@@ -13,6 +13,7 @@ public class SceneSwitchController : MonoBehaviour {
     public FightController fc;
     public GameObject fc_go;
 
+    private GameObject parentGO;
 
 	// Use this for initialization
 	void Start () {
@@ -20,39 +21,35 @@ public class SceneSwitchController : MonoBehaviour {
         upToDate = true;
 
         fc = null;
-	}
 
-    void Awake()
-    {
+        parentGO = new GameObject("Inactive Scene");
+        parentGO.transform.parent = this.transform;
+        parentGO.SetActive(false);
+
+    }
+
+    void Awake() {
         Debug.Log("Awake");
-
-        DontDestroyOnLoad(this.gameObject);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (fc != null)
-        {
-            Debug.Log(fc.state);
-            if (fc.state == "post-fight")
-            {
+        if (fc != null) {
+            if (fc.state == "post-fight") {
                 save = false;
                 Destroy(fc_go);
             }
         }
 
-
-        if (save && !oldSave)
-        {
-            upToDate = false;
-        }
-        if (!save && oldSave)
-        {
+        if (save && !oldSave) {
             upToDate = false;
         }
 
-        if (!upToDate)
-        {
+        if (!save && oldSave) {
+            upToDate = false;
+        }
+
+        if (!upToDate) {
             Debug.Log("Updating");
             updateData();
             upToDate = true;
@@ -64,42 +61,36 @@ public class SceneSwitchController : MonoBehaviour {
 
     void updateData()
     {
-        if (save)
-        {
+        if (save) {
+            DontDestroyOnLoad(this.gameObject);
             List<GameObject> rootObjects = new List<GameObject>();
             Scene scene = SceneManager.GetActiveScene();
             scene.GetRootGameObjects(rootObjects);
 
-            foreach (GameObject go in rootObjects)
-            {
-                if (go != this.gameObject)
-                {
-                    go.transform.parent = this.transform;
+            foreach (GameObject go in rootObjects) {
+                if (go != this.gameObject) {
+                    go.transform.parent = parentGO.transform;
                 }
             }
+
             SceneManager.LoadScene("Fight");
-        } else
-        {
+        } else {
             List<GameObject> rootObjects = new List<GameObject>();
             Scene scene = SceneManager.GetActiveScene();
             scene.GetRootGameObjects(rootObjects);
 
-            foreach (GameObject go in rootObjects)
-            {
-                if (go != this.gameObject)
-                {
+            foreach (GameObject go in rootObjects) {
+                if (go != this.gameObject) {
                     Destroy(go);
                 }
             }
 
             List<Transform> tList = new List<Transform>();
-            foreach(Transform t in this.transform)
-            {
+            foreach(Transform t in parentGO.transform) {
                 tList.Add(t);
             }
 
-            foreach(Transform child in tList)
-            {
+            foreach(Transform child in tList) {
                 child.parent = null;
             }
 
