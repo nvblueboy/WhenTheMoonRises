@@ -18,8 +18,6 @@ public class PlayerMovementController : MonoBehaviour {
 
         yPosition = this.transform.position.y;
 
-        freeze = false;
-
         if(controller==null) {
             Debug.LogError("There's no Character controller on: " + transform.name);
         }
