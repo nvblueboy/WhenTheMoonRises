@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour {
 
-    public bool freeze;
 
-    public float speed;
+    public float speed, interactionRadius;
+
 
     private CharacterController controller;
 
@@ -30,6 +30,20 @@ public class PlayerMovementController : MonoBehaviour {
 
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
+
+        if(Input.GetButtonDown("Jump"))
+        {            
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRadius);
+            int i = 0;
+            while (i < hitColliders.Length)
+            {
+                if(hitColliders[i].gameObject.tag == "Interactable")
+                {
+                    hitColliders[i].gameObject.GetComponent<Interaction>().interact();                    
+                }
+                i++;
+            }
+        }
 
         Vector2 movement = new Vector2(horiz, vert).normalized;
 
