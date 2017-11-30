@@ -31,15 +31,16 @@ public class MoveSelector : MonoBehaviour {
 
     public Fighter fighter;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         if (fighter == null)
         {
             Debug.LogWarning("There is no fighter class attached to the move selector.");
         }
         currentSelection = 0;
         updateTextBoxes();
-	}
+
+    }
 
     // Update is called once per frame
     void Update() {
