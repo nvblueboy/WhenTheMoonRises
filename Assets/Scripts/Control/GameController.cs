@@ -14,17 +14,11 @@ Description: This is a script for controlling changes to the game state
 
 // GameController
 public class GameController : MonoBehaviour {
-    private static GameController instance;
-    
-    // Instance
-    public static GameController Instance
-    {
-        get { return instance; }
-    }
+    public PlayerCharacter player;    
 
     // Awake
     void Awake () {
-
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
         DontDestroyOnLoad(this.gameObject);
     }
 	
