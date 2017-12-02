@@ -14,7 +14,8 @@ Description: Script for interactions that spawn items in the world
 
 // WorldInteraction
 public class WorldInteraction : Interaction {
-    public Vector3 spawnPosition;
+    public GameObject resultItem;
+    public Vector2 spawnOffset;
 
     // interaction
     public override void interact()
@@ -22,8 +23,16 @@ public class WorldInteraction : Interaction {
         if (hasPreReq() && !hasInteracted)
         {
             // spawns the resulting interaction item at the specified location
-            Instantiate(Resources.Load("Items/" + resultItem), spawnPosition, new Quaternion());
+            Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
+                1.5f, transform.position.z + spawnOffset.y);
+            GameObject resultItemClone = Instantiate(resultItem,
+                spawnLocation, transform.rotation);
             hasInteracted = true;
+
+            if(removePreReq)
+            {
+                player.removeItem(preReq);
+            }
         }
     }	
 }
