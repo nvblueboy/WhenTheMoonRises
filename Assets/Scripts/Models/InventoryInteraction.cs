@@ -14,14 +14,26 @@ Description: Script for interactions that add an item to the player's inventory
 
 // InventoryInteraction
 public class InventoryInteraction : Interaction {
+    public string resultItem;
 
 	// interact
     public override void interact()
-    {
+    {        
         if(hasPreReq() && !hasInteracted)
         {
             player.addItem(resultItem);
-            Debug.Log(resultItem + " was added to you inventory.");            
+            hasInteracted = true;
+            Debug.Log(resultItem + " was added to you inventory.");
+            
+            if(gameObject.name.Contains("pickup"))
+            {
+                Destroy(gameObject);
+            }
+
+            if (removePreReq)
+            {
+                player.removeItem(preReq);
+            }
         }
     }
 }

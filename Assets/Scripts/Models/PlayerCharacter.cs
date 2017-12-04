@@ -63,6 +63,24 @@ public class PlayerCharacter : Fighter {
             if(inventory[i] == "")
             {
                 inventory[i] = item;
+                return;
+            }
+        }
+        Debug.Log("Not enough room in inventory");
+    }
+
+    /*
+    Name: removeItem
+    Parameters: string item
+    */
+    public void removeItem(string item)
+    {
+        for (int i = 0; i < inventory.Length; ++i)
+        {
+            if (inventory[i] == item)
+            {
+                inventory[i] = "";
+                return;
             }
         }
     }

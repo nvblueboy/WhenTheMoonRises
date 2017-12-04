@@ -8,13 +8,7 @@ public class Constants {
     {
         {2, 2}, {3, 4}, {4, 8}, {5, 16}, {6, 32},
         {7, 64}, {8, 128}, {9, 256}, {10, 512} 
-    };
-
-    // Maps a string item name to a resource location
-    public static Dictionary<string, string> items = new Dictionary<string, string>
-    {
-        {"Ladder", "Items/Ladder"}  
-    };
+    };    
 
     // Keys for storing player info
     public static string PlayerX = "playerX";
