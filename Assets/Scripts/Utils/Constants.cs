@@ -37,4 +37,11 @@ public class Constants {
     public static string Stamina = "Stamina";
     public static string Stunned = "Stunned";
     public static string DefenseEffect = "DefenseEffect";
+
+    // Player Animations
+    public static string NightPrefix = "AnimationControllers/Night/";
+    public static string WalkFront = "sunny walk front night 3";
+    public static string WalkBack = "sunny walk back night 1";
+    public static string WalkRight = "sunny walk night right1";
+    public static string WalkLeft = "sunny walk night left3";
 }
