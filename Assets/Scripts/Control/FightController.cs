@@ -218,6 +218,8 @@ public class FightController : MonoBehaviour {
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
 
+        Debug.Log("Move: " + move);
+
         Dictionary<string, int> moveData = moveObj.processMove(attack, defend);
 
 

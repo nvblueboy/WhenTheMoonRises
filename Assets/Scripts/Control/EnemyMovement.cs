@@ -20,6 +20,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("Hitting something");
         if(collision.CompareTag("Player"))
         {
             SceneSwitchController ssc = GameObject.Find("Scene Switcher").GetComponent<SceneSwitchController>();
