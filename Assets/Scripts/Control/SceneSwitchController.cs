@@ -13,6 +13,9 @@ public class SceneSwitchController : MonoBehaviour {
     public FightController fc;
     public GameObject fc_go;
 
+    public MonoBehaviour passingObject;
+    public GameObject passingGameObject;
+
     private GameObject parentGO;
 
 	// Use this for initialization
@@ -58,6 +61,11 @@ public class SceneSwitchController : MonoBehaviour {
         oldSave = save;
 	}
 
+    public void passObject(MonoBehaviour mb)
+    {
+        passingObject = mb;
+    }
+
 
     void updateData()
     {
@@ -94,6 +102,7 @@ public class SceneSwitchController : MonoBehaviour {
                 child.parent = null;
             }
 
+            Destroy(passingGameObject);
         }
     }
 }
