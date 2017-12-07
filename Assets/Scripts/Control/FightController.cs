@@ -17,6 +17,8 @@ public class FightController : MonoBehaviour {
 
     public Fighter player; //This should be replaced with the player class eventually.
     public Enemy enemy;
+
+    public Enemy passedEnemy;
     
     public float waitTime = 5f; //This is how long display text should wait before setting the next state.
     private float waitStart;
@@ -52,6 +54,7 @@ public class FightController : MonoBehaviour {
         {
             ssc.fc = this;
             ssc.fc_go = this.gameObject;
+            passedEnemy = (Enemy)ssc.passingObject;
         }
 
         InitializeFighters();
@@ -270,8 +273,11 @@ public class FightController : MonoBehaviour {
         player.currHP = player.hp;
         player.currStamina = player.stamina;
 
-        enemy.currHP = enemy.hp;
-        enemy.currStamina = enemy.stamina;
+        enemy.currHP = passedEnemy.hp;
+        enemy.currStamina = passedEnemy.stamina;
+        enemy.strength = passedEnemy.strength;
+        enemy.defense = passedEnemy.defense;
+        enemy.level = passedEnemy.level;
     }
 
     void updateUI() {
