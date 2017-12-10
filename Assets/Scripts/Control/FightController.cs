@@ -245,6 +245,8 @@ public class FightController : MonoBehaviour {
             enemy.strength = passedEnemy.strength;
             enemy.defense = passedEnemy.defense;
             enemy.level = passedEnemy.level;
+            enemy.name = passedEnemy.name;
+            enemy.weapon = passedEnemy.weapon;
         } else {
             Debug.LogWarning("There was no enemy passed into the scene!");
             enemy.currHP = enemy.hp;
