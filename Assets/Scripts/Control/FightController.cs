@@ -49,9 +49,16 @@ public class FightController : MonoBehaviour {
         hasFallen = true;
         isRising = false;
 
-        SceneSwitchController ssc = GameObject.Find("Scene Switcher").GetComponent<SceneSwitchController>();
-        if (ssc != null)
-        {
+        //Get the scene active scene switcher and get the enemy from that.
+        //First, get the game object then get it's controller.
+        GameObject sc = GameObject.Find("Scene Switcher");
+        SceneSwitchController ssc = null;
+
+        if(sc != null) {
+            ssc = sc.GetComponent<SceneSwitchController>();
+        }
+
+        if (ssc != null) {
             ssc.fc = this;
             ssc.fc_go = this.gameObject;
             passedEnemy = (Enemy)ssc.passingObject;
@@ -65,30 +72,27 @@ public class FightController : MonoBehaviour {
 
         float jump = Input.GetAxis("Jump");
         jumpFrame = false;
-        if (jump > 0 && oldJump == 0)
-        {
+
+        if (jump > 0 && oldJump == 0) {
             jumpFrame = true;
         }
+
         oldJump = jump;
 
         //Process the state machine.
-        if (state == "player")
-        {
+        if (state == "player") {
             //See if the player has selected a move by getting the string and then seeing if it's null.            
             string selectedMove = player.getSelectedMove(true);
-            if (selectedMove != null)
-            {
+            if (selectedMove != null) {
                 //Check if the player has enough stamina for this move.
                 Move m = MoveUtils.GetMove(selectedMove);
-                if (m.moveEligible(player))
-                {
+
+                if (m.moveEligible(player)) {
                     // Check if player stats need to be changed this turn      
-                    if (defenseEffect - 1 > 0)
-                    {
+                    if (defenseEffect - 1 > 0) {
                         defenseEffect -= 1;
                     }
-                    else
-                    {
+                    else {
                         // Reset defense
                         player.defense = baseDefense;
                     }
@@ -96,22 +100,18 @@ public class FightController : MonoBehaviour {
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
 
                     string status = processMove(player, enemy, selectedMove);
-
                     setStatus("You used " + selectedMove + "! " + status);
-
                     //Set the state to display_wait to allow the player time to read what's happened.
                     state = "display_wait";
                     waitStart = Time.time;
-                    if (gameOver)
-                    {
+
+                    if (gameOver) {
                         nextState = "end";
                     }
-                    else
-                    {
+                    else {
                         nextState = "enemy";
                     }
-                } else
-                {
+                } else {
                     setStatus("You don't have enough stamina!");
 
                     //Set the state to display_wait.
@@ -121,57 +121,43 @@ public class FightController : MonoBehaviour {
                 }
             }
         }
-        if(state=="enemy")
-        {
+        if(state=="enemy") {
             //Have the enemy player run it's logic.
             string selectedMove = enemy.getMove();
-
             string status = processMove(enemy, player, selectedMove);
 
-            if(selectedMove == Constants.Stunned)
-            {
+            if(selectedMove == Constants.Stunned) {
                 setStatus(status);
             }
-            else
-            {
+            else {
                 setStatus("The enemy used " + selectedMove + "! " + status);
             }            
 
             //Set the state to display_wait to allow the player time to read what's happened.
             state = "display_wait";
             waitStart = Time.time;
-            if (gameOver)
-            {
+            if (gameOver) {
                 nextState = "end";
             }
-            else
-            {
+            else {
                 nextState = "player";
             }
         }
 
-        if (state == "display_wait")
-        {
-            if (Time.time >= waitStart + waitTime)
-            {
+        if (state == "display_wait") {
+            if (Time.time >= waitStart + waitTime) {
                 state = nextState;
             }
-            //This code has the following issue:
-            //  When you press space, both the MoveSelector AND the FightController see the press.
-            //  The MoveSelector sees the press and chooses the move.
-            //  The FightController sees the press and skips the text.
-            if (jumpFrame)
-            {
+
+            if (jumpFrame) {
                 state = nextState;
             }
         }
 
-        if (state == "end")
-        {
+        if (state == "end") {
             setStatus(finalStatus + " Press space to play again.");
 
-            if (jumpFrame)
-            {
+            if (jumpFrame) {
                 //The player is ready to leave the fight.
                 DontDestroyOnLoad(this.gameObject);
                 state = "post-fight";
@@ -179,8 +165,7 @@ public class FightController : MonoBehaviour {
             }
         }
 
-        if (state != "post-fight")
-        {
+        if (state != "post-fight") {
             updateUI();
         }
 	}
@@ -190,13 +175,10 @@ public class FightController : MonoBehaviour {
         statusText.GetComponent<Text>().text = status;
     }
 
-    public void onFighterDead(Fighter f)
-    {
-        if (f == player)
-        {
+    public void onFighterDead(Fighter f) {
+        if (f == player) {
             finalStatus = "You died!";
-        } else if (f == enemy)
-        {
+        } else if (f == enemy) {
             finalStatus = "The enemy died!";
         }
 
@@ -205,52 +187,35 @@ public class FightController : MonoBehaviour {
 
     string processMove(Fighter attack, Fighter defend, string move)
     {
-        //Debug.Log("Entering processMove");
-        //Debug.Log("Before Turn, Attacker: " + attack);
-        //Debug.Log("Before Turn, Defender: " + defend);
-
         // Check if attacker is stunned 
-        if(move == Constants.Stunned)
-        {
+        if(move == Constants.Stunned) {
             return attack.name + " is stunned!";
         }
 
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
-
-        Debug.Log("Move: " + move);
-
         Dictionary<string, int> moveData = moveObj.processMove(attack, defend);
-
-
-        //Debug.Log("Before Turn, Attacker: " + attack);
-        //Debug.Log("Before Turn, Defender: " + defend);
 
         //Apply effects to attacker/defender.
 
-        if (moveData.ContainsKey(Constants.HP))
-        {        
-            int damage = moveData[Constants.HP];            
-            if (defend.defense <= 4)
-            {
+        if (moveData.ContainsKey(Constants.HP)) {        
+            int damage = moveData[Constants.HP];   
+            
+            if (defend.defense <= 4) {
                 defend.takeDamage(damage);
             }
-            else if(5 <= enemy.defense && enemy.defense <= 9)
-            {
+            else if(5 <= enemy.defense && enemy.defense <= 9) {
                 defend.takeDamage(damage - 1);
             }
-            else if (10 <= enemy.defense && enemy.defense <= 19)
-            {
+            else if (10 <= enemy.defense && enemy.defense <= 19) {
                 defend.takeDamage(damage - 2);
             }
-            else
-            {
+            else {
                 defend.takeDamage(damage - 3);
             }
         }
 
-        if (moveData.ContainsKey(Constants.Stunned))
-        {
+        if (moveData.ContainsKey(Constants.Stunned)) {
             int turns = moveData[Constants.Stunned];
             for(int i = 0; i < turns; ++i)
             {
@@ -259,8 +224,7 @@ public class FightController : MonoBehaviour {
             }
         }
 
-        if(moveData.ContainsKey(Constants.DefenseEffect))
-        {
+        if(moveData.ContainsKey(Constants.DefenseEffect)) {
             defenseEffect += moveData[Constants.DefenseEffect];
         }
 
@@ -275,11 +239,17 @@ public class FightController : MonoBehaviour {
         player.currHP = player.hp;
         player.currStamina = player.stamina;
 
-        enemy.currHP = passedEnemy.hp;
-        enemy.currStamina = passedEnemy.stamina;
-        enemy.strength = passedEnemy.strength;
-        enemy.defense = passedEnemy.defense;
-        enemy.level = passedEnemy.level;
+        if(passedEnemy != null) {
+            enemy.currHP = passedEnemy.hp;
+            enemy.currStamina = passedEnemy.stamina;
+            enemy.strength = passedEnemy.strength;
+            enemy.defense = passedEnemy.defense;
+            enemy.level = passedEnemy.level;
+        } else {
+            Debug.LogWarning("There was no enemy passed into the scene!");
+            enemy.currHP = enemy.hp;
+            enemy.currStamina = enemy.stamina;
+        }
     }
 
     void updateUI() {
