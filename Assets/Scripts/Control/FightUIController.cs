@@ -22,8 +22,11 @@ public class FightUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        playerHP.text = player.currHP.ToString() + "/" + player.hp.ToString();
+        playerStamina.text = player.currStamina.ToString() + "/" + player.stamina.ToString();
+        enemyHP.text = enemy.currHP.ToString() + "/" + enemy.hp.ToString();
+        enemyStamina.text = enemy.currStamina.ToString() + "/" + enemy.stamina.ToString();
+    }
 	
 	// Update is called once per frame
 	void Update () {
