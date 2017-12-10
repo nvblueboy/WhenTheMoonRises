@@ -102,6 +102,10 @@ public class SceneSwitchController : MonoBehaviour {
                 child.parent = null;
             }
 
+            StarSpawnController ssc = passingGameObject.GetComponent<StarSpawnController>();
+            if (ssc != null) {
+                ssc.DropStar();
+            }
             Destroy(passingGameObject);
         }
     }
