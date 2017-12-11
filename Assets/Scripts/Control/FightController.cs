@@ -126,7 +126,7 @@ public class FightController : MonoBehaviour {
             string selectedMove = enemy.getMove();
             string status = processMove(enemy, player, selectedMove);
 
-            if(selectedMove == Constants.Stunned) {
+            if(selectedMove == Constants.Stunned || selectedMove == "NoStamina") {
                 setStatus(status);
             }
             else {
@@ -190,6 +190,10 @@ public class FightController : MonoBehaviour {
         // Check if attacker is stunned 
         if(move == Constants.Stunned) {
             return attack.name + " is stunned!";
+        }
+
+        if(move == "NoStamina") {
+            return attack.name + " has no stamina!";
         }
 
         //Get the move from the move name.
