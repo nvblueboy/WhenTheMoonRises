@@ -16,6 +16,7 @@ Description: Script for interactions that spawn items in the world
 public class WorldInteraction : Interaction {
     public GameObject resultItem;
     public Vector2 spawnOffset;
+    public float yOffset = 1.5f;
 
     // interaction
     public override void interact()
@@ -24,7 +25,7 @@ public class WorldInteraction : Interaction {
         {
             // spawns the resulting interaction item at the specified location
             Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
-                1.5f, transform.position.z + spawnOffset.y);
+                yOffset, transform.position.z + spawnOffset.y);
             GameObject resultItemClone = Instantiate(resultItem,
                 spawnLocation, transform.rotation);
             hasInteracted = true;
