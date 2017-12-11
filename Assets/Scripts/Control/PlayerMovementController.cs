@@ -40,7 +40,11 @@ public class PlayerMovementController : MonoBehaviour {
             {
                 if(hitColliders[i].gameObject.tag == "Interactable")
                 {
-                    hitColliders[i].gameObject.GetComponent<Interaction>().interact();                    
+                    Interaction[] interactions = hitColliders[i].gameObject.GetComponents<Interaction>();
+                    foreach(Interaction interaction in interactions)
+                    {
+                        interaction.interact();
+                    }                                        
                 }
                 i++;
             }
@@ -58,7 +62,7 @@ public class PlayerMovementController : MonoBehaviour {
                 animator.runtimeAnimatorController = Resources.Load(
                 animationPrefix + Constants.WalkRight) as RuntimeAnimatorController;
             }            
-            Debug.Log("Horizontal: " + horiz);            
+            //Debug.Log("Horizontal: " + horiz);            
         } else if (angle > -67.5 && angle <= -22.5)
         {
             movement = new Vector2(1, -1).normalized;

@@ -23,8 +23,15 @@ public class StarShards : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        level = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        level = GameObject.FindGameObjectWithTag(
+            "LevelManager").GetComponent<LevelManager>();
         render = GetComponent<Renderer>();
+    }
+
+    void Update()
+    {
+        level = GameObject.FindGameObjectWithTag(
+            "LevelManager").GetComponent<LevelManager>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -32,6 +39,7 @@ public class StarShards : MonoBehaviour
         if (other.tag == "Player" && !isCollected)
         {
             //collect star
+            Debug.Log("Collect star");
             isCollected = true;
             render.enabled = false;
             level.CollectStar();

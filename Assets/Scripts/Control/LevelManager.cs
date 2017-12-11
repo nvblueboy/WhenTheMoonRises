@@ -14,8 +14,7 @@ Assignment: Semester Project
 
 public class LevelManager : MonoBehaviour
 {
-    private string round;
-    private int starsTotal;
+    private string round;    
     private int starsCount = 0;
     private int actionCount = 0;
     private int cycleCount;
@@ -24,12 +23,13 @@ public class LevelManager : MonoBehaviour
 
     public Text totalText;
     public Text countText;
+    public int starsTotal;
 
     // Use this for initialization
     void Start()
     {
         CountTotalStarsInLevel();
-        countText.text = "- /";
+        countText.text = "- /";        
     }
 
 
@@ -40,8 +40,7 @@ public class LevelManager : MonoBehaviour
     }
 
     void CountTotalStarsInLevel()
-    {
-        starsTotal = GameObject.FindGameObjectsWithTag("StarShard").Length;
+    {        
         totalText.text = starsTotal.ToString();
     }
 
