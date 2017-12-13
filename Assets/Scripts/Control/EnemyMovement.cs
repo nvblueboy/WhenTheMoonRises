@@ -11,11 +11,13 @@ public class EnemyMovement : MonoBehaviour
     private bool dirUp = true;
     private Vector3 pos;
     private int sum = 0;
+
     public int countUp = 0;
+    public float xDistance, zDistance;
     // Use this for initialization
     void Start()
     {
-        pos = this.transform.position;
+        pos = transform.position;
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -40,14 +42,14 @@ public class EnemyMovement : MonoBehaviour
             else
                 transform.Translate(-Vector2.right * speed * Time.deltaTime);
 
-            if(transform.position.x >= 1.0f)
+            if(transform.position.x - pos.x >= xDistance)
             {
                 dirRight = false;
                 countRight++;
                 sum++;
             }
 
-            if(transform.position.x <= -1)
+            if(transform.position.x <= pos.x)
             {
                 dirRight = true;
                 countRight++;
@@ -60,12 +62,12 @@ public class EnemyMovement : MonoBehaviour
                 transform.Translate(Vector2.up * speed * Time.deltaTime);
             else
                 transform.Translate(-Vector2.up * speed * Time.deltaTime);
-            if(transform.position.z >= 1.0f)
+            if(transform.position.z - pos.z >= zDistance)
             {
                 dirUp = false;
             }
 
-            if(transform.position.z <= -1)
+            if(transform.position.z <= pos.z)
             {
                 dirUp = true;
                 sum++;
