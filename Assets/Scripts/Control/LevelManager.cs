@@ -14,6 +14,7 @@ Assignment: Semester Project
 
 public class LevelManager : MonoBehaviour
 {
+    private GameObject tempUI;
     private string round;    
     private int starsCount = 0;
     private int actionCount = 0;
@@ -28,6 +29,8 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        tempUI = GameObject.FindGameObjectWithTag("TempUI");
+        tempUI.SetActive(false);
         CountTotalStarsInLevel();
         countText.text = "- /";        
     }
@@ -54,12 +57,13 @@ public class LevelManager : MonoBehaviour
         if (starsCount == starsTotal)
         {
 
-            SetInventory(starsTotal);
+            /*SetInventory(starsTotal);
             ResetStarsCount();   //reset collected items counter
             setDayMode(true);      //set phase to day
             addCycle();            //increment cycle counter (new day)
             round = "Day" + getCycle().ToString(); //set new level name and load it
-            SceneManager.LoadScene(round);
+            SceneManager.LoadScene(round);*/
+            tempUI.SetActive(true);
         }
     }
 

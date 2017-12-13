@@ -54,6 +54,7 @@ public class DeerInteraction : MonoBehaviour
         {
             float step = 5 * Time.deltaTime;
             Debug.Log("stopped: " + startPos);
+            deerRender.flipX = true;
             transform.position = Vector3.MoveTowards(transform.position, startPos, step);
 
             if (transform.position == startPos)
@@ -71,42 +72,43 @@ public class DeerInteraction : MonoBehaviour
 
 
 
-    private IEnumerator OnTriggerStay(Collider col)
+    private IEnumerator OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
             //get player speed
             float playerSpeed = prb.velocity.magnitude;
 
             //Debug.Log (playerSpeed + "Player spotted");
 
-            if (playerSpeed > 6)
+            /*if (playerSpeed > 6)
             {
+            }*/
 
-                //run away
-                rb.velocity = transform.right * 5f;
-                Debug.Log(rb.velocity);
-                //animation for running right
-                animator.runtimeAnimatorController = Resources.Load(
-                animationPrefix + "t_deer 1") as RuntimeAnimatorController;
+            //run away
+            rb.velocity = transform.right * 5f;
+            deerRender.flipX = false;           
+            Debug.Log(rb.velocity);
+            //animation for running right
+            animator.runtimeAnimatorController = Resources.Load(
+            animationPrefix + "t_deer 1") as RuntimeAnimatorController;
 
-                //sorry, you can't collect the star at this time.
-                star.SetActive(false);
+            //sorry, you can't collect the star at this time.
+            star.SetActive(false);
 
                 
 
-                //wait before returning back
-                yield return new WaitForSeconds(5f);
+            //wait before returning back
+            yield return new WaitForSeconds(5f);
 
 
-                //back to start
-                runningAway = true;
-                //deerRender.flipX = true;
-                rb.velocity = new Vector3(0, 0, 0);
-                //animation for running left
-                animator.runtimeAnimatorController = Resources.Load(
-                animationPrefix + "t_deer 2") as RuntimeAnimatorController;
-            }
+            //back to start
+            runningAway = true;
+            //deerRender.flipX = true;
+            rb.velocity = new Vector3(0, 0, 0);
+            //animation for running left
+            animator.runtimeAnimatorController = Resources.Load(
+            animationPrefix + "t_deer 2") as RuntimeAnimatorController;            
         }
     }
 }

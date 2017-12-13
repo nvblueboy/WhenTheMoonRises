@@ -50,6 +50,13 @@ public class PlayerMovementController : MonoBehaviour {
             }
         }
 
+        // For demo only
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Exiting...");
+            Application.Quit();
+        }
+
         Vector2 movement = new Vector2(horiz, vert).normalized;
         
         float angle = Mathf.Atan2(vert, horiz) * Mathf.Rad2Deg;
