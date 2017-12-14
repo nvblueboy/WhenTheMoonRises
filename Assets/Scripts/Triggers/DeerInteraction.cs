@@ -105,10 +105,7 @@ public class DeerInteraction : MonoBehaviour
             //back to start
             runningAway = true;
             //deerRender.flipX = true;
-            rb.velocity = new Vector3(0, 0, 0);
-            //animation for running left
-            animator.runtimeAnimatorController = Resources.Load(
-            animationPrefix + "t_deer 2") as RuntimeAnimatorController;            
+            rb.velocity = new Vector3(0, 0, 0);           
         }
     }
 }
