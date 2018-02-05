@@ -39,7 +39,7 @@ public class WorldInteraction : Interaction {
                 }
                 return;
             }
-            showDialogue(false);            
+            GameController.showDialogue(failText, displayDialogue, gameObject.name);            
         }        
     }	
 }

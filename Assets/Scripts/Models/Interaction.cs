@@ -18,61 +18,26 @@ Description: This is the parent interaction script with base functionality
 public abstract class Interaction : MonoBehaviour {
     public string preReq;
     public Color32 pulseColor;
-    public bool removePreReq, displayDialogue, useDefaultText;
+    public bool removePreReq, displayDialogue;
     public float pulseSpeed, pulseStrength;
     public string[] successText, failText;
 
     protected bool hasInteracted;
     protected PlayerCharacter player;    
 
-    private SpriteRenderer renderer;
-    private GameObject dialogueUI;
-    private Text dialogueText;
-    private string[] activeText;
-    private float alpha, oldSkip; // oldSkip for storing skip input from last frame
-    protected int idx = 0;
-    private bool dim, dialogueActive;
+    private SpriteRenderer renderer;    
+    private float alpha;    
+    private bool dim;
     
     // Awake
     void Awake()
     {        
-        hasInteracted = false;
-        dialogueActive = false;
-        oldSkip = 1;
-        alpha = 255;        
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
-        dialogueUI = GameObject.FindGameObjectWithTag("TempUI");
-        dialogueText = dialogueUI.GetComponentInChildren<Text>();
+        hasInteracted = false;        
+        alpha = 255;  
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
         renderer = GetComponent<SpriteRenderer>();
         pulseColor.a = 255;        
-    } 
-    
-    // Update
-    void Update()
-    {
-        // Use this input to skip/dismiss dialogue        
-        if (dialogueActive)
-        {
-            float skip = Input.GetAxis("Jump");
-            if (skip > 0 && oldSkip == 0)
-            {                
-                idx++;
-                Debug.Log("Skip dialogue: " + idx);
-                try
-                {
-                    dialogueText.text = activeText[idx];
-                }
-                catch (IndexOutOfRangeException e)
-                {
-                    Debug.Log("IndexOutOfRangeException");
-                    dialogueActive = false;
-                    dialogueUI.SetActive(false);
-                    idx = 0;
-                }
-            }
-            oldSkip = skip;
-        }
-    }   
+    }      
 
     // FixedUpdate
     void FixedUpdate()
@@ -124,29 +89,7 @@ public abstract class Interaction : MonoBehaviour {
             }
         }
         return false;
-    }
-
-   /*
-   Name: showDialogue
-   Parameters: bool success
-   */
-    public void showDialogue(bool success)
-    {
-        if(displayDialogue)
-        {
-            dialogueUI.SetActive(true);
-            dialogueActive = true;
-
-            if(success)
-            {
-                activeText = successText;
-                dialogueText.text = successText[0];
-                return;
-            }
-            activeText = failText;
-            dialogueText.text = failText[0];
-        }               
-    }
+    }   
 
     // interact
     public abstract void interact();	

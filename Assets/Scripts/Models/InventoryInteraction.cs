@@ -21,8 +21,9 @@ public class InventoryInteraction : Interaction {
     {              
         if(hasPreReq())
         {
-            if (useDefaultText)
+            if (successText.Length == 0)
             {
+                Debug.Log("Using default text");
                 successText = new string[] { resultItem + " was added to your inventory." };
             }
 
@@ -32,11 +33,12 @@ public class InventoryInteraction : Interaction {
                 hasInteracted = true;
                 Debug.Log(resultItem + " was added to your inventory.");
                 
-                showDialogue(true);
+                GameController.showDialogue(successText, displayDialogue, gameObject.name);
 
                 if (gameObject.name.Contains("pickup"))
                 {
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    gameObject.SetActive(false);
                 }
 
                 if (removePreReq)
@@ -46,6 +48,6 @@ public class InventoryInteraction : Interaction {
             }
             return;                        
         }
-        showDialogue(false); 
+        GameController.showDialogue(failText, displayDialogue, gameObject.name); 
     }
 }
