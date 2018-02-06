@@ -18,18 +18,20 @@ Description: This is a script for controlling changes to the game state
 public class GameController : MonoBehaviour {    
     public PlayerCharacter player;
 
-    private float oldSkip;
+    private float oldSkip;    
 
     private static GameObject dialogueUI;
     private static Text dialogueText;
-    private static string activeInteraction;
+    private static string activeDialogue;
     private static int dialogueIdx = 0;
+    private static float newDialogueTime;
     private static string[] activeText;
 
     // Awake
     void Awake () {
         oldSkip = 1;
-        activeInteraction = "";
+        activeDialogue = "";
+        newDialogueTime = -999f;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
         dialogueUI = GameObject.FindGameObjectWithTag("TempUI");
         dialogueText = dialogueUI.GetComponentInChildren<Text>();
@@ -37,8 +39,8 @@ public class GameController : MonoBehaviour {
     }
 
     // Update
-    void Update() {
-        if (activeInteraction != "") 
+    void Update() {        
+        if (activeDialogue != "" && Time.time - newDialogueTime > .2f) 
         {
             float skip = Input.GetAxis("Jump");
             if (skip > 0 && oldSkip == 0)
@@ -52,13 +54,13 @@ public class GameController : MonoBehaviour {
                 catch (IndexOutOfRangeException e)
                 {
                     Debug.Log("IndexOutOfRangeException");
-                    activeInteraction = "";                    
+                    activeDialogue = "";                    
                     dialogueUI.SetActive(false);
                     dialogueIdx = 0;
                 }
             }
-            oldSkip = skip;
-        }
+            oldSkip = skip;            
+        }        
     }
 
     /*
@@ -71,14 +73,15 @@ public class GameController : MonoBehaviour {
 
         // if the dialogue should be displayed and dialogue isn't
         // associated with currently active interaction
-        if(displayDialogue && activeInteraction != interaction)
+        if(displayDialogue && activeDialogue != interaction)
         {
-            Debug.Log("GameController: showDialogue");
+            Debug.Log("GameController: showDialogue dialougeIdx: " + dialogueIdx);
             dialogueIdx = 0;
             activeText = dialogue;
-            activeInteraction = interaction;
+            activeDialogue = interaction;
             dialogueUI.SetActive(true);
-            dialogueText.text = dialogue[dialogueIdx];                        
+            dialogueText.text = dialogue[dialogueIdx];
+            newDialogueTime = Time.time;                                  
         }
     }    
 }

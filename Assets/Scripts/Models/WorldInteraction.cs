@@ -24,8 +24,7 @@ public class WorldInteraction : Interaction {
         if (!hasInteracted)
         {
             if(hasPreReq())
-            {
-                Debug.Log("Should be spawning star");
+            {                
                 // spawns the resulting interaction item at the specified location
                 Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
                     yOffset, transform.position.z + spawnOffset.y);

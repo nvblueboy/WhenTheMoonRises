@@ -22,16 +22,14 @@ public class InventoryInteraction : Interaction {
         if(hasPreReq())
         {
             if (successText.Length == 0)
-            {
-                Debug.Log("Using default text");
+            {                
                 successText = new string[] { resultItem + " was added to your inventory." };
             }
 
             if (!hasInteracted)
             {
                 player.addItem(resultItem);
-                hasInteracted = true;
-                Debug.Log(resultItem + " was added to your inventory.");
+                hasInteracted = true;                
                 
                 GameController.showDialogue(successText, displayDialogue, gameObject.name);
 

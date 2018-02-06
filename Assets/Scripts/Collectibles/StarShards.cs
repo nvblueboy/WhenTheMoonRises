@@ -38,8 +38,7 @@ public class StarShards : MonoBehaviour
     {
         if (other.tag == "Player" && !isCollected)
         {
-            //collect star
-            Debug.Log("Collect star");
+            //collect star            
             isCollected = true;
             render.enabled = false;
             level.CollectStar();
