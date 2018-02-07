@@ -20,6 +20,7 @@ public abstract class Interaction : MonoBehaviour {
     public Color32 pulseColor;
     public bool removePreReq, displayDialogue;
     public float pulseSpeed, pulseStrength;
+    public int successStart, successEnd, failStart, failEnd;
     public string[] successText, failText;
 
     protected bool hasInteracted;

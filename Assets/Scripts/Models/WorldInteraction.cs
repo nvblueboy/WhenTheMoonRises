@@ -31,6 +31,7 @@ public class WorldInteraction : Interaction {
                 GameObject resultItemClone = Instantiate(resultItem,
                     spawnLocation, transform.rotation);
                 hasInteracted = true;
+                GameController.showDialogue(successStart, successEnd, gameObject.name);
 
                 if (removePreReq)
                 {
@@ -38,7 +39,7 @@ public class WorldInteraction : Interaction {
                 }
                 return;
             }
-            GameController.showDialogue(failText, displayDialogue, gameObject.name);            
+            GameController.showDialogue(failStart, failEnd, gameObject.name);            
         }        
     }	
 }

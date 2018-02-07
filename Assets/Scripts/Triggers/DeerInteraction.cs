@@ -95,7 +95,7 @@ public class DeerInteraction : MonoBehaviour
 
             //sorry, you can't collect the star at this time.
             star.SetActive(false);
-
+            GameController.showDialogue(10, 10, "/");
                 
 
             //wait before returning back

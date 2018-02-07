@@ -31,7 +31,7 @@ public class InventoryInteraction : Interaction {
                 player.addItem(resultItem);
                 hasInteracted = true;                
                 
-                GameController.showDialogue(successText, displayDialogue, gameObject.name);
+                GameController.showDialogue(successStart, successEnd, gameObject.name);
 
                 if (gameObject.name.Contains("pickup"))
                 {
@@ -46,6 +46,6 @@ public class InventoryInteraction : Interaction {
             }
             return;                        
         }
-        GameController.showDialogue(failText, displayDialogue, gameObject.name); 
+        GameController.showDialogue(failStart, failEnd, gameObject.name); 
     }
 }
