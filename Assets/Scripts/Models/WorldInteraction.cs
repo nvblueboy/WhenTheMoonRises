@@ -23,23 +23,37 @@ public class WorldInteraction : Interaction {
     {        
         if (!hasInteracted)
         {
-            if(hasPreReq())
-            {                
-                // spawns the resulting interaction item at the specified location
-                Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
-                    yOffset, transform.position.z + spawnOffset.y);
-                GameObject resultItemClone = Instantiate(resultItem,
-                    spawnLocation, transform.rotation);
-                hasInteracted = true;
-                GameController.showDialogue(successStart, successEnd, gameObject.name);
-
-                if (removePreReq)
-                {
-                    player.removeItem(preReq);
-                }
+            if (!hasPreReq())
+            {
+                GameController.showDialogue(failStart, failEnd, gameObject.name, this);
                 return;
             }
-            GameController.showDialogue(failStart, failEnd, gameObject.name);            
+
+            GameController.showDialogue(successStart, successEnd, gameObject.name, this);
+            actionComplete = true;
+            if(!delayAction)
+            {
+                triggerAction();
+            }
         }        
-    }	
+    }
+    
+    // triggerAction
+    public override void triggerAction()
+    {
+        if(actionComplete)
+        {
+            // spawns the resulting interaction item at the specified location            
+            Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
+                yOffset, transform.position.z + spawnOffset.y);
+            GameObject resultItemClone = Instantiate(resultItem,
+                spawnLocation, transform.rotation);
+            hasInteracted = true;
+
+            if (removePreReq)
+            {
+                player.removeItem(preReq);
+            }
+        }        
+    }
 }

@@ -18,12 +18,12 @@ Description: This is the parent interaction script with base functionality
 public abstract class Interaction : MonoBehaviour {
     public string preReq;
     public Color32 pulseColor;
-    public bool removePreReq, displayDialogue;
+    public bool removePreReq, displayDialogue, delayAction;
     public float pulseSpeed, pulseStrength;
     public int successStart, successEnd, failStart, failEnd;
     public string[] successText, failText;
 
-    protected bool hasInteracted;
+    protected bool hasInteracted, actionComplete;
     protected PlayerCharacter player;    
 
     private SpriteRenderer renderer;    
@@ -33,7 +33,8 @@ public abstract class Interaction : MonoBehaviour {
     // Awake
     void Awake()
     {        
-        hasInteracted = false;        
+        hasInteracted = false;
+        actionComplete = false;              
         alpha = 255;  
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
         renderer = GetComponent<SpriteRenderer>();
@@ -90,8 +91,17 @@ public abstract class Interaction : MonoBehaviour {
             }
         }
         return false;
-    }   
+    }
+    
+    // isSuccess
+    public bool isSuccess()
+    {
+        return hasInteracted;
+    }
 
     // interact
-    public abstract void interact();	
+    public abstract void interact();
+
+    // triggerAction
+    public abstract void triggerAction();
 }

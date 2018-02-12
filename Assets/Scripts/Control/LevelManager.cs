@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         tempUI.SetActive(false);
         CountTotalStarsInLevel();
         countText.text = "- /";
-        GameController.showDialogue(startDialogue, endDialogue, "/");      
+        GameController.showDialogue(startDialogue, endDialogue);      
     }
 
 

@@ -19,8 +19,9 @@ public class GameController : MonoBehaviour {
     public PlayerCharacter player;    
 
     private PlayerMovementController playerController;
-    private float oldSkip;    
+    private float oldSkip;
 
+    private static Interaction currentInteraction;
     private static GameObject dialogueUI;
     private static Text dialogueText, speakerText;
     private static string activeDialogue;
@@ -33,7 +34,7 @@ public class GameController : MonoBehaviour {
     void Awake () {
         oldSkip = 1;
         activeDialogue = "";
-        newDialogueTime = -999f;
+        newDialogueTime = -999f;        
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
         playerController = GameObject.FindGameObjectWithTag("Player")
             .GetComponent<PlayerMovementController>();
@@ -65,9 +66,13 @@ public class GameController : MonoBehaviour {
                 if(dialogueIdx > dialogueEnd)
                 {
                     activeDialogue = "";
-                    dialogueUI.SetActive(false);
+                    dialogueUI.SetActive(false);                                        
                     dialogueActive = false;
                     dialogueIdx = 0;
+                    if(currentInteraction != null)
+                    {
+                        currentInteraction.triggerAction();
+                    }
                     return;
                 }
 
@@ -82,20 +87,35 @@ public class GameController : MonoBehaviour {
     Name: showDialogue
     Parameters: int start, int end, string interaction
     */
-    public static void showDialogue(int start, int end, string interaction)
+    public static void showDialogue(int start, int end)
+    {
+        showDialogue(start, end, "/", null);
+    }
+
+    /*
+    Name: showDialogue
+    Parameters: int start, int end, string interaction
+    */
+    public static void showDialogue(int start, int end, string triggeredObject, Interaction interaction)
     {
          sceneDialogue = DialogueUtils.getDialogueForScene();
 
         // if the dialogue should be displayed and dialogue isn't
         // associated with currently active interaction
-        if(start > 0 && activeDialogue != interaction)
-        {           
+        if(start > 0 && activeDialogue != triggeredObject)
+        { 
+            if(interaction != null && interaction.delayAction)
+            {
+                // only need to track interaction if we have to trigger a delayed action
+                currentInteraction = interaction;
+            }        
+              
             dialogueIdx = start;
-            dialogueEnd = end;
+            dialogueEnd = end;            
             Debug.Log("GameController: showDialogue dialougeIdx: " + dialogueIdx);
             dialogueText.text = sceneDialogue[start][1];
             speakerText.text = sceneDialogue[start][0];            
-            activeDialogue = interaction;
+            activeDialogue = triggeredObject;
             dialogueUI.SetActive(true);
             dialogueActive = true;        
             newDialogueTime = Time.time;                                  

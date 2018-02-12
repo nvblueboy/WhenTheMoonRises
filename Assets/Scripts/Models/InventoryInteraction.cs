@@ -21,31 +21,34 @@ public class InventoryInteraction : Interaction {
     {              
         if(hasPreReq())
         {
-            if (successText.Length == 0)
-            {                
-                successText = new string[] { resultItem + " was added to your inventory." };
-            }
-
             if (!hasInteracted)
-            {
-                player.addItem(resultItem);
-                hasInteracted = true;                
-                
-                GameController.showDialogue(successStart, successEnd, gameObject.name);
-
-                if (gameObject.name.Contains("pickup"))
+            {                
+                GameController.showDialogue(successStart, successEnd, gameObject.name, this);
+                if(!delayAction)
                 {
-                    //Destroy(gameObject);
-                    gameObject.SetActive(false);
-                }
-
-                if (removePreReq)
-                {
-                    player.removeItem(preReq);
-                }
+                    triggerAction();
+                }                
             }
             return;                        
         }
-        GameController.showDialogue(failStart, failEnd, gameObject.name); 
+        GameController.showDialogue(failStart, failEnd, gameObject.name, this); 
+    }
+
+    // triggerAction
+    public override void triggerAction()
+    {
+        player.addItem(resultItem);
+        hasInteracted = true;
+
+        if (gameObject.name.Contains("pickup"))
+        {
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+
+        if (removePreReq)
+        {
+            player.removeItem(preReq);
+        }
     }
 }
