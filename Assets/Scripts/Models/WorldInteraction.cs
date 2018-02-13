@@ -25,11 +25,11 @@ public class WorldInteraction : Interaction {
         {
             if (!hasPreReq())
             {
-                GameController.showDialogue(failStart, failEnd, gameObject.name, this);
+                GameController.showDialogue(failText, gameObject.name, this);
                 return;
             }
 
-            GameController.showDialogue(successStart, successEnd, gameObject.name, this);
+            GameController.showDialogue(successText, gameObject.name, this);
             actionComplete = true;
             if(!delayAction)
             {
