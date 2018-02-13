@@ -84,4 +84,22 @@ public class PlayerCharacter : Fighter {
             }
         }
     }
+
+    /*
+    Name: getMoves
+    Description: Returns a list of Move objects that this PlayerCharacter is authorized to use.
+    */
+    public Move[] getMoves() {
+        //TODO: Actually calculate what moves are possible.
+        MoveUtils.InitMoves();
+        return new Move[] { MoveUtils.GetMove("Standard Attack"), MoveUtils.GetMove("Strong Swing"), MoveUtils.GetMove("Flour Flick") };
+    }
+
+    /*
+    Name: testInventory
+    Description: Creates a fake inventory for testing with other components.
+    */
+    public void testInventory() {
+        inventory = new string[]{ "Mushroom", "Fire Flower", "Star", "1-Up"};
+    }
 }

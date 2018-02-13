@@ -32,41 +32,44 @@ public class MoveSelector : MonoBehaviour {
     private float oldSelect = 0;
     private float oldBack = 0;
 
-    public Fighter fighter;
+    public PlayerCharacter fighter;
 
     // Use this for initialization
     void Start () {
         if (fighter == null)
         {
-            Debug.LogWarning("There is no fighter class attached to the move selector.");
+            Debug.LogWarning("There is no fighter class attached to the move selector. I'm creating a fake player for testing purposes.");
+            fighter = new PlayerCharacter();
+            fighter.inventory = new string[] { };
         }
         currentSelection = 0;
 
         //Lay out the selector groups.
         root = new SelectorGroup();
+        
 
-        bool hasItems = true; //TODO: Make this actually evaluate if the player has items.
+        bool hasItems = fighter.inventory.Length > 0;
 
-        if (hasItems) {
-            SelectorOption items = new SelectorOption("Items", root, new SelectorGroup());
-            root.addOption(items);
-            //TODO: Loop through items and add them to this selector option.
-            SelectorOption item1 = new SelectorOption("Potion", items.child, "potion");
-            SelectorOption item2 = new SelectorOption("Fire Flower", items.child, "fire_flower");
-            SelectorOption item3 = new SelectorOption("Mushroom", items.child, "mushroom");
-            items.child.addOption(item1);
-            items.child.addOption(item2);
-            items.child.addOption(item3);
+        if(!hasItems) {
+            fighter.testInventory();
+        }
+        SelectorOption items = new SelectorOption("Items", root, new SelectorGroup());
+        root.addOption(items);
+        foreach(string item in fighter.inventory) {
+            SelectorOption itemOption = new SelectorOption(item, items.child, item);
+            items.child.addOption(itemOption);
         }
 
-        SelectorOption moves = new SelectorOption("Moves", root, new SelectorGroup());
-        root.addOption(moves);
+        SelectorOption movesOption = new SelectorOption("Moves", root, new SelectorGroup());
+        root.addOption(movesOption);
 
-        SelectorOption move1 = new SelectorOption("Punch", moves.child, "punch");
-        moves.child.addOption(move1);
+        Move[] moves = fighter.getMoves();
 
-        SelectorOption move2 = new SelectorOption("Kick", moves.child, "kick");
-        moves.child.addOption(move2);
+        foreach (Move m in moves) {
+            SelectorOption moveOption = new SelectorOption(m.name, movesOption.child, m.name);
+            movesOption.child.addOption(moveOption);
+        }
+
 
         SelectorOption options = new SelectorOption("Options", root, new SelectorGroup());
         root.addOption(options);
