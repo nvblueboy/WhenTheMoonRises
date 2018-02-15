@@ -43,6 +43,8 @@ public class GameController : MonoBehaviour {
         dialogueText = dialogueUI.GetComponentInChildren<Text>();
         speakerText = dialogueUI.transform.GetChild(2).GetComponent<Text>();
         DontDestroyOnLoad(this.gameObject);
+        //DialogueUtils.storeDialogue(new DialogueTest("Sunny", "This better work", 1));
+        //DialogueUtils.initDialogueForCurrentScene();
     }
 
     // Update

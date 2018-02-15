@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -41,4 +42,24 @@ public class DialogueUtils : MonoBehaviour {
         }
         return retval;
     }	
+
+    public static void storeDialogue(DialogueComponent dialogue)
+    {
+        string json = JsonUtility.ToJson(dialogue);
+        StreamWriter writer = File.AppendText("test.json");
+        writer.WriteLine(json);       
+        writer.Close();
+    }
+
+    public static void initDialogueForCurrentScene()
+    {
+        string scene = SceneManager.GetActiveScene().name;
+        StreamReader reader = new StreamReader(File.OpenRead("test.json"));
+        
+        while(!reader.EndOfStream)
+        {
+            //DialogueTest dialogue = JsonUtility.FromJson<DialogueTest>(reader.ReadLine());
+            //Debug.Log("Dialogue text: " + dialogue.text);
+        }
+    }
 }
