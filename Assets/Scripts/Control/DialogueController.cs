@@ -39,18 +39,28 @@ public class DialogueController : MonoBehaviour {
         
         lastChoiceTime = -999f;  // Used to prevent skipping of dialogue following choice 
 
-        Choice choice1 = new Choice(0, "Shop", Constants.Action.OPEN_STORE);
+        /*Choice choice1 = new Choice(0, "Shop", Constants.Action.OPEN_STORE);
         Choice choice2 = new Choice(4, "Talk");
         Choice choice3 = new Choice(5, "Train", Constants.Action.ADD_STRENGTH);
         Choice choice4 = new Choice(0, "Exit");
 
         List<Choice> choices = new List<Choice>() { choice1, choice2, choice3, choice4 };
+        ChoiceWrapper choiceWrapper = new ChoiceWrapper();
+        choiceWrapper.choices = choices;
 
         DialogueComponent d1 = new DialogueComponent(1, 3, "Shopkeeper", "Hello, and welcome to my shop!");        
-        DialogueComponent d3 = new DialogueComponent(3, -1, "Shopkeeper", "How can I help you today?", choices);
+        DialogueComponent d3 = new DialogueComponent(3, -1, "Shopkeeper", "How can I help you today?", choiceWrapper);
         DialogueComponent d4 = new DialogueComponent(4, 0, "Sunny", "So what can you tell me about Raven's Ridge?");
         DialogueComponent d5 = new DialogueComponent(5, 0, "", "One point added to your Strength!");
         dialogue = new Dictionary<int, DialogueComponent>() { { 1, d1 }, { 3, d3 }, { 4, d4 }, { 5, d5 } };
+        List<DialogueComponent> dList = new List<DialogueComponent>() { d1, d3, d4, d5 };
+
+        DialogueWrapper dialogueWrapper = new DialogueWrapper(dList);
+        DialogueUtils.storeDialogue(dialogueWrapper, "NarrativeTest");        
+        string test= JsonUtility.ToJson(dialogueWrapper);
+        Debug.Log(test);*/
+
+        dialogue = DialogueUtils.initDialogueForCurrentScene();
 
         Show(1);             
     }
@@ -82,20 +92,20 @@ public class DialogueController : MonoBehaviour {
         }
         else
         {
-            switch(currentDialogue.choices.Count)
+            switch(currentDialogue.choiceWrapper.choices.Count)
             {
                 case 2:
                     showTwoChoice();
                     for (int i = 0; i < 2; ++i)
                     {
-                        txtTwoChoices[i].text = currentDialogue.choices[i].text;
+                        txtTwoChoices[i].text = currentDialogue.choiceWrapper.choices[i].text;
                     }
                     break;
                 case 4:                   
                     showFourChoice();
                     for(int i = 0; i < 4; ++i)
                     {
-                        txtFourChoices[i].text = currentDialogue.choices[i].text;
+                        txtFourChoices[i].text = currentDialogue.choiceWrapper.choices[i].text;
                     }
                     break;
             }
@@ -107,7 +117,7 @@ public class DialogueController : MonoBehaviour {
     {
         // Show appropriate dialogue and perform correct action for choice
         Debug.Log("Choice: " + choice);        
-        Choice selectedChoice = currentDialogue.choices[choice];
+        Choice selectedChoice = currentDialogue.choiceWrapper.choices[choice];
         Debug.Log("Selected choice next: " + selectedChoice.next);
         Show(selectedChoice.next);
         ActionController.performAction(selectedChoice.actionCode);

@@ -7,15 +7,15 @@ public class DialogueComponent
 {
     public string speaker, text;
     public int id, nextId;
-    public List<Choice> choices;
+    public ChoiceWrapper choiceWrapper;
 
-    public DialogueComponent(int _id, int _nextId, string _speaker, string _text, List<Choice> _choices)
+    public DialogueComponent(int _id, int _nextId, string _speaker, string _text, ChoiceWrapper _choiceWrapper)
     {
         speaker = _speaker;
         text = _text;
         id = _id;
         nextId = _nextId;
-        choices = _choices;
+        choiceWrapper = _choiceWrapper;
     }
 
     public DialogueComponent(int _id, int _nextId, string _speaker, string _text)
@@ -24,13 +24,13 @@ public class DialogueComponent
         text = _text;
         id = _id;
         nextId = _nextId;
-        choices = null;
+        choiceWrapper = new ChoiceWrapper();
     }
 
     // Next
     public int Next()
     {
-        if (choices != null && choices.Count > 0)
+        if (choiceWrapper.choices.Count > 0)
         {
             // Don't display new dialogue. Display choices instead
             return -1;
