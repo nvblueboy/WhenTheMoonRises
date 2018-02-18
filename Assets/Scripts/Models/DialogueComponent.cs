@@ -18,6 +18,15 @@ public class DialogueComponent
         choices = _choices;
     }
 
+    public DialogueComponent(int _id, int _nextId, string _speaker, string _text)
+    {
+        speaker = _speaker;
+        text = _text;
+        id = _id;
+        nextId = _nextId;
+        choices = null;
+    }
+
     // Next
     public int Next()
     {

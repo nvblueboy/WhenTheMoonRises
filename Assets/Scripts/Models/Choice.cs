@@ -1,16 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Choice {
-    public string text, actionCode;
-    public int next;
+    public string text;
+    public int next; 
+    public Constants.Action actionCode;
 
-    public Choice(int _next, string _text, string _actionCode)
+    public Choice(int _next, string _text, Constants.Action _actionCode)
     {
         next = _next;
         text = _text;
         actionCode = _actionCode;
+    }
+    
+    public Choice (int _next, string _text)
+    {
+        next = _next;
+        text = _text;
+        actionCode = Constants.Action.NONE;
     }	
 }
