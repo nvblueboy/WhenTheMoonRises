@@ -20,22 +20,40 @@ public class WorldInteraction : Interaction {
 
     // interaction
     public override void interact()
-    {
-        Debug.Log("Interact");
-        if (hasPreReq() && !hasInteracted)
+    {        
+        if (!hasInteracted)
         {
-            Debug.Log("Should be spawning star");
-            // spawns the resulting interaction item at the specified location
+            if (!hasPreReq())
+            {
+                GameController.showDialogue(failText, gameObject.name, this);
+                return;
+            }
+
+            GameController.showDialogue(successText, gameObject.name, this);
+            actionComplete = true;
+            if(!delayAction)
+            {
+                triggerAction();
+            }
+        }        
+    }
+    
+    // triggerAction
+    public override void triggerAction()
+    {
+        if(actionComplete)
+        {
+            // spawns the resulting interaction item at the specified location            
             Vector3 spawnLocation = new Vector3(transform.position.x + spawnOffset.x,
                 yOffset, transform.position.z + spawnOffset.y);
             GameObject resultItemClone = Instantiate(resultItem,
                 spawnLocation, transform.rotation);
             hasInteracted = true;
 
-            if(removePreReq)
+            if (removePreReq)
             {
                 player.removeItem(preReq);
             }
-        }
-    }	
+        }        
+    }
 }

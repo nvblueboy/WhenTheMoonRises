@@ -18,22 +18,37 @@ public class InventoryInteraction : Interaction {
 
 	// interact
     public override void interact()
-    {        
-        if(hasPreReq() && !hasInteracted)
+    {              
+        if(hasPreReq())
         {
-            player.addItem(resultItem);
-            hasInteracted = true;
-            Debug.Log(resultItem + " was added to you inventory.");
-            
-            if(gameObject.name.Contains("pickup"))
-            {
-                Destroy(gameObject);
+            if (!hasInteracted)
+            {                
+                GameController.showDialogue(successText, gameObject.name, this);
+                if(!delayAction)
+                {
+                    triggerAction();
+                }                
             }
+            return;                        
+        }
+        GameController.showDialogue(failText, gameObject.name, this); 
+    }
 
-            if (removePreReq)
-            {
-                player.removeItem(preReq);
-            }
+    // triggerAction
+    public override void triggerAction()
+    {
+        player.addItem(resultItem);
+        hasInteracted = true;
+
+        if (gameObject.name.Contains("pickup"))
+        {
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+
+        if (removePreReq)
+        {
+            player.removeItem(preReq);
         }
     }
 }
