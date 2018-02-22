@@ -16,6 +16,7 @@ Attach to deer and add a star to its tail as a child object, and don't forget to
 
 public class DeerInteraction : MonoBehaviour
 {
+    public Dialogue[] dialogue;
 
     private Collider col;
     private LevelManager level;
@@ -95,7 +96,7 @@ public class DeerInteraction : MonoBehaviour
 
             //sorry, you can't collect the star at this time.
             star.SetActive(false);
-
+            GameController.showDialogue(dialogue);
                 
 
             //wait before returning back

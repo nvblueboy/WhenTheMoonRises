@@ -29,11 +29,7 @@ public class SceneSwitchController : MonoBehaviour {
         parentGO.transform.parent = this.transform;
         parentGO.SetActive(false);
 
-    }
-
-    void Awake() {
-        Debug.Log("Awake");
-    }
+    }    
 	
 	// Update is called once per frame
 	void Update () {

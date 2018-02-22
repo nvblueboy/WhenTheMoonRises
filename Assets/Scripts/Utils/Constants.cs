@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public class Constants {
     // Dictionary mapping level to necessary xp
@@ -8,7 +8,7 @@ public class Constants {
     {
         {2, 2}, {3, 4}, {4, 8}, {5, 16}, {6, 32},
         {7, 64}, {8, 128}, {9, 256}, {10, 512} 
-    };    
+    };   
 
     // Keys for storing player info
     public static string PlayerX = "playerX";
@@ -44,4 +44,19 @@ public class Constants {
     public static string WalkBack = "sunny walk back night 1";
     public static string WalkRight = "sunny walk night right1";
     public static string WalkLeft = "sunny walk night left3";
+
+    // File paths
+    public static string DialoguePath = "Assets/Dialogue/{0}.json";
+
+    // Action codes for performing actions based on dialogue option
+    [Serializable]
+    public enum Action
+    {
+        NONE,
+        QUIT,
+        OPEN_STORE,
+        ADD_STRENGTH,
+        ADD_STAMINA,
+        ADD_INTUITION
+    }
 }
