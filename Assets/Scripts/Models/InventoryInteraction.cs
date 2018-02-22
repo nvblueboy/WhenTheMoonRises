@@ -21,7 +21,7 @@ public class InventoryInteraction : Interaction {
     {        
         if(hasPreReq() && !hasInteracted)
         {
-            player.addItem(resultItem);
+            player.addItem(new Item(resultItem, resultItem));
             hasInteracted = true;
             Debug.Log(resultItem + " was added to you inventory.");
             
@@ -32,7 +32,7 @@ public class InventoryInteraction : Interaction {
 
             if (removePreReq)
             {
-                player.removeItem(preReq);
+                player.removeItemByName(preReq);
             }
         }
     }

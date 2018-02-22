@@ -41,12 +41,24 @@ public class MoveSelector : MonoBehaviour {
     private bool jump_hasFallen = true;
     private bool fire_hasFallen = true;
 
+    private Dictionary<string, object> selections;
+    private Dictionary<string, string> types;
+
     public void Start() {
         if(fighter == null) {
             Debug.LogWarning("There is no fighter class attached to the move selector. I'm creating a fake player for testing purposes.");
             fighter = new PlayerCharacter();
             fighter.testInventory();
         }
+        if(fighter.name == "[Test_inv]") {
+            fighter.testInventory();
+        }
+
+        MoveUtils.InitMoves();
+
+        selections = new Dictionary<string, object>();
+        types = new Dictionary<string, string>();
+        
 
         selectorMap = new Dictionary<SelectorType, GameObject>();
         selectorMap[SelectorType.Loop] = loopObject;
@@ -59,16 +71,19 @@ public class MoveSelector : MonoBehaviour {
         root.addChild(moves);
 
         foreach (Move m in fighter.getMoves()) {
+            selections.Add(m.name, MoveUtils.GetMove(m.name));
+            types.Add(m.name, "move");
             moves.addChild(new SelectorNode(m.name, m.name));
         }
 
         SelectorNode items = new SelectorNode("items", "Items", new List<SelectorNode>(), SelectorType.Loop);
         root.addChild(items);
         
-        if (fighter.inventory.Length > 0) {
-            foreach (string item in fighter.inventory) {
-                //TODO: Update this loop once inventory gets overhauled.
-                items.addChild(new SelectorNode(item, item));
+        if (fighter.inventory.Count > 0) {
+            foreach (Item item in fighter.inventory) {
+                selections.Add(item.getName(), item);
+                types.Add(item.getName(), "item");
+                items.addChild(new SelectorNode(item.getName(), item.getDisplayName()));
             }
         }
 
@@ -144,7 +159,7 @@ public class MoveSelector : MonoBehaviour {
             jump_hasFallen = true;
         }
 
-        if (jump > oldJump && jump_hasFallen) {
+        if (jump > oldJump && oldJump == 0) {
             jump_hasFallen = false;
             int sel = currentMenu.GetComponent<MoveSelector_Child>().currentSelection;
             SelectorNode selected = current.children[sel];
@@ -155,7 +170,15 @@ public class MoveSelector : MonoBehaviour {
                     updateDisplay();
                 }
             } else {
-                Debug.Log("Chosen: " + selected);
+                object selectedObj = selections[selected.name];
+
+                if (types[selected.name] == "item") {
+                    Item i = (Item)selectedObj; //This turns everything into a plain item. Gotta find a way to work the inheritance.
+                    Debug.Log(i);
+                    i.affectPlayer(fighter);
+                } else if (types[selected.name] == "move") {
+                    fighter.addSelectedMove(selected.name);
+                }
             }
         }
 
@@ -165,7 +188,9 @@ public class MoveSelector : MonoBehaviour {
 
         if (fire > oldFire && fire_hasFallen) {
             fire_hasFallen = false;
-            current = current.parent;
+            if(current != root) {
+                current = current.parent;
+            }
             updateDisplay();
         }
 

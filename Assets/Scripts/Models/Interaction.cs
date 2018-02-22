@@ -20,7 +20,7 @@ public abstract class Interaction : MonoBehaviour {
     public float pulseSpeed, pulseStrength;
 
     protected bool hasInteracted;
-    protected PlayerCharacter player;
+    [SerializeField] protected PlayerCharacter player;
 
     private SpriteRenderer renderer;
     private float alpha = 255;
@@ -77,9 +77,10 @@ public abstract class Interaction : MonoBehaviour {
             return true;
         }
 
-        foreach(string item in player.inventory)
+        foreach(Item item in player.inventory)
         {
-            if(item == preReq)
+            Debug.Log(item.getName());
+            if(item.getName() == preReq)
             {
                 return true;
             }

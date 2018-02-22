@@ -60,9 +60,11 @@ public class SaveHandler : MonoBehaviour {
     */
     public static void SaveInventory(PlayerCharacter player)
     {        
-        for(int i = 0; i < player.inventory.Length; ++i)
+        foreach(Item i in player.inventory)
         {
-            PlayerPrefs.SetString(Constants.Inventory + i.ToString(), player.inventory[i]);
+            //TODO: I don't think this would actually work...
+            string s = JsonUtility.ToJson(i);
+            PlayerPrefs.SetString(Constants.Inventory + i.ToString(), s);
         }
     }
 }

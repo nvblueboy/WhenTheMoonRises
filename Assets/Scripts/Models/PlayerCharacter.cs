@@ -15,8 +15,13 @@ Description: This is a script representing the player character and their curren
 // PlayerCharacter
 public class PlayerCharacter : Fighter {
     public int intuition, experience;
-    public string[] inventory;        
+    public List<Item> inventory;
+    public int max_size = 10;
    
+    public PlayerCharacter() {
+        inventory = new List<Item>();
+    }
+
     // levelUp
     private void levelUp()
     {
@@ -54,33 +59,37 @@ public class PlayerCharacter : Fighter {
 
     /*
     Name: addItem
-    Parameters: string item
+    Parameters: Item item
     */
-    public void addItem(string item)
+    public void addItem(Item item)
     {
-        for(int i = 0; i < inventory.Length; ++i)
-        {
-            if(inventory[i] == "")
-            {
-                inventory[i] = item;
-                return;
-            }
+        Debug.Log(inventory.Count);
+        if (inventory.Count < max_size) {
+            inventory.Add(item);
+        } else {
+            Debug.Log("Not enough room in inventory");
         }
-        Debug.Log("Not enough room in inventory");
     }
 
     /*
     Name: removeItem
     Parameters: string item
     */
-    public void removeItem(string item)
+    public void removeItem(Item item)
     {
-        for (int i = 0; i < inventory.Length; ++i)
-        {
-            if (inventory[i] == item)
-            {
-                inventory[i] = "";
-                return;
+       if (inventory.Contains(item)) {
+            inventory.Remove(item);
+        }
+    }
+
+    /*
+     * Name: removeItemByName
+     * parameters: string name
+     */
+    public void removeItemByName(string name) {
+        foreach(Item i in inventory) {
+            if (i.getName() == name) {
+                inventory.Remove(i);
             }
         }
     }
@@ -100,6 +109,9 @@ public class PlayerCharacter : Fighter {
     Description: Creates a fake inventory for testing with other components.
     */
     public void testInventory() {
-        inventory = new string[]{ "Mushroom", "Fire Flower", "Star", "1-Up"};
+        inventory = new List<Item>();
+        inventory.Add(new Item("mushroom", "Mushroom"));
+        inventory.Add(new Item("fire_flower", "Fire Flower"));
+        inventory.Add(new HealthPotion("strong_potion", "Strong Potion", 10));
     }
 }
