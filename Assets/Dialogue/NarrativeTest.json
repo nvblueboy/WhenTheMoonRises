@@ -1,1 +1,55 @@
-{"dialogue":[{"speaker":"Shopkeeper","text":"Hello, and welcome to my shop!","id":1,"nextId":3,"choiceWrapper":{"choices":[]}},{"speaker":"Shopkeeper","text":"How can I help you today?","id":3,"nextId":-1,"choiceWrapper":{"choices":[{"text":"Shop","next":0,"actionCode":2},{"text":"Talk","next":4,"actionCode":0},{"text":"Train","next":5,"actionCode":3},{"text":"Exit","next":0,"actionCode":0}]}},{"speaker":"Sunny","text":"So what can you tell me about Raven's Ridge?","id":4,"nextId":0,"choiceWrapper":{"choices":[]}},{"speaker":"","text":"One point added to your Strength!","id":5,"nextId":0,"choiceWrapper":{"choices":[]}}]}
+{
+  "dialogue": [
+    {
+      "speaker": "Shopkeeper",
+      "text": "Hello, and welcome to my shop!",
+      "id": 1,
+      "nextId": 3,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Shopkeeper",
+      "text": "How can I help you today?",
+      "id": 3,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Shop",
+            "next": 0,
+            "actionCode": 2
+          },
+          {
+            "text": "Talk",
+            "next": 4,
+            "actionCode": 0
+          },
+          {
+            "text": "Train",
+            "next": 5,
+            "actionCode": 3
+          },
+          {
+            "text": "Exit",
+            "next": 0,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "choiceWrapper": { "choices": [ ] },
+      "id": 4,
+      "nextId": 0,
+      "speaker": "Sunny",
+      "text": "So what can you tell me about Raven's Ridge?"
+    },
+    {
+      "speaker": "",
+      "text": "One point added to your Strength!",
+      "id": 5,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    }
+  ]
+}
