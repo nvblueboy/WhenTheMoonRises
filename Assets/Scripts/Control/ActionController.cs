@@ -37,6 +37,12 @@ public class ActionController : MonoBehaviour {
             case Constants.Action.ADD_MAGIC:
                 Debug.Log("Magic increased");
                 break;
+            case Constants.Action.ADD_DEFENSE:
+                Debug.Log("Defense increased");
+                break;
+            case Constants.Action.ADD_HEALTH:
+                Debug.Log("Health increased");
+                break;
             default:
                 break;
         }

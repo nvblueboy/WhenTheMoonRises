@@ -59,6 +59,8 @@ public class Constants {
         ADD_STRENGTH,
         ADD_STAMINA,
         ADD_INTUITION,
-        ADD_MAGIC
+        ADD_MAGIC,
+        ADD_DEFENSE,
+        ADD_HEALTH
     }
 }

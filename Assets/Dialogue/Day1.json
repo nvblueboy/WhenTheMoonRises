@@ -1,11 +1,11 @@
 {
   "dialogue": [
     {
-      "speaker": "Sunny",
-      "text": "Guess there's no time to waste. I've got a lot I should do before heading out to the woods.",
+      "choiceWrapper": { "choices": [ ] },
       "id": 1,
       "nextId": 2,
-      "choiceWrapper": { "choices": [ ] }
+      "speaker": "Sunny",
+      "text": "Guess there's no time to waste. I've got a lot I should do before heading out to the woods."
     },
     {
       "speaker": "",
@@ -778,11 +778,11 @@
       "choiceWrapper": { "choices": [ ] }
     },
     {
-      "choiceWrapper": { "choices": [ ] },
+      "speaker": "Sunny",
+      "text": "Hey, everyone around here's pretty stressed. Don't worry about it.",
       "id": 100,
       "nextId": 0,
-      "speaker": "Sunny",
-      "text": "Hey, everyone around here's pretty stressed. Don't worry about it."
+      "choiceWrapper": { "choices": [ ] }
     }
   ]
 }
