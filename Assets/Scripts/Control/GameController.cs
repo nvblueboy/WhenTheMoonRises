@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
 Name: Alec Reyerson
@@ -31,6 +32,8 @@ public class GameController : MonoBehaviour {
     private static Dialogue[] currentDialogue;
     //private static Dictionary<int, string[]> sceneDialogue;
 
+    private static String activeScene = "";
+
     // Awake
     void Awake () {
         oldSkip = 1;
@@ -48,7 +51,13 @@ public class GameController : MonoBehaviour {
     }
 
     // Update
-    void Update() {   
+    void Update() {
+        //for (i = 0; i < 1; i++)
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            string sceneName = scene.name;
+            activeScene = sceneName.Substring(0, 3);
+        }
         if(dialogueActive)
         {
             // player can't move while dialogue active
@@ -133,5 +142,10 @@ public class GameController : MonoBehaviour {
         dialogueText.text = dialogue[0].text;
         speakerText.text = dialogue[0].speaker;
         newDialogueTime = Time.time;                                  
-        }       
+        }
+    
+    public static string getActiveSceneName()
+    {
+        return activeScene;
+    }
 }
