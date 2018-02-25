@@ -15,14 +15,23 @@ Description: This is a script representing the player character and their curren
 // PlayerCharacter
 public class PlayerCharacter : Fighter {
     public int intuition, experience;
-    public string[] inventory;        
-   
+    public string[] inventory;
+    public int coins = 0;
     // levelUp
     private void levelUp()
     {
         level++;
-    }   
-
+    }
+    //returns amount of coins
+    public int getCoins()
+    {
+        return coins;
+    }
+    //increases amount of coins
+    public void increaseCoins(int bigger)
+    {
+        coins += bigger;
+    }
     /*
    Name: increaseIntuition
    Parameters: int increase
@@ -58,14 +67,20 @@ public class PlayerCharacter : Fighter {
     */
     public void addItem(string item)
     {
-        for(int i = 0; i < inventory.Length; ++i)
+        for (int i = 0; i < inventory.Length; ++i)
         {
-            if(inventory[i] == "")
+            if (inventory[i] == null)
             {
                 inventory[i] = item;
                 return;
             }
         }
+        if (inventory.Length == 0)
+        {
+            inventory = new string[20];
+            inventory[0] = item;
+            return;
+        } 
         Debug.Log("Not enough room in inventory");
     }
 

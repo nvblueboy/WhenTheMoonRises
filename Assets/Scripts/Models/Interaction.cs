@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEngine.UI;
 using UnityEngine;
 
 /*
@@ -16,24 +18,30 @@ Description: This is the parent interaction script with base functionality
 public abstract class Interaction : MonoBehaviour {
     public string preReq;
     public Color32 pulseColor;
-    public bool removePreReq;
+    [HideInInspector] public bool displayDialogue;
+    public bool removePreReq, delayAction;
     public float pulseSpeed, pulseStrength;
+    //public int successStart, successEnd, failStart, failEnd;
+    public Dialogue[] successText, failText;
 
-    protected bool hasInteracted;
-    protected PlayerCharacter player;
+    protected bool hasInteracted, actionComplete;
+    protected PlayerCharacter player;    
 
-    private SpriteRenderer renderer;
-    private float alpha = 255;
+    private SpriteRenderer renderer;    
+    private float alpha;    
     private bool dim;
     
     // Awake
     void Awake()
-    {
+    {        
         hasInteracted = false;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        actionComplete = false;
+        displayDialogue = successText.Length > 0 || failText.Length > 0;              
+        alpha = 255;  
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
         renderer = GetComponent<SpriteRenderer>();
         pulseColor.a = 255;        
-    }    
+    }      
 
     // FixedUpdate
     void FixedUpdate()
@@ -86,7 +94,16 @@ public abstract class Interaction : MonoBehaviour {
         }
         return false;
     }
+    
+    // isSuccess
+    public bool isSuccess()
+    {
+        return hasInteracted;
+    }
 
     // interact
-    public abstract void interact();	
+    public abstract void interact();
+
+    // triggerAction
+    public abstract void triggerAction();
 }

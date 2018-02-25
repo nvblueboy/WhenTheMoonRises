@@ -14,7 +14,9 @@ Assignment: Semester Project
 
 public class LevelManager : MonoBehaviour
 {
-    private GameObject tempUI;
+    public Dialogue[] startDialogue;
+
+    private GameObject tempUI;    
     private string round;    
     private int starsCount = 0;
     private int actionCount = 0;
@@ -32,7 +34,8 @@ public class LevelManager : MonoBehaviour
         tempUI = GameObject.FindGameObjectWithTag("TempUI");
         tempUI.SetActive(false);
         CountTotalStarsInLevel();
-        countText.text = "- /";        
+        countText.text = "- /";
+        GameController.showDialogue(startDialogue);      
     }
 
 
