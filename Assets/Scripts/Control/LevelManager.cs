@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 Name: Rabah Habiss
 ID: 2268381
 Email: habis102@mail.chapman.edu
-Course: CPSC-340-01
-Assignment: Semester Project
+Course: CPSC-340-01, CPSC-440
+Assignment: Capstone Project
 */
 
 public class LevelManager : MonoBehaviour
@@ -20,61 +20,86 @@ public class LevelManager : MonoBehaviour
     private string round;    
     private int starsCount = 0;
     private int actionCount = 0;
-    private int cycleCount;
+    private int cycleCount = 1;
     private int starsInventory = 0;
-    private bool isDay;    //Day mode
+    private bool isDay;
+    private string sceneName;
 
     public Text totalText;
     public Text countText;
     public int starsTotal;
 
-    // Use this for initialization
+    void Awake()
+    {
+
+    }
+
     void Start()
     {
+        //Check day mode
+        Scene scene = SceneManager.GetActiveScene();
+        string sceneName = scene.name;
+        if (sceneName.Substring(0, 3).Equals("Day"))
+        {
+            isDay = true;
+        }
+        else isDay = false;
+
         tempUI = GameObject.FindGameObjectWithTag("TempUI");
         tempUI.SetActive(false);
+
         CountTotalStarsInLevel();
-        countText.text = "- /";
-        GameController.showDialogue(startDialogue);      
+        countText.text = "0 /";
+        GameController.showDialogue(startDialogue);
     }
 
+    void Update() {
 
-    // Update is called once per frame
-    void Update()
-    {
+        if (!isDay)
+        {
+            if (starsCount == starsTotal)
+            {
+                if (Input.GetKeyDown("space"))
+                {
+                    AddToStarStats(starsTotal);
+                    setDayMode(true);      //set phase to day
+                    addCycle();            //increment cycle counter (new day)
+                    round = "Day" + getCycle().ToString(); //set new level name and load it
+                    SceneManager.LoadScene(round);
+                }
+
+                tempUI.SetActive(true);
+            }
+        }
+
+        if (isDay)
+        {
+            if (getActions() >= 6)
+            {
+                setDayMode(false);      //set phase to night
+                round = "Night" + getCycle().ToString(); //set new level name and load it
+                SceneManager.LoadScene(round);
+
+                tempUI.SetActive(true);
+            }
+        }
 
     }
 
-    void CountTotalStarsInLevel()
-    {        
+    /*-------------Night Mode------------*/
+    void CountTotalStarsInLevel() {        
         totalText.text = starsTotal.ToString();
     }
 
-    public void CollectStar()
-    {
-        
+    public void CollectStar() {
         starsCount++;
         countText.text = starsCount.ToString() + " /";
-        //win condition
-        //Description: ..
-        if (starsCount == starsTotal)
-        {
-
-            /*SetInventory(starsTotal);
-            ResetStarsCount();   //reset collected items counter
-            setDayMode(true);      //set phase to day
-            addCycle();            //increment cycle counter (new day)
-            round = "Day" + getCycle().ToString(); //set new level name and load it
-            SceneManager.LoadScene(round);*/
-            tempUI.SetActive(true);
-        }
     }
 
     public int GetStarsCollected()
     {
         return starsCount;
     }
-
 
     public void ResetStarsCount()
     {
@@ -87,20 +112,20 @@ public class LevelManager : MonoBehaviour
         return starsTotal;
     }
 
-    public void SetInventory(int starsCollected)
+    public void AddToStarStats(int starsCollected)
     {
         starsInventory += starsCollected;
     }
 
-    
-    /*   Day Mode   */
+
+    /*-------------Day Mode------------*/
 
     public void setDayMode(bool day)
     {
         isDay = day;
     }
 
-    //Round Count (Day+Night)
+    //Cycle Count (Day&Night)
     public int getCycle()
     {
         return cycleCount;
@@ -111,14 +136,12 @@ public class LevelManager : MonoBehaviour
         cycleCount++;
     }
 
-
-    /*   Night Mode   */
-    //implement actions trigger here
     public int getActions()
     {
         return actionCount;
     }
 
+    //Use this within dialogues to increment actions
     public void addAction()
     {
         actionCount++;
