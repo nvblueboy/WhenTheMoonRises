@@ -6,23 +6,22 @@ using UnityEngine;
 Name: Rabah Habiss
 ID: 2268381
 Email: habis102@mail.chapman.edu
-Course: CPSC-340, CPSC-440
+Course: CPSC-340-01
 Assignment: Semester Project
 
-Description: Deer Interaction Script.
+Description: Deer Interaction Script. 
 Attach to deer and add a star to its tail as a child object, and don't forget to set the collider.
 
 */
 
 public class DeerInteraction : MonoBehaviour
 {
+    public Dialogue[] dialogue;
 
     private Collider col;
-    private int counter;
     private LevelManager level;
     private Rigidbody rb;
-    private bool runningBack = false;
-    private bool hitTree = false;
+    private bool runningAway = false;
     private GameObject player;
     private Rigidbody prb;
     private SpriteRenderer deerRender;
@@ -52,23 +51,21 @@ public class DeerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (runningBack)
+        if (runningAway)
         {
             float step = 5 * Time.deltaTime;
-            //Debug.Log("stopped: " + startPos);
-
+            Debug.Log("stopped: " + startPos);
             deerRender.flipX = true;
             transform.position = Vector3.MoveTowards(transform.position, startPos, step);
 
             if (transform.position == startPos)
             {
-                runningBack = false;
+                runningAway = false;
                 deerRender.flipX = false;
                 star.SetActive(true);
                 //idle animation
                 animator.runtimeAnimatorController = Resources.Load(
                 animationPrefix + "t_deer") as RuntimeAnimatorController;
-                rb.GetComponent<BoxCollider>().enabled = true;
 
             }
         }
@@ -83,42 +80,33 @@ public class DeerInteraction : MonoBehaviour
             //get player speed
             float playerSpeed = prb.velocity.magnitude;
 
+            //Debug.Log (playerSpeed + "Player spotted");
+
+            /*if (playerSpeed > 6)
+            {
+            }*/
+
             //run away
             rb.velocity = transform.right * 5f;
-            deerRender.flipX = false;
-
+            deerRender.flipX = false;           
+            Debug.Log(rb.velocity);
             //animation for running right
             animator.runtimeAnimatorController = Resources.Load(
             animationPrefix + "t_deer 1") as RuntimeAnimatorController;
 
             //sorry, you can't collect the star at this time.
             star.SetActive(false);
-
-            rb.GetComponent<BoxCollider>().enabled = false;
+            GameController.showDialogue(dialogue);
+                
 
             //wait before returning back
             yield return new WaitForSeconds(5f);
-            /*
-            while(hitTree==false && counter <5){
 
-              if (col.gameObject.tag == "Tree"){
-                Debug.Log("Hit a tree");
-                hitTree=true;
-                runningBack = true;
-                rb.velocity = new Vector3(0, 0, 0);
-              }
-              yield return new WaitForSeconds(1);
-              Debug.Log("Added time");
-              counter++;
-            }
-            */
 
             //back to start
-            runningBack = true;
-            rb.velocity = new Vector3(0, 0, 0);
-
+            runningAway = true;
+            //deerRender.flipX = true;
+            rb.velocity = new Vector3(0, 0, 0);           
         }
-
-
     }
 }
