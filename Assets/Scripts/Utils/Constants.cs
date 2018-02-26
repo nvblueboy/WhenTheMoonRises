@@ -55,8 +55,12 @@ public class Constants {
         NONE,
         QUIT,
         OPEN_STORE,
+        OPEN_BOOKSTORE,
         ADD_STRENGTH,
         ADD_STAMINA,
-        ADD_INTUITION
+        ADD_INTUITION,
+        ADD_MAGIC,
+        ADD_DEFENSE,
+        ADD_HEALTH
     }
 }
