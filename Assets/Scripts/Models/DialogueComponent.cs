@@ -8,6 +8,7 @@ public class DialogueComponent
     public string speaker, text;
     public int id, nextId;
     public ChoiceWrapper choiceWrapper;
+    public Constants.Action action;
 
     public DialogueComponent(int _id, int _nextId, string _speaker, string _text, ChoiceWrapper _choiceWrapper)
     {
@@ -15,7 +16,7 @@ public class DialogueComponent
         text = _text;
         id = _id;
         nextId = _nextId;
-        choiceWrapper = _choiceWrapper;
+        choiceWrapper = _choiceWrapper;        
     }
 
     public DialogueComponent(int _id, int _nextId, string _speaker, string _text)
@@ -25,6 +26,16 @@ public class DialogueComponent
         id = _id;
         nextId = _nextId;
         choiceWrapper = new ChoiceWrapper();
+    }
+
+    public DialogueComponent(int _id, int _nextId, string _speaker, string _text, Constants.Action _action)
+    {
+        speaker = _speaker;
+        text = _text;
+        id = _id;
+        nextId = _nextId;
+        choiceWrapper = new ChoiceWrapper();
+        action = _action;
     }
 
     // Next

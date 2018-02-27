@@ -1,1 +1,788 @@
-{"dialogue":[{"speaker":"Shopkeeper","text":"Hello, and welcome to my shop!","id":1,"nextId":3,"choiceWrapper":{"choices":[]}},{"speaker":"Shopkeeper","text":"How can I help you today?","id":3,"nextId":-1,"choiceWrapper":{"choices":[{"text":"Shop","next":0,"actionCode":2},{"text":"Talk","next":4,"actionCode":0},{"text":"Train","next":5,"actionCode":3},{"text":"Exit","next":0,"actionCode":0}]}},{"speaker":"Sunny","text":"So what can you tell me about Raven's Ridge?","id":4,"nextId":0,"choiceWrapper":{"choices":[]}},{"speaker":"","text":"One point added to your Strength!","id":5,"nextId":0,"choiceWrapper":{"choices":[]}}]}
+{
+  "dialogue": [
+    {
+      "speaker": "Sunny",
+      "text": "Guess there's no time to waste. I've got a lot I should do before heading out to the woods.",
+      "id": 1,
+      "nextId": 2,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "During the day, you can build your skills by visiting different locations. Building a skill costs 1 action.",
+      "id": 2,
+      "nextId": 3,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "Make sure to watch the sun meter on the right. Once Sunny has taken six actions, the day will end.",
+      "id": 3,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "It's locked",
+      "id": 7,
+      "nextId": 8,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "It's been pretty empty in there for a while. I wonder how the bells still go off.",
+      "id": 8,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "Sunny! I'm glad you came by. I think some of my books could tell us a lot about the shards you need to collect, and maybe helpful for dealing with those creatures in the woods.",
+      "id": 9,
+      "nextId": 10,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "It's unfortunate that it took this happening for people to believe me. Besides you. You've always been so nice to me, Sunny.",
+      "id": 10,
+      "nextId": 11,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "They told me my hobbies were pretty far-fetched too, but we're proving them wrong now, huh? You knew about magic and stars, and I was dead on about how much a sword would come in handy.",
+      "id": 11,
+      "nextId": 12,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "Hehe, you're right. So, what do you think we should do?",
+      "id": 12,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Study Mystic Astronomy",
+            "next": 13,
+            "actionCode": 6
+          },
+          {
+            "text": "Study Magic",
+            "next": 15,
+            "actionCode": 7
+          },
+          {
+            "text": "Talk",
+            "next": 18,
+            "actionCode": 0
+          },
+          {
+            "text": "Exit",
+            "next": 24,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "speaker": "",
+      "text": "Gemma plops a dusty tome in front of you on the table. You two skim the pages, gathering information on the special properties of stars.",
+      "id": 13,
+      "nextId": 14,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Intutition. ",
+      "id": 14,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "O-oh? You really want to study magic with me? ",
+      "id": 15,
+      "nextId": 16,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "Though taken by surprise, Gemma begins to teach you the basics of magic.",
+      "id": 16,
+      "nextId": 17,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Magic.",
+      "id": 17,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "How are you holding up? Do you think you can really handle these... things?",
+      "id": 18,
+      "nextId": 19,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Yeah, I'm sure I can handle it.",
+      "id": 19,
+      "nextId": 20,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "We still don't know much about them. I wouldn't let your guard down.",
+      "id": 20,
+      "nextId": 21,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I'll be okay. I promise. I'm not gonna let anyone in town get hurt by these things.",
+      "id": 21,
+      "nextId": 22,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "I wish I could go with you, but I'd just drag you down.",
+      "id": 22,
+      "nextId": 23,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "No, no, you're doing great here. Your research is going to help me a lot.",
+      "id": 23,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Gemma",
+      "text": "Good luck, Sunny!",
+      "id": 24,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "Welcome back, Sunny! What could I help you with?",
+      "id": 25,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Buy",
+            "next": 26,
+            "actionCode": 3
+          },
+          {
+            "text": "Talk",
+            "next": 27,
+            "actionCode": 0
+          },
+          {
+            "text": "Exit",
+            "next": 34,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "Of course. Let me show you what we've got in stock.",
+      "id": 26,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "It's so brave of you to go out into the woods, dear. I must urge you to be careful.",
+      "id": 27,
+      "nextId": 28,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "No need to worry about me, Lu. I'm pretty sturdy. ",
+      "id": 28,
+      "nextId": 29,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "I know. As small as you are, you've always been a fighter.",
+      "id": 29,
+      "nextId": 30,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Pff. Here I am, saving the whole town, and you insult me.",
+      "id": 30,
+      "nextId": 31,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "I'm just playing around with you, Sunny. But I hope you know that you can back out at any time. ",
+      "id": 31,
+      "nextId": 32,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "None of us want you to risk your life out there, and you're welcome to spend the night with me if you need to get patched up.",
+      "id": 32,
+      "nextId": 33,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Thanks, Lu.",
+      "id": 33,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Lulu",
+      "text": "Take care, you hear?",
+      "id": 34,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "Sunny? Is that you?",
+      "id": 35,
+      "nextId": 36,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Yeah... I thought I should get back in shape if I'm gonna rough up some monsters.",
+      "id": 36,
+      "nextId": 37,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "Fantastic! I'd be happy to train you. What do you want to work on?",
+      "id": 37,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Try cycling",
+            "next": 38,
+            "actionCode": 5
+          },
+          {
+            "text": "Try boxing",
+            "next": 40,
+            "actionCode": 4
+          },
+          {
+            "text": "Talk",
+            "next": 42,
+            "actionCode": 0
+          },
+          {
+            "text": "Exit",
+            "next": 48,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "speaker": "",
+      "text": "While you refuse to run, you are willing to mount the stationary bike. Under Hal's guidance, you work up quite a sweat.",
+      "id": 38,
+      "nextId": 39,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Stamina.",
+      "id": 39,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You pull on some boxing clubs and start to go toe to toe with Hal. You can't beat him... yet. ",
+      "id": 40,
+      "nextId": 41,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Strength.",
+      "id": 41,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "What's up?",
+      "id": 42,
+      "nextId": 43,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I was just wondering why you aren't coming out into the woods with me. What's holding you back?",
+      "id": 43,
+      "nextId": 44,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "I just don't know what we're up against. My family's here and I feel that I can protect them better if I stay with them.",
+      "id": 44,
+      "nextId": 45,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I understand. It's definitely a risk, and I wouldn't ask you to leave your family behind.",
+      "id": 45,
+      "nextId": 46,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "I believe in you, Sunny. I bet you can take those monsters out without a scratch.",
+      "id": 46,
+      "nextId": 47,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "We'll see about that.",
+      "id": 47,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Hal",
+      "text": "See you, Sunny!",
+      "id": 48,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Hey Sunny!",
+      "id": 49,
+      "nextId": 50,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Hey Greyson! Are you working the store alone today?",
+      "id": 50,
+      "nextId": 51,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Yup. Trevor and Judd are out getting some things for the store, but I'm doing just fine on my own.",
+      "id": 51,
+      "nextId": 52,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Anyway, what can I get you?",
+      "id": 52,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Buy",
+            "next": 53,
+            "actionCode": 2
+          },
+          {
+            "text": "Talk",
+            "next": 54,
+            "actionCode": 0
+          },
+          {
+            "text": "Exit",
+            "next": 60,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Take a look! We've got some really good deals in today.",
+      "id": 53,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "How's it been getting ready for tonight?",
+      "id": 54,
+      "nextId": 55,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I don't know yet, really. I feel like I should be doing lots of things, but there's only so much time in a day.",
+      "id": 55,
+      "nextId": 56,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "You're kinda going in blind on this one. I'm sure after tonight is over, you'll have a much better idea of what you're doing.",
+      "id": 56,
+      "nextId": 57,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I hope so. Everyone here's counting on me. I want to take care of this as soon as I can.",
+      "id": 57,
+      "nextId": 58,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Don't worry so much. You're going to be amazing.",
+      "id": 58,
+      "nextId": 59,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Thanks, Greyson. ",
+      "id": 59,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Greyson",
+      "text": "Come around any time!",
+      "id": 60,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "Oh, hello Sunny. Are you feeling alright?",
+      "id": 61,
+      "nextId": 62,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I'm doing just fine, doc. I was actually wondering if you could help me with something else.",
+      "id": 62,
+      "nextId": 63,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "What can I help you with?",
+      "id": 63,
+      "nextId": -1,
+      "choiceWrapper": {
+        "choices": [
+          {
+            "text": "Study first aid",
+            "next": 64,
+            "actionCode": 8
+          },
+          {
+            "text": "Study longevity",
+            "next": 68,
+            "actionCode": 9
+          },
+          {
+            "text": "Talk",
+            "next": 73,
+            "actionCode": 0
+          },
+          {
+            "text": "Exit",
+            "next": 80,
+            "actionCode": 0
+          }
+        ]
+      }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Anything you can teach me for patching myself up if those things get a good swipe at me? ",
+      "id": 64,
+      "nextId": 65,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "I could definitely help you with that. How about you come back with me and I'll go through it with you.",
+      "id": 65,
+      "nextId": 66,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "Ivy walks you through multiple ways of blocking against severe damage.",
+      "id": 66,
+      "nextId": 67,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Defense.",
+      "id": 67,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Is there anything I could do to be... more resilient, I guess? ",
+      "id": 68,
+      "nextId": 69,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "Well, there are a lot of long term habits you can get into to be healthier, but... I do know of some experimental things we can try.",
+      "id": 69,
+      "nextId": 70,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Sounds perfect! Lay it on me.",
+      "id": 70,
+      "nextId": 71,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "Ivy brings out multiple odd-looking plants from the back of the clinic. You wonder if this was such a good idea when she has you eat them.",
+      "id": 71,
+      "nextId": 72,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "",
+      "text": "You gain 1 point in Health.",
+      "id": 72,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "Today's a big day for you, isn't it?",
+      "id": 73,
+      "nextId": 74,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "It seems to be a big day for all of us.",
+      "id": 74,
+      "nextId": 75,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "I suppose you're right. I hope we're not pressuring you too much.",
+      "id": 75,
+      "nextId": 76,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "It's fine. I get that everyone's pretty shaken up about all this.",
+      "id": 76,
+      "nextId": 77,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "Our town's pretty quiet for the most part. Remember when a tree fell over on one of the electrical lines and it was like an earthquake had hit?",
+      "id": 77,
+      "nextId": 78,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Heh, yeah. We're not equipped to deal with the unusual, are we?",
+      "id": 78,
+      "nextId": 79,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "I think you'll be, Sunny. ",
+      "id": 79,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Ivy",
+      "text": "Try not to land yourself in here, Sunny.",
+      "id": 80,
+      "nextId": 81,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I make no promises.",
+      "id": 81,
+      "nextId": 0,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Hey. I was wondering if I'd get to catch you before you left.",
+      "id": 82,
+      "nextId": 83,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "You did just in time.",
+      "id": 83,
+      "nextId": 84,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "I imagine you're going to be busy for a while now.",
+      "id": 84,
+      "nextId": 85,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I'm trying to be. The sooner we get to the bottom of this, the better.",
+      "id": 85,
+      "nextId": 86,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Yeah, of course...",
+      "id": 86,
+      "nextId": 87,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Sunny, you know you don't have to do this, right?",
+      "id": 87,
+      "nextId": 88,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Aww, you worried about me, Polly?",
+      "id": 88,
+      "nextId": 89,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Yeah. I am.",
+      "id": 89,
+      "nextId": 90,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I'm gonna be fine. ",
+      "id": 90,
+      "nextId": 91,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Please tell me you're not just doing this to impress Gemma.",
+      "id": 91,
+      "nextId": 92,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "... W-what? No, of course not. I'm doing this for everyone, Apollo.",
+      "id": 92,
+      "nextId": 93,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Sunny...",
+      "id": 93,
+      "nextId": 94,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "I swear. I'm not just doing it for that.",
+      "id": 94,
+      "nextId": 95,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Alright. I'm glad to hear that at least. You know I like Gemma too - not like you do, of course - but her whole star thing kinda freaks me out.",
+      "id": 95,
+      "nextId": 96,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "She knows more about this than the rest of us.",
+      "id": 96,
+      "nextId": 97,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "Exactly! Isn't that... kind of fishy? I mean we didn't take her seriously for so long and now-",
+      "id": 97,
+      "nextId": 98,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Sunny",
+      "text": "Gemma's not the cause of this. I want to know what's going on just as much as you do, but we shouldn't throw each other under the bus.",
+      "id": 98,
+      "nextId": 99,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "speaker": "Apollo",
+      "text": "... Okay, you're right. I'm sorry for sounding like a jerk. ",
+      "id": 99,
+      "nextId": 100,
+      "choiceWrapper": { "choices": [ ] }
+    },
+    {
+      "choiceWrapper": { "choices": [ ] },
+      "id": 100,
+      "nextId": 0,
+      "speaker": "Sunny",
+      "text": "Hey, everyone around here's pretty stressed. Don't worry about it."
+    }
+  ]
+}

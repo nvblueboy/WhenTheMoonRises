@@ -10,4 +10,9 @@ public class ChoiceWrapper {
     {
         choices = new List<Choice>();
     }	
+
+    public ChoiceWrapper(List<Choice> _choices)
+    {
+        choices = _choices;
+    }
 }

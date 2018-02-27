@@ -14,10 +14,9 @@ public class DialogueUtils : MonoBehaviour {
         writer.Close();
     }
 
-    public static Dictionary<int, DialogueComponent> initDialogueForCurrentScene()
+    public static Dictionary<int, DialogueComponent> initDialogueForScene(string scene)
     {
-        Dictionary<int, DialogueComponent> retval = new Dictionary<int, DialogueComponent>();
-        string scene = SceneManager.GetActiveScene().name;
+        Dictionary<int, DialogueComponent> retval = new Dictionary<int, DialogueComponent>();        
         StreamReader reader = new StreamReader(
             File.OpenRead(string.Format(Constants.DialoguePath, scene)));
 

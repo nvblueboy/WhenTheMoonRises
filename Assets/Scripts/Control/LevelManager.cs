@@ -45,12 +45,19 @@ public class LevelManager : MonoBehaviour
         }
         else isDay = false;
 
-        tempUI = GameObject.FindGameObjectWithTag("TempUI");
-        tempUI.SetActive(false);
+        tempUI = GameObject.FindGameObjectWithTag("DialogueUI");
+        //tempUI.SetActive(false);
 
-        CountTotalStarsInLevel();
-        countText.text = "0 /";
-        GameController.showDialogue(startDialogue);
+        if(!isDay)
+        {
+            CountTotalStarsInLevel();
+            countText.text = "0 /";
+        }
+
+        if(startDialogue != null && startDialogue.Length > 0)
+        {
+            GameController.showDialogue(startDialogue);
+        }        
     }
 
     void Update() {

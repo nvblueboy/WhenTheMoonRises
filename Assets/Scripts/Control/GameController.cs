@@ -25,12 +25,12 @@ public class GameController : MonoBehaviour {
     private static Interaction currentInteraction;
     private static GameObject dialogueUI;
     private static Text dialogueText, speakerText;
-    private static string activeDialogue;
+    private static string activeDialogue, previousScene;
     private static bool dialogueActive;
     private static int dialogueIdx, dialogueEnd;
     private static float newDialogueTime;
     private static Dialogue[] currentDialogue;
-    //private static Dictionary<int, string[]> sceneDialogue;
+    public static Dictionary<int, string[]> sceneDialogue;
 
     private static String activeScene = "";
 
@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
         playerController = GameObject.FindGameObjectWithTag("Player")
             .GetComponent<PlayerMovementController>();
-        dialogueUI = GameObject.FindGameObjectWithTag("TempUI");
+        dialogueUI = GameObject.FindGameObjectWithTag("DialogueUI");
         dialogueText = dialogueUI.GetComponentInChildren<Text>();
         speakerText = dialogueUI.transform.GetChild(2).GetComponent<Text>();
         DontDestroyOnLoad(this.gameObject);
@@ -144,8 +144,28 @@ public class GameController : MonoBehaviour {
         newDialogueTime = Time.time;                                  
         }
     
+    // getActiveSceneName
     public static string getActiveSceneName()
     {
         return activeScene;
+    }
+
+    // LoadScene
+    public static void LoadScene(string sceneName)
+    {
+        previousScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // LoadPreviousScene
+    public static void LoadPreviousScene()
+    {
+        SceneManager.LoadScene(previousScene);
+    }
+
+    // GetPreviousScene
+    public static string GetPreviousScene()
+    {
+        return previousScene;
     }
 }

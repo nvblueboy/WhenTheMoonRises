@@ -22,7 +22,8 @@ public class MainStore : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("MainStore");
+
+            GameController.LoadScene("MainStore");            
         }
     }
 

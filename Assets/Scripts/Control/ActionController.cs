@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActionController : MonoBehaviour {
 
@@ -20,6 +18,11 @@ public class ActionController : MonoBehaviour {
         {
             case Constants.Action.OPEN_STORE:
                 Debug.Log("Open store");
+                StoreManager.openStore();
+                break;
+            case Constants.Action.OPEN_BOOKSTORE:
+                Debug.Log("Open bookstore");
+                BookstoreManager.openStore();
                 break;
             case Constants.Action.NONE:
                 break;
@@ -29,6 +32,20 @@ public class ActionController : MonoBehaviour {
             case Constants.Action.ADD_STAMINA:
                 break;
             case Constants.Action.ADD_INTUITION:
+                Debug.Log("Intuition increased");
+                break;
+            case Constants.Action.ADD_MAGIC:
+                Debug.Log("Magic increased");
+                break;
+            case Constants.Action.ADD_DEFENSE:
+                Debug.Log("Defense increased");
+                break;
+            case Constants.Action.ADD_HEALTH:
+                Debug.Log("Health increased");
+                break;
+            case Constants.Action.LOAD_PREV_SCENE:
+                Debug.Log("Load previous scene");
+                GameController.LoadPreviousScene();
                 break;
             default:
                 break;
