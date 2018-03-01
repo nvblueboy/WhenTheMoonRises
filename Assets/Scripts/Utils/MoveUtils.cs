@@ -27,7 +27,8 @@ public class MoveUtils {
             new StrongSwing("Strong Swing"),
             new FlourFlick("Flour Flick"),
             new SpinAttack("Spin Attack"),
-            new Guard("Guard")
+            new Guard("Guard"),
+            new ItemUse("Item Use")
         };       
 
         moveDict = new Dictionary<string, Move>();
@@ -35,6 +36,7 @@ public class MoveUtils {
         {
             moveDict.Add(m.name, m);
         }
+
     }
 
     /*

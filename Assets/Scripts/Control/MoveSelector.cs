@@ -19,6 +19,8 @@ public class MoveSelector : MonoBehaviour {
 
     private SelectorNode current;
 
+    private SelectorNode items;
+
     public PlayerCharacter fighter;
 
     public GameObject loopObject;
@@ -30,6 +32,8 @@ public class MoveSelector : MonoBehaviour {
     private Dictionary<SelectorType, GameObject> selectorMap;
 
     public SelectorType currentType;
+
+    public bool takeControl;
 
     //For parsing input:
     private float oldHoriz;
@@ -45,6 +49,8 @@ public class MoveSelector : MonoBehaviour {
     private Dictionary<string, string> types;
 
     public void Start() {
+
+        takeControl = true;
         if(fighter == null) {
             Debug.LogWarning("There is no fighter class attached to the move selector. I'm creating a fake player for testing purposes.");
             fighter = new PlayerCharacter();
@@ -76,7 +82,7 @@ public class MoveSelector : MonoBehaviour {
             moves.addChild(new SelectorNode(m.name, m.name));
         }
 
-        SelectorNode items = new SelectorNode("items", "Items", new List<SelectorNode>(), SelectorType.Loop);
+        items = new SelectorNode("items", "Items", new List<SelectorNode>(), SelectorType.Loop);
         root.addChild(items);
         
         if (fighter.inventory.Count > 0) {
@@ -94,8 +100,6 @@ public class MoveSelector : MonoBehaviour {
         root.addChild(special);
 
         current = root;
-
-        Debug.Log(root);
 
         updateDisplay();
     }
@@ -132,7 +136,6 @@ public class MoveSelector : MonoBehaviour {
         }
 
         Direction dir = Direction.None;
-
         if (horiz_mag > .5 && vert_mag < .5 && horiz_hasFallen) {
             if (horiz > 0 && horiz > oldHoriz) {
                 dir = Direction.Right;
@@ -159,7 +162,7 @@ public class MoveSelector : MonoBehaviour {
             jump_hasFallen = true;
         }
 
-        if (jump > oldJump && oldJump == 0) {
+        if (jump > oldJump && oldJump == 0 && takeControl) {
             jump_hasFallen = false;
             int sel = currentMenu.GetComponent<MoveSelector_Child>().currentSelection;
             SelectorNode selected = current.children[sel];
@@ -173,12 +176,27 @@ public class MoveSelector : MonoBehaviour {
                 object selectedObj = selections[selected.name];
 
                 if (types[selected.name] == "item") {
-                    Item i = (Item)selectedObj; //This turns everything into a plain item. Gotta find a way to work the inheritance.
-                    Debug.Log(i);
-                    i.affectPlayer(fighter);
+                    Item basicItem = (Item)selectedObj;
+                    if (selectedObj.GetType().Equals(typeof(HealthPotion))) {
+                        HealthPotion hp = (HealthPotion)selectedObj;
+                        hp.affectPlayer(fighter);
+                    }
+
+                    fighter.removeItemByName(basicItem.getName());
+                    items.removeChildByName(basicItem.getName());
+
+                    fighter.addSelectedMove("Item Use");
+
+                    current = root;
+
                 } else if (types[selected.name] == "move") {
+                    Debug.Log(selected.name);
                     fighter.addSelectedMove(selected.name);
+
+                    current = root;
                 }
+
+                updateDisplay();
             }
         }
 
@@ -238,6 +256,15 @@ public class SelectorNode {
 
     public bool hasChildren() {
         return !isData;
+    }
+
+    public void removeChildByName(string name) {
+        foreach(SelectorNode node in children) {
+            if (node.name == name) {
+                children.Remove(node);
+                return;
+            }
+        }
     }
 
     public override string ToString() {

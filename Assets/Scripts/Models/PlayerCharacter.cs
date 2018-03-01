@@ -90,6 +90,7 @@ public class PlayerCharacter : Fighter {
         foreach(Item i in inventory) {
             if (i.getName() == name) {
                 inventory.Remove(i);
+                return;
             }
         }
     }
@@ -101,7 +102,7 @@ public class PlayerCharacter : Fighter {
     public Move[] getMoves() {
         //TODO: Actually calculate what moves are possible.
         MoveUtils.InitMoves();
-        return new Move[] { MoveUtils.GetMove("Standard Attack"), MoveUtils.GetMove("Strong Swing"), MoveUtils.GetMove("Flour Flick") };
+        return new Move[] { MoveUtils.GetMove("Spin Attack"), MoveUtils.GetMove("Strong Swing"), MoveUtils.GetMove("Flour Flick") };
     }
 
     /*
@@ -110,8 +111,8 @@ public class PlayerCharacter : Fighter {
     */
     public void testInventory() {
         inventory = new List<Item>();
-        inventory.Add(new Item("mushroom", "Mushroom"));
-        inventory.Add(new Item("fire_flower", "Fire Flower"));
+        inventory.Add(new HealthPotion("weak_potion", "Weak Potion", 2));
+        inventory.Add(new HealthPotion("potion", "Potion", 5));
         inventory.Add(new HealthPotion("strong_potion", "Strong Potion", 10));
     }
 }

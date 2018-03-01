@@ -33,6 +33,9 @@ public class MoveSelector_Child : MonoBehaviour {
         if (type == SelectorType.Loop) {
             if (dir == Direction.Up) {
                 currentSelection = (currentSelection - 1) % options.Count;
+                while (currentSelection < 0) {
+                    currentSelection += options.Count;
+                }
             } else if (dir == Direction.Down) {
                 currentSelection = (currentSelection + 1) % options.Count;
             }
@@ -79,9 +82,6 @@ public class MoveSelector_Child : MonoBehaviour {
 
     public void setOptions(List<SelectorNode> _options) {
         options = _options;
-        foreach(SelectorNode child in options) {
-            Debug.Log(child);
-        }
         updateText();
     }
 
