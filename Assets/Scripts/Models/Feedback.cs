@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public struct Dialogue {    
+public struct Feedback {    
     public string text, speaker; 
 	
 }

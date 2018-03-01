@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoreManager : MonoBehaviour {
@@ -10,6 +8,7 @@ public class StoreManager : MonoBehaviour {
     void Start()
     {
         storeUI = GameObject.FindGameObjectWithTag("StoreUI");
+        Debug.Log("StoreUI null: " + storeUI == null);
         dController = GameObject.FindGameObjectWithTag("DialogueController").GetComponent<DialogueController>();
         storeUI.SetActive(false);        
     }    

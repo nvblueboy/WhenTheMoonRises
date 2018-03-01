@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -62,6 +62,7 @@ public class Constants {
         ADD_MAGIC,
         ADD_DEFENSE,
         ADD_HEALTH,
-        LOAD_PREV_SCENE
+        LOAD_PREV_SCENE,
+        LOAD_NEXT_SCENE
     }
 }

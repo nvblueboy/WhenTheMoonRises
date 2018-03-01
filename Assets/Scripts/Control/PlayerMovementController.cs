@@ -31,8 +31,9 @@ public class PlayerMovementController : MonoBehaviour {
 	void Update () {
 
         float horiz = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");  
-        
+        float vert = Input.GetAxis("Vertical");
+
+        //Debug.Log("Blocked: " + isBlocked);
         if(!isBlocked)
         {
             if (Input.GetButtonDown("Jump"))
@@ -138,6 +139,7 @@ public class PlayerMovementController : MonoBehaviour {
     
     public void setPlayerCanMove(bool canMove)
     {
+        Debug.Log("setPlayerCanMove: " + canMove);
         isBlocked = !canMove;
     }            
 }

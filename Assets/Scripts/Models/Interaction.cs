@@ -22,10 +22,11 @@ public abstract class Interaction : MonoBehaviour {
     public bool removePreReq, delayAction;
     public float pulseSpeed, pulseStrength;
     //public int successStart, successEnd, failStart, failEnd;
-    public Dialogue[] successText, failText;
+    public Feedback[] successText, failText;
 
     protected bool hasInteracted, actionComplete;
-    protected PlayerCharacter player;    
+    protected PlayerCharacter player;
+    protected FeedbackController feedbackController;    
 
     private SpriteRenderer renderer;    
     private float alpha;    
@@ -38,7 +39,8 @@ public abstract class Interaction : MonoBehaviour {
         actionComplete = false;
         displayDialogue = successText.Length > 0 || failText.Length > 0;              
         alpha = 255;  
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        feedbackController = GameObject.FindGameObjectWithTag("FeedbackController").GetComponent<FeedbackController>();        
         renderer = GetComponent<SpriteRenderer>();
         pulseColor.a = 255;        
     }      

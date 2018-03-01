@@ -66,12 +66,12 @@ public class PlayerCharacter : Fighter {
     Parameters: string item
     */
     public void addItem(string item)
-    {
+    {        
         for (int i = 0; i < inventory.Length; ++i)
-        {
-            if (inventory[i] == null)
+        {            
+            if (inventory[i] == "")
             {
-                inventory[i] = item;
+                inventory[i] = item;                
                 return;
             }
         }

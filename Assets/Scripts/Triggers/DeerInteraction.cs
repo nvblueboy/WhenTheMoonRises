@@ -31,9 +31,14 @@ public class DeerInteraction : MonoBehaviour
     private Animator animator;
     private string animationPrefix;
 
+    public Feedback[] dialogue;
+    private FeedbackController feedbackController;
+
     // Use this for initialization
     void Start()
     {
+        feedbackController = GameObject.FindGameObjectWithTag(
+            "FeedbackController").GetComponent<FeedbackController>(); 
 
         startPos = transform.position;
         deerRender = GetComponent<SpriteRenderer>();
@@ -86,6 +91,7 @@ public class DeerInteraction : MonoBehaviour
             //run away
             rb.velocity = transform.right * 5f;
             deerRender.flipX = false;
+            feedbackController.showFeedback(dialogue);
 
             //animation for running right
             animator.runtimeAnimatorController = Resources.Load(

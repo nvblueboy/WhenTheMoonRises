@@ -23,7 +23,7 @@ public class InventoryInteraction : Interaction {
         {
             if (!hasInteracted)
             {                
-                GameController.showDialogue(successText, gameObject.name, this);
+                feedbackController.showFeedback(successText, gameObject.name, this);
                 if(!delayAction)
                 {
                     triggerAction();
@@ -31,7 +31,7 @@ public class InventoryInteraction : Interaction {
             }
             return;                        
         }
-        GameController.showDialogue(failText, gameObject.name, this); 
+        feedbackController.showFeedback(failText, gameObject.name, this); 
     }
 
     // triggerAction

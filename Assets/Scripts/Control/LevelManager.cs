@@ -14,9 +14,11 @@ Assignment: Capstone Project
 
 public class LevelManager : MonoBehaviour
 {
-    public Dialogue[] startDialogue;
+    public Feedback[] startDialogue;
+    public Feedback[] endDialogue; 
 
-    private GameObject tempUI;    
+    private GameObject tempUI;
+    private FeedbackController feedbackController;    
     private string round;    
     private int starsCount = 0;
     private int actionCount = 0;
@@ -27,17 +29,19 @@ public class LevelManager : MonoBehaviour
 
     public Text totalText;
     public Text countText;
-    public int starsTotal;
+    public int starsTotal, endDialogueKey;    
 
-    void Awake()
-    {
-
-    }
-
+    // Start
     void Start()
     {
+        if(SceneManager.GetActiveScene().name.Contains("Night"))
+        {
+            feedbackController = GameObject.FindGameObjectWithTag(
+            "FeedbackController").GetComponent<FeedbackController>();
+        }        
+
         //Check day mode
-        Scene scene = SceneManager.GetActiveScene();
+        Scene scene = SceneManager.GetActiveScene();        
         string sceneName = scene.name;
         if (sceneName.Substring(0, 3).Equals("Day"))
         {
@@ -45,18 +49,14 @@ public class LevelManager : MonoBehaviour
         }
         else isDay = false;
 
-        tempUI = GameObject.FindGameObjectWithTag("DialogueUI");
-        //tempUI.SetActive(false);
-
         if(!isDay)
         {
+            //tempUI = GameObject.FindGameObjectWithTag("TempUI");
+            //tempUI.SetActive(false);
+
             CountTotalStarsInLevel();
             countText.text = "0 /";
-        }
-
-        if(startDialogue != null && startDialogue.Length > 0)
-        {
-            GameController.showDialogue(startDialogue);
+            feedbackController.showFeedback(startDialogue);
         }        
     }
 
@@ -66,16 +66,18 @@ public class LevelManager : MonoBehaviour
         {
             if (starsCount == starsTotal)
             {
-                if (Input.GetKeyDown("space"))
+                //feedbackController.showFeedback(endDialogue);
+                //Debug.Log("Collected all stars");
+                /*if (Input.GetKeyDown("space"))
                 {
                     AddToStarStats(starsTotal);
                     setDayMode(true);      //set phase to day
                     addCycle();            //increment cycle counter (new day)
                     round = "Day" + getCycle().ToString(); //set new level name and load it
                     SceneManager.LoadScene(round);
-                }
+                }*/
 
-                tempUI.SetActive(true);
+                //tempUI.SetActive(true);
             }
         }
 
@@ -87,7 +89,7 @@ public class LevelManager : MonoBehaviour
                 round = "Night" + getCycle().ToString(); //set new level name and load it
                 SceneManager.LoadScene(round);
 
-                tempUI.SetActive(true);
+                //tempUI.SetActive(true);
             }
         }
 
@@ -98,9 +100,18 @@ public class LevelManager : MonoBehaviour
         totalText.text = starsTotal.ToString();
     }
 
-    public void CollectStar() {
-        starsCount++;
+    public void CollectStar()
+    {
+        starsCount++;        
         countText.text = starsCount.ToString() + " /";
+        feedbackController = GameObject.FindGameObjectWithTag("FeedbackController")
+            .GetComponent<FeedbackController>();
+
+        if (starsCount == starsTotal)
+        {
+            feedbackController.showFeedback(endDialogue);
+            Debug.Log("Collected all stars");
+        }
     }
 
     public int GetStarsCollected()
@@ -151,7 +162,6 @@ public class LevelManager : MonoBehaviour
     //Use this within dialogues to increment actions
     public void addAction()
     {
-        actionCount++;
-    }
-
+        actionCount++;        
+    }    
 }

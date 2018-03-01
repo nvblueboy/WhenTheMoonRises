@@ -1,16 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class ActionController : MonoBehaviour {
-
-	// Start
-	void Start () {
-		
-	}    
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}    
+    private static int actionCount;	 
 
     public static void performAction(Constants.Action action)
     {
@@ -21,34 +12,52 @@ public class ActionController : MonoBehaviour {
                 StoreManager.openStore();
                 break;
             case Constants.Action.OPEN_BOOKSTORE:
-                Debug.Log("Open bookstore");
+                Debug.Log("Action: Open bookstore");
                 BookstoreManager.openStore();
                 break;
             case Constants.Action.NONE:
+                Debug.Log("Action: None");
                 break;
             case Constants.Action.ADD_STRENGTH:
-                Debug.Log("Strength increased");
+                Debug.Log("Action: Strength increased");
+                ++actionCount;
                 break;
             case Constants.Action.ADD_STAMINA:
+                Debug.Log("Action: Stamina increased");
+                ++actionCount;
                 break;
             case Constants.Action.ADD_INTUITION:
-                Debug.Log("Intuition increased");
+                Debug.Log("Action: Intuition increased");
+                ++actionCount;
                 break;
             case Constants.Action.ADD_MAGIC:
-                Debug.Log("Magic increased");
+                Debug.Log("Action: Magic increased");
+                ++actionCount;
                 break;
             case Constants.Action.ADD_DEFENSE:
-                Debug.Log("Defense increased");
+                Debug.Log("Action: Defense increased");
+                ++actionCount;
                 break;
             case Constants.Action.ADD_HEALTH:
-                Debug.Log("Health increased");
+                Debug.Log("Action: Health increased");
+                ++actionCount;
                 break;
             case Constants.Action.LOAD_PREV_SCENE:
-                Debug.Log("Load previous scene");
+                Debug.Log("Action: Load previous scene");
                 GameController.LoadPreviousScene();
+                break;
+            case Constants.Action.LOAD_NEXT_SCENE:
+                Debug.Log("Action: Load next scene");
+                actionCount = 0;
+                GameController.LoadNextNight();
                 break;
             default:
                 break;
         }
-    }  
+    }
+    
+    public static int getActionCount()
+    {
+        return actionCount;        
+    } 
 }
