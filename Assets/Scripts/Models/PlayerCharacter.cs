@@ -15,8 +15,14 @@ Description: This is a script representing the player character and their curren
 // PlayerCharacter
 public class PlayerCharacter : Fighter {
     public int intuition, experience;
-    public string[] inventory;
     public int coins = 0;
+    public List<Item> inventory;
+    public int max_size = 10;
+   
+    public PlayerCharacter() {
+        inventory = new List<Item>();
+    }
+
     // levelUp
     private void levelUp()
     {
@@ -63,40 +69,60 @@ public class PlayerCharacter : Fighter {
 
     /*
     Name: addItem
-    Parameters: string item
+    Parameters: Item item
     */
-    public void addItem(string item)
-    {        
-        for (int i = 0; i < inventory.Length; ++i)
-        {            
-            if (inventory[i] == "")
-            {
-                inventory[i] = item;                
-                return;
-            }
+    public void addItem(Item item)
+    {
+        Debug.Log(inventory.Count);
+        if (inventory.Count < max_size) {
+            inventory.Add(item);
+        } else {
+            Debug.Log("Not enough room in inventory");
         }
-        if (inventory.Length == 0)
-        {
-            inventory = new string[20];
-            inventory[0] = item;
-            return;
-        } 
-        Debug.Log("Not enough room in inventory");
     }
 
     /*
     Name: removeItem
     Parameters: string item
     */
-    public void removeItem(string item)
+    public void removeItem(Item item)
     {
-        for (int i = 0; i < inventory.Length; ++i)
-        {
-            if (inventory[i] == item)
-            {
-                inventory[i] = "";
+       if (inventory.Contains(item)) {
+            inventory.Remove(item);
+        }
+    }
+
+    /*
+     * Name: removeItemByName
+     * parameters: string name
+     */
+    public void removeItemByName(string name) {
+        foreach(Item i in inventory) {
+            if (i.getName() == name) {
+                inventory.Remove(i);
                 return;
             }
         }
+    }
+
+    /*
+    Name: getMoves
+    Description: Returns a list of Move objects that this PlayerCharacter is authorized to use.
+    */
+    public Move[] getMoves() {
+        //TODO: Actually calculate what moves are possible.
+        MoveUtils.InitMoves();
+        return new Move[] { MoveUtils.GetMove("Spin Attack"), MoveUtils.GetMove("Strong Swing"), MoveUtils.GetMove("Flour Flick") };
+    }
+
+    /*
+    Name: testInventory
+    Description: Creates a fake inventory for testing with other components.
+    */
+    public void testInventory() {
+        inventory = new List<Item>();
+        inventory.Add(new HealthPotion("weak_potion", "Weak Potion", 2));
+        inventory.Add(new HealthPotion("potion", "Potion", 5));
+        inventory.Add(new HealthPotion("strong_potion", "Strong Potion", 10));
     }
 }

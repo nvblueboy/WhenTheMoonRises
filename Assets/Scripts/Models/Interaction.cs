@@ -24,9 +24,10 @@ public abstract class Interaction : MonoBehaviour {
     //public int successStart, successEnd, failStart, failEnd;
     public Feedback[] successText, failText;
 
+
     protected bool hasInteracted, actionComplete;
-    protected PlayerCharacter player;
-    protected FeedbackController feedbackController;    
+    [SerializeField] protected PlayerCharacter player;
+    protected FeedbackController feedbackController;  
 
     private SpriteRenderer renderer;    
     private float alpha;    
@@ -87,9 +88,10 @@ public abstract class Interaction : MonoBehaviour {
             return true;
         }
 
-        foreach(string item in player.inventory)
+        foreach(Item item in player.inventory)
         {
-            if(item == preReq)
+            Debug.Log(item.getName());
+            if(item.getName() == preReq)
             {
                 return true;
             }

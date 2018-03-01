@@ -34,10 +34,11 @@ public class InventoryInteraction : Interaction {
         feedbackController.showFeedback(failText, gameObject.name, this); 
     }
 
+
     // triggerAction
     public override void triggerAction()
     {
-        player.addItem(resultItem);
+        player.addItem(new Item(resultItem, resultItem));
         hasInteracted = true;
 
         if (gameObject.name.Contains("pickup"))
@@ -48,7 +49,7 @@ public class InventoryInteraction : Interaction {
 
         if (removePreReq)
         {
-            player.removeItem(preReq);
+            player.removeItemByName(preReq);
         }
     }
 }

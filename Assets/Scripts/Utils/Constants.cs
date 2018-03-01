@@ -37,6 +37,7 @@ public class Constants {
     public static string Stamina = "Stamina";
     public static string Stunned = "Stunned";
     public static string DefenseEffect = "DefenseEffect";
+    public static string ItemUse = "Item Use";
 
     // Player Animations
     public static string NightPrefix = "AnimationControllers/Night/";

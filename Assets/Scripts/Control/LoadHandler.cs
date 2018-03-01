@@ -66,11 +66,16 @@ public class LoadHandler : MonoBehaviour {
     private static void LoadInventory(PlayerCharacter player)
     {        
         string item;
-        for (int i = 0; i < player.inventory.Length; ++i)
-        {
-            item = PlayerPrefs.GetString(Constants.Inventory + i.ToString(), "");
-            player.inventory[i] = item;           
+        int i = 0;
+        while(true) {  //Ugh.
+            item = PlayerPrefs.GetString(Constants.Inventory + i++.ToString(), "[null]");
+            if (item == "[null]") {
+                break;
+            } else {
+                //TODO: Make this work because inheritance and JSON are not friendly
+            }
         }
+
     }
 
     // canLoad    

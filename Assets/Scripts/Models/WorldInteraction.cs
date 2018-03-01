@@ -52,7 +52,7 @@ public class WorldInteraction : Interaction {
 
             if (removePreReq)
             {
-                player.removeItem(preReq);
+                player.removeItemByName(preReq);
             }
         }        
     }

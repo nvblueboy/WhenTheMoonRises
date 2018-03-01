@@ -73,17 +73,22 @@ public class FightController : MonoBehaviour {
         float jump = Input.GetAxis("Jump");
         jumpFrame = false;
 
-        if (jump > 0 && oldJump == 0) {
+        if (jump > 0 && oldJump == 0 && !moveSelector.GetComponent<MoveSelector>().takeControl) {
             jumpFrame = true;
         }
 
         oldJump = jump;
 
-        //Process the state machine.
-        if (state == "player") {
+        //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // |                                                                      |
+        // |   If you're looking for the state machine process, it's right here.  |
+        // |                                                                      |
+        //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        if(state == "player") {
             //See if the player has selected a move by getting the string and then seeing if it's null.            
             string selectedMove = player.getSelectedMove(true);
             if (selectedMove != null) {
+                moveSelector.GetComponent<MoveSelector>().takeControl = false;
                 //Check if the player has enough stamina for this move.
                 Move m = MoveUtils.GetMove(selectedMove);
 
@@ -100,7 +105,11 @@ public class FightController : MonoBehaviour {
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
 
                     string status = processMove(player, enemy, selectedMove);
-                    setStatus("You used " + selectedMove + "! " + status);
+                    string prefix = "";
+                    if (selectedMove != Constants.ItemUse) {
+                        prefix = "You used " + selectedMove + "! ";
+                    }
+                    setStatus(prefix + status);
                     //Set the state to display_wait to allow the player time to read what's happened.
                     state = "display_wait";
                     waitStart = Time.time;
@@ -118,9 +127,11 @@ public class FightController : MonoBehaviour {
                     state = "display_wait";
                     waitStart = Time.time;
                     nextState = "player";
+                    
                 }
             }
         }
+
         if(state=="enemy") {
             //Have the enemy player run it's logic.
             string selectedMove = enemy.getMove();
@@ -141,16 +152,25 @@ public class FightController : MonoBehaviour {
             }
             else {
                 nextState = "player";
+                
             }
         }
 
         if (state == "display_wait") {
             if (Time.time >= waitStart + waitTime) {
                 state = nextState;
+
+                if (nextState == "player") {
+                    moveSelector.GetComponent<MoveSelector>().takeControl = true;
+                }
             }
 
             if (jumpFrame) {
                 state = nextState;
+
+                if(nextState == "player") {
+                    moveSelector.GetComponent<MoveSelector>().takeControl = true;
+                }
             }
         }
 
@@ -192,6 +212,10 @@ public class FightController : MonoBehaviour {
             return attack.name + " is stunned!";
         }
 
+        if (move == Constants.ItemUse) {
+            return "You used an item!";
+        }
+
         if(move == "NoStamina") {
             return attack.name + " has no stamina!";
         }
@@ -200,24 +224,26 @@ public class FightController : MonoBehaviour {
         Move moveObj = MoveUtils.GetMove(move);
         Dictionary<string, int> moveData = moveObj.processMove(attack, defend);
 
+        Debug.Log("Made it boi");
+
         //Apply effects to attacker/defender.
 
-        if (moveData.ContainsKey(Constants.HP)) {        
-            int damage = moveData[Constants.HP];   
-            
-            if (defend.defense <= 4) {
+
+
+        if(moveData.ContainsKey(Constants.HP)) {
+            int damage = moveData[Constants.HP];
+
+            if(defend.defense <= 4) {
                 defend.takeDamage(damage);
-            }
-            else if(5 <= enemy.defense && enemy.defense <= 9) {
+            } else if(5 <= enemy.defense && enemy.defense <= 9) {
                 defend.takeDamage(damage - 1);
-            }
-            else if (10 <= enemy.defense && enemy.defense <= 19) {
+            } else if(10 <= enemy.defense && enemy.defense <= 19) {
                 defend.takeDamage(damage - 2);
-            }
-            else {
+            } else {
                 defend.takeDamage(damage - 3);
             }
         }
+       
 
         if (moveData.ContainsKey(Constants.Stunned)) {
             int turns = moveData[Constants.Stunned];
