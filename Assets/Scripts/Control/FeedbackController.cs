@@ -5,17 +5,17 @@ using UnityEngine;
 public class FeedbackController : MonoBehaviour {    
     private float oldSkip;
 
-    private static Interaction currentInteraction;
-    private static PlayerMovementController playerController;
-    private static GameObject feedbackUI;
-    private static Text feedbackText, speakerText;
-    private static string activeFeedback, previousScene;
-    private static bool feedbackActive;
-    private static int feedbackIdx, feedbackEnd;
-    private static float newFeedbackTime;
-    private static Feedback[] currentFeedback;    
+    private Interaction currentInteraction;
+    private PlayerMovementController playerController;
+    private GameObject feedbackUI;
+    private Text feedbackText, speakerText;
+    private string activeFeedback, previousScene;
+    private bool feedbackActive;
+    private int feedbackIdx, feedbackEnd;
+    private float newFeedbackTime;
+    private Feedback[] currentFeedback;    
 
-    private static string currentScene, prevScene, activeScene;
+    private string currentScene, prevScene, activeScene;
 
     // Awake
     void Awake()

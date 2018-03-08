@@ -16,17 +16,35 @@ Description: This is a script for controlling changes to the game state
 */
 
 // GameController
-public class GameController : MonoBehaviour {    
-    public PlayerCharacter player;    
+public class GameController : MonoBehaviour {        
+    private static PlayerCharacter player;
+    public static GameController instance;    
     
+    private static Vector3 playerPosition;
     private static PlayerMovementController playerController;
-    private static string currentScene, previousScene, activeScene;
+    private static string currentScene, previousScene, activeScene;    
 
     // Awake
     void Awake () {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else if(instance != this)
+        {            
+            DestroyImmediate(gameObject);
+        }
+       
+        DontDestroyOnLoad(this);       
+    }
+
+    // Start
+    void Start()
+    {        
+        playerPosition = Vector3.zero;
         previousScene = "";
         currentScene = SceneManager.GetActiveScene().name;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
     }
 
     // Update
@@ -43,6 +61,13 @@ public class GameController : MonoBehaviour {
     // LoadScene
     public static void LoadScene(string sceneName)
     {
+        LoadScene(sceneName, Vector3.zero);
+    }
+
+    public static void LoadScene(string sceneName, Vector3 position)
+    {
+        playerPosition = position;
+        Debug.Log("Saved position: " + playerPosition.x + ", " + playerPosition.y + ", " + playerPosition.z);
         previousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }
@@ -74,4 +99,10 @@ public class GameController : MonoBehaviour {
     {
         return previousScene;
     }
+
+    // getLastPlayerPosition
+    public static Vector3 getLastPlayerPosition()
+    {
+        return playerPosition;
+    } 
 }
