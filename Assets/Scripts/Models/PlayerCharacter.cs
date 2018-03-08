@@ -124,5 +124,6 @@ public class PlayerCharacter : Fighter {
         inventory.Add(new HealthPotion("weak_potion", "Weak Potion", 2));
         inventory.Add(new HealthPotion("potion", "Potion", 5));
         inventory.Add(new HealthPotion("strong_potion", "Strong Potion", 10));
+        inventory.Add(new StaminaPotion("string_stam_potion", "Strong Stamina Potion", 5));
     }
 }

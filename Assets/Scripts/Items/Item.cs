@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,11 +18,9 @@ public class Item {
     public Item(string _name, string _displayName) {
         name = _name;
         displayName = _displayName;
-        Debug.Log(name + " " + displayName);
     }
 
-    public void affectPlayer(PlayerCharacter p) {
-        Debug.Log("affecting pt 2");
+    public virtual void affectPlayer(PlayerCharacter p) {
         return; //This doesn't have any impact on a player.
     }
 
