@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class DialogueController : MonoBehaviour {
     private ChoiceSelector choiceSelector;    
     private Text txtSpeaker, txtDialogue;   
     private DialogueComponent currentDialogue;
+    private string sceneName;
     private float lastSkipTime, lastShowChoiceTime, oldSkip;
     private bool canSkip, dialogueActive;
     private Dictionary<int, DialogueComponent> dialogue;
@@ -18,6 +20,7 @@ public class DialogueController : MonoBehaviour {
     void Start () {
         canSkip = false;
         dialogueActive = false;
+        sceneName = SceneManager.GetActiveScene().name;        
 
         // Initialize all parent GameObjects for hiding and showing dialogue UI
         uiDialogue = GameObject.FindGameObjectWithTag("DialogueUI");        
@@ -34,10 +37,13 @@ public class DialogueController : MonoBehaviour {
                 
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
           
-        if(initialDialogueIndex !=0 )
+        // If there is initial dialogue to display and it hasn't been displayed before
+        if(initialDialogueIndex !=0 && !GameController.getLoadedScenes().Contains(sceneName))
         {
             Show(initialDialogueIndex);
-        }           
+        }
+
+        GameController.addLoadedScene(sceneName);
     }
 	
 	// Update

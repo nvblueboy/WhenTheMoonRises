@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
     
     private static Vector3 playerPosition;
     private static PlayerMovementController playerController;
+    private static List<string> loadedScenes;
     private static string currentScene, previousScene, activeScene;    
 
     // Awake
@@ -40,7 +41,7 @@ public class GameController : MonoBehaviour {
 
     // Start
     void Start()
-    {        
+    {                
         playerPosition = Vector3.zero;
         previousScene = "";
         currentScene = SceneManager.GetActiveScene().name;
@@ -104,5 +105,21 @@ public class GameController : MonoBehaviour {
     public static Vector3 getLastPlayerPosition()
     {
         return playerPosition;
+    }
+    
+    // addLoadedScene
+    public static void addLoadedScene(string sceneName)
+    {        
+        loadedScenes.Add(sceneName);
+    }
+    
+    // getLoadedScenes
+    public static List<string> getLoadedScenes()
+    {
+        if (loadedScenes == null)
+        {
+            loadedScenes = new List<string>();
+        }
+        return loadedScenes;
     } 
 }
