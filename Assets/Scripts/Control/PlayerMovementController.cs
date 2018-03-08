@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,14 @@ public class PlayerMovementController : MonoBehaviour {
 
         if(controller==null) {
             Debug.LogError("There's no Character controller on: " + transform.name);
+        }
+
+        Vector3 playerPostion = GameController.getLastPlayerPosition();
+
+        Debug.Log("Player position: {" + playerPostion.x + ", " + playerPostion.y + ", " + playerPostion.z + "}");
+        if (playerPostion != Vector3.zero)
+        {            
+            gameObject.transform.position = playerPostion;
         }
 	}
 	
@@ -52,7 +61,7 @@ public class PlayerMovementController : MonoBehaviour {
                     }
                     i++;
                 }
-            }
+            }            
 
             // For demo only
             if (Input.GetKeyDown(KeyCode.Escape))
