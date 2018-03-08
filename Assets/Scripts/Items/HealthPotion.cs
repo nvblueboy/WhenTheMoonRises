@@ -9,8 +9,10 @@ public class HealthPotion : Item {
         strength = _strength;
     }
 
-    public void affectPlayer(PlayerCharacter p) {
-        Debug.Log("Affecting");
+    public override void affectPlayer(PlayerCharacter p) {
         p.currHP += strength;
+        if (p.currHP > p.hp) {
+            p.currHP = p.hp;
+        }
     }
 }

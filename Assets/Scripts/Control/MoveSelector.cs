@@ -176,14 +176,15 @@ public class MoveSelector : MonoBehaviour {
                 object selectedObj = selections[selected.name];
 
                 if (types[selected.name] == "item") {
-                    Item basicItem = (Item)selectedObj;
-                    if (selectedObj.GetType().Equals(typeof(HealthPotion))) {
-                        HealthPotion hp = (HealthPotion)selectedObj;
-                        hp.affectPlayer(fighter);
-                    }
+                    Item selectedItem = (Item)selections[selected.name];
+                    selectedItem.affectPlayer(fighter);
+                    //if (selectedObj.GetType().Equals(typeof(HealthPotion))) {
+                    //    HealthPotion hp = (HealthPotion)selectedObj;
+                    //    hp.affectPlayer(fighter);
+                    //}
 
-                    fighter.removeItemByName(basicItem.getName());
-                    items.removeChildByName(basicItem.getName());
+                    fighter.removeItemByName(selectedItem.getName());
+                    items.removeChildByName(selectedItem.getName());
 
                     fighter.addSelectedMove("Item Use");
 

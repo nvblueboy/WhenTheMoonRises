@@ -17,6 +17,7 @@ public class SpinAttack : Move {
 
     public override bool moveEligible(Fighter attacker)
     {
-        return attacker.stamina >= 4;
+        Debug.Log("Running the function");
+        return attacker.currStamina >= 4;
     }
 }
