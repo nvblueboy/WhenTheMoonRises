@@ -27,6 +27,7 @@ public class FightController : MonoBehaviour {
 
     private bool gameOver = false;
     private string finalStatus;
+    private string nextScene;
 
     private float oldJump; //What the axis "jump" was in the past frame.
     private bool hasFallen;
@@ -175,13 +176,22 @@ public class FightController : MonoBehaviour {
         }
 
         if (state == "end") {
-            setStatus(finalStatus + " Press space to play again.");
+            setStatus(finalStatus);
 
             if (jumpFrame) {
                 //The player is ready to leave the fight.
                 DontDestroyOnLoad(this.gameObject);
                 state = "post-fight";
-                SceneManager.LoadScene("Night1");
+
+                if (nextScene == "TitleScreen") {
+                    //Destroy ALL gameobjects. 
+                    foreach(GameObject o in Object.FindObjectsOfType<GameObject>()) {
+                        if(o != this.gameObject) {
+                            Destroy(o);
+                        }
+                    }
+                }
+                SceneManager.LoadScene(nextScene);
             }
         }
 
@@ -197,9 +207,13 @@ public class FightController : MonoBehaviour {
 
     public void onFighterDead(Fighter f) {
         if (f == player) {
-            finalStatus = "You died!";
+            finalStatus = "You died! Press space to go to the main menu."; //TODO: Fix this based on controller type.
+            //Do we want to save anything when the player dies? if so, this is the place to do it.
+
+            nextScene = "TitleScreen";
         } else if (f == enemy) {
             finalStatus = "The enemy died!";
+            nextScene = "Night1"; 
         }
 
         gameOver = true;
@@ -223,8 +237,6 @@ public class FightController : MonoBehaviour {
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
         Dictionary<string, int> moveData = moveObj.processMove(attack, defend);
-
-        Debug.Log("Made it boi");
 
         //Apply effects to attacker/defender.
 
