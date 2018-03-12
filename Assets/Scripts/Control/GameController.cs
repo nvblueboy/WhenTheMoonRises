@@ -105,4 +105,8 @@ public class GameController : MonoBehaviour {
     {
         return playerPosition;
     } 
+    public PlayerCharacter getPlayer()
+    {
+        return player;
+    }
 }
