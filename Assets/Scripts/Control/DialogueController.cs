@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class DialogueController : MonoBehaviour {
     private ChoiceSelector choiceSelector;    
     private Text txtSpeaker, txtDialogue;   
     private DialogueComponent currentDialogue;
+    private string sceneName;
     private float lastSkipTime, lastShowChoiceTime, oldSkip;
     private bool canSkip, dialogueActive;
     private Dictionary<int, DialogueComponent> dialogue;
@@ -18,6 +20,7 @@ public class DialogueController : MonoBehaviour {
     void Start () {
         canSkip = false;
         dialogueActive = false;
+        sceneName = SceneManager.GetActiveScene().name;        
 
         // Initialize all parent GameObjects for hiding and showing dialogue UI
         uiDialogue = GameObject.FindGameObjectWithTag("DialogueUI");        
@@ -29,17 +32,18 @@ public class DialogueController : MonoBehaviour {
 
         choiceSelector = GetComponent<ChoiceSelector>();        
 
-        lastSkipTime = -999f;  // Used to prevent skipping of dialogue following choice 
+        lastSkipTime = -999f;   
         lastShowChoiceTime = -999f;
                 
-        dialogue = DialogueUtils.initDialogueForScene(inputFile); 
-              
-
-        //Show(63);  
-        if(initialDialogueIndex !=0 )
+        dialogue = DialogueUtils.initDialogueForScene(inputFile);
+          
+        // If there is initial dialogue to display and it hasn't been displayed before
+        if(initialDialogueIndex !=0 && !GameController.getLoadedScenes().Contains(sceneName))
         {
             Show(initialDialogueIndex);
-        }           
+        }
+
+        GameController.addLoadedScene(sceneName);
     }
 	
 	// Update
@@ -60,11 +64,9 @@ public class DialogueController : MonoBehaviour {
     // Skip
     private void Skip()
     {
-        int next = currentDialogue.Next();
-        Debug.Log("Next: " + next);
+        int next = currentDialogue.Next();        
         if(next == 0)
-        {
-            Debug.Log("Next is 0, return");
+        {            
             canDialogue.SetActive(false);
             uiDialogue.SetActive(false);
             ActionController.performAction(currentDialogue.action);
@@ -93,12 +95,9 @@ public class DialogueController : MonoBehaviour {
     // Select
     public void Select(int choice)
     {
-        // Show appropriate dialogue and perform correct action for choice
-        Debug.Log("Choice: " + choice);        
-        Choice selectedChoice = currentDialogue.choiceWrapper.choices[choice];
-        Debug.Log("Selected choice next: " + selectedChoice.next);
-        Show(selectedChoice.next);
-        Debug.Log("Selected choice name: " + selectedChoice.text);
+        // Show appropriate dialogue and perform correct action for selected choice               
+        Choice selectedChoice = currentDialogue.choiceWrapper.choices[choice];        
+        Show(selectedChoice.next);        
         ActionController.performAction(selectedChoice.actionCode);
         lastSkipTime = Time.time;
     }
@@ -113,13 +112,24 @@ public class DialogueController : MonoBehaviour {
             return;
         }
 
-        canSkip = true;
-        dialogueActive = true;
-        uiDialogue.SetActive(true);  // activate dialogue UI components 
-        canDialogue.SetActive(true);          
-        lastSkipTime = Time.time;
-        currentDialogue = dialogue[key];
+        Show(dialogue[key]);        
+    }
+    
+    public void Show(DialogueComponent dialogue)
+    {
+        activateDialogueUI();
+        currentDialogue = dialogue;
         txtDialogue.text = currentDialogue.text;
         txtSpeaker.text = currentDialogue.speaker;
+    }
+    
+    // activateDialogueUI
+    private void activateDialogueUI()
+    {
+        canSkip = true;
+        dialogueActive = true;
+        uiDialogue.SetActive(true);
+        canDialogue.SetActive(true);
+        lastSkipTime = Time.time;
     }    
 }
