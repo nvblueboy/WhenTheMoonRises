@@ -22,7 +22,6 @@ public class DeerInteraction : MonoBehaviour
     private LevelManager level;
     private Rigidbody rb;
     private bool runningBack = false;
-    private bool hitTree = false;
     private GameObject player;
     private Rigidbody prb;
     private SpriteRenderer deerRender;
@@ -73,7 +72,12 @@ public class DeerInteraction : MonoBehaviour
                 //idle animation
                 animator.runtimeAnimatorController = Resources.Load(
                 animationPrefix + "t_deer") as RuntimeAnimatorController;
-                rb.GetComponent<BoxCollider>().enabled = true;
+
+                //enable colliders
+                foreach (Collider c in GetComponents<Collider>())
+                {
+                    c.enabled = true;
+                }
 
             }
         }
@@ -100,24 +104,15 @@ public class DeerInteraction : MonoBehaviour
             //sorry, you can't collect the star at this time.
             star.SetActive(false);
 
-            rb.GetComponent<BoxCollider>().enabled = false;
+            //disable colliders while running away
+            foreach (Collider c in GetComponents<Collider>())
+            {
+                c.enabled = false;
+            }
 
             //wait before returning back
             yield return new WaitForSeconds(5f);
-            /*
-            while(hitTree==false && counter <5){
 
-              if (col.gameObject.tag == "Tree"){
-                Debug.Log("Hit a tree");
-                hitTree=true;
-                runningBack = true;
-                rb.velocity = new Vector3(0, 0, 0);
-              }
-              yield return new WaitForSeconds(1);
-              Debug.Log("Added time");
-              counter++;
-            }
-            */
 
             //back to start
             runningBack = true;
