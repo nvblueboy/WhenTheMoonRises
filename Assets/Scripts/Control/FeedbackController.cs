@@ -39,9 +39,14 @@ public class FeedbackController : MonoBehaviour {
     // Update
     void Update()
     {
-        if (activeFeedback != "" && Time.time - newFeedbackTime > .2f)
+        if(!feedbackActive)
         {
-            float skip = Input.GetAxis("Jump");
+            activeFeedback = "";
+        }
+
+        if (activeFeedback != "" && Time.time - newFeedbackTime > .2f)
+        {            
+            float skip = Input.GetAxis("Jump");            
             if (skip > 0 && oldSkip == 0)
             {
                 Debug.Log("Skip dialogue: " + feedbackIdx);
@@ -52,8 +57,7 @@ public class FeedbackController : MonoBehaviour {
                     speakerText.text = currentFeedback[feedbackIdx].speaker;
                 }
                 catch (IndexOutOfRangeException e)
-                {
-                    activeFeedback = "";                    
+                {                                        
                     feedbackUI.SetActive(false);
                     feedbackActive = false;
                     playerController.setPlayerCanMove(true);
@@ -85,7 +89,7 @@ public class FeedbackController : MonoBehaviour {
     public void showFeedback(Feedback[] feedback, string triggeredObject, Interaction interaction)
     {
         // if the dialogue should be displayed and dialogue isn't
-        // associated with currently active interaction
+        // associated with currently active interaction        
         if (activeFeedback == triggeredObject)
         {            
             return;
@@ -103,8 +107,7 @@ public class FeedbackController : MonoBehaviour {
             {
                 return;
             }
-        }
-        Debug.Log("Show feedback");
+        }        
         currentFeedback = feedback;
         activeFeedback = triggeredObject;
         feedbackUI.SetActive(true);

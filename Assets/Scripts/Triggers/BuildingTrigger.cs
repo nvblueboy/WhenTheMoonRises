@@ -4,12 +4,15 @@ using UnityEngine;
 public class BuildingTrigger : MonoBehaviour {
     Text promptText;
     GameObject player;
+    DialogueController dialogueController;
     public string scene;
 
     // Start
     void Start () {
         promptText = GameObject.FindGameObjectWithTag("PromptText").GetComponent<Text>();
-        player = GameObject.FindGameObjectWithTag("Player");		
+        player = GameObject.FindGameObjectWithTag("Player");
+        dialogueController = GameObject.FindGameObjectWithTag("DialogueController")
+            .GetComponent<DialogueController>();		
 	}
 
     // OnTriggerStay
@@ -27,8 +30,9 @@ public class BuildingTrigger : MonoBehaviour {
                 } 
                 else
                 {
-                    Debug.Log("It appears to be locked");
-                    // Will display some kind of feedback here. (ex. It's locked)
+                    // Dialogue for all buildings that can't be entered
+                    dialogueController.Show(new DialogueComponent(
+                        999, 0, "Sunny", "It appears to be locked"));                    
                 }                             
             }
         }

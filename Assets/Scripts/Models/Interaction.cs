@@ -89,8 +89,7 @@ public abstract class Interaction : MonoBehaviour {
         }
 
         foreach(Item item in player.inventory)
-        {
-            Debug.Log(item.getName());
+        {            
             if(item.getName() == preReq)
             {
                 return true;
