@@ -36,14 +36,14 @@ public class BookShop : MonoBehaviour
     public Text shopText;
     public Text coinText;
     public Text itemInfo;
-    public PlayerCharacter player;
+    public GameController gameCtrl;
     public int coins;
     public string item;
     //public GameObject inventory = GameObject.Find("EventSystem");
     // Use this for initialization
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        gameCtrl = GameObject.Find("GameController").GetComponent<GameController>();
         arrow1 = GameObject.Find("arrow1");
         arrow2 = GameObject.Find("arrow2");
         arrow3 = GameObject.Find("arrow3");
@@ -52,9 +52,9 @@ public class BookShop : MonoBehaviour
         arrow6 = GameObject.Find("arrow6");
         arrow7 = GameObject.Find("arrow7");
         arrow8 = GameObject.Find("arrow8");
-        player.increaseCoins(1000);
-        coins = player.getCoins();
-        coinText.text = (player.getCoins()).ToString() + " C";
+        gameCtrl.getPlayer().increaseCoins(100);
+        coins = gameCtrl.getPlayer().getCoins();
+        coinText.text = (gameCtrl.getPlayer().getCoins()).ToString() + " C";
     }
     void Start()
     {
@@ -185,7 +185,7 @@ public class BookShop : MonoBehaviour
                     maxHP.onClick.Invoke();
                     //shopText.text = "You bought a small hp potion";
                     coinText.text = coins + " C";
-                    player.hp++;
+                    gameCtrl.getPlayer().hp++;
                 }
                 else
                 {
@@ -200,7 +200,7 @@ public class BookShop : MonoBehaviour
                     stamina.onClick.Invoke();
                     //shopText.text = "You bought a medium hp potion";
                     coinText.text = coins + " C";
-                    player.stamina++;
+                    gameCtrl.getPlayer().stamina++;
                 }
                 else
                 {
@@ -215,7 +215,7 @@ public class BookShop : MonoBehaviour
                     strength.onClick.Invoke();
                     //shopText.text = "You bought a large hp potion";
                     coinText.text = coins + " C";
-                    player.increaseStrength(1);
+                    gameCtrl.getPlayer().increaseStrength(1);
                 }
                 else
                 {
@@ -230,7 +230,7 @@ public class BookShop : MonoBehaviour
                     defense.onClick.Invoke();
                     //shopText.text = "You bought a small stamina potion";
                     coinText.text = coins + " C";
-                    player.increaseDefense(1);
+                    gameCtrl.getPlayer().increaseDefense(1);
                 }
                 else
                 {

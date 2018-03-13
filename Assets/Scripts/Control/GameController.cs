@@ -122,4 +122,8 @@ public class GameController : MonoBehaviour {
         }
         return loadedScenes;
     } 
+    public PlayerCharacter getPlayer()
+    {
+        return player;
+    }
 }

@@ -36,9 +36,10 @@ public class DialogueController : MonoBehaviour {
         lastShowChoiceTime = -999f;
                 
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
-          
+
         // If there is initial dialogue to display and it hasn't been displayed before
-        if(initialDialogueIndex !=0 && !GameController.getLoadedScenes().Contains(sceneName))
+        if (initialDialogueIndex != 0 && !GameController.getLoadedScenes().Contains(sceneName)
+            || !sceneName.Contains("Day"))
         {
             Show(initialDialogueIndex);
         }
