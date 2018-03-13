@@ -32,7 +32,7 @@ public class BuildingTrigger : MonoBehaviour {
                 {
                     // Dialogue for all buildings that can't be entered
                     dialogueController.Show(new DialogueComponent(
-                        999, 0, "Sunny", "It appears to be locked"));                    
+                        999, 0, "Sunny", "It appears to be locked."));                    
                 }                             
             }
         }
