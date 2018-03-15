@@ -93,7 +93,7 @@ public class MoveSelector : MonoBehaviour {
             }
         }
 
-        SelectorNode options = new SelectorNode("options", "Options", new List<SelectorNode>(), SelectorType.Loop);
+        SelectorNode options = new SelectorNode("run", "Run");
         root.addChild(options);
 
         SelectorNode special = new SelectorNode("special", "Special", new List<SelectorNode>(), SelectorType.Loop);
@@ -173,15 +173,14 @@ public class MoveSelector : MonoBehaviour {
                     updateDisplay();
                 }
             } else {
+                if (selected.name == "run") {
+                    fighter.addSelectedMove("Run");
+                }
                 object selectedObj = selections[selected.name];
 
                 if (types[selected.name] == "item") {
                     Item selectedItem = (Item)selections[selected.name];
                     selectedItem.affectPlayer(fighter);
-                    //if (selectedObj.GetType().Equals(typeof(HealthPotion))) {
-                    //    HealthPotion hp = (HealthPotion)selectedObj;
-                    //    hp.affectPlayer(fighter);
-                    //}
 
                     fighter.removeItemByName(selectedItem.getName());
                     items.removeChildByName(selectedItem.getName());
