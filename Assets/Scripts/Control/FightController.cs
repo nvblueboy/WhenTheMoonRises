@@ -74,7 +74,9 @@ public class FightController : MonoBehaviour {
         float jump = Input.GetAxis("Jump");
         jumpFrame = false;
 
-        if (jump > 0 && oldJump == 0 && !moveSelector.GetComponent<MoveSelector>().takeControl) {
+        
+
+        if (jump > 0 && oldJump == 0 && moveSelector != null && !moveSelector.GetComponent<MoveSelector>().takeControl) {
             jumpFrame = true;
         }
 

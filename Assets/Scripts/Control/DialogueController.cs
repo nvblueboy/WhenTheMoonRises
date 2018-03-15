@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,8 +6,9 @@ using UnityEngine;
 
 public class DialogueController : MonoBehaviour {
     private GameObject uiDialogue, canDialogue;
+    private PlayerMovementController player;
     private ChoiceSelector choiceSelector;    
-    private Text txtSpeaker, txtDialogue;   
+    private Text txtSpeaker, txtDialogue, actionText;   
     private DialogueComponent currentDialogue;
     private string sceneName;
     private float lastSkipTime, lastShowChoiceTime, oldSkip;
@@ -20,7 +22,26 @@ public class DialogueController : MonoBehaviour {
     void Start () {
         canSkip = false;
         dialogueActive = false;
-        sceneName = SceneManager.GetActiveScene().name;        
+        sceneName = SceneManager.GetActiveScene().name;
+        
+        try
+        {
+            actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
+        }
+        catch (NullReferenceException e)
+        {
+
+        }
+
+        try
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
+        }
+        catch (NullReferenceException e)
+        {
+            // No player in this scene
+        }
+               
 
         // Initialize all parent GameObjects for hiding and showing dialogue UI
         uiDialogue = GameObject.FindGameObjectWithTag("DialogueUI");        
@@ -59,15 +80,30 @@ public class DialogueController : MonoBehaviour {
         if (!dialogueActive)
         {
             uiDialogue.SetActive(false);
-        }	
-	}
+        }
+        else
+        {
+           
+        }
+
+        if (actionText != null)
+        {
+            actionText.text = "Actions: " + (6 - ActionController.getActionCount());
+        }
+    }
 
     // Skip
     private void Skip()
     {
         int next = currentDialogue.Next();        
         if(next == 0)
-        {            
+        {
+            if (player != null)
+            {
+                Debug.Log("Player can move");
+                player.setPlayerCanMove(true);
+            }
+
             canDialogue.SetActive(false);
             uiDialogue.SetActive(false);
             ActionController.performAction(currentDialogue.action);
@@ -110,6 +146,12 @@ public class DialogueController : MonoBehaviour {
         {
             uiDialogue.SetActive(false);
             dialogueActive = false;
+            if(player != null)
+            {
+                Debug.Log("Player can move");
+                player.setPlayerCanMove(true);
+            }
+
             return;
         }
 
@@ -122,6 +164,12 @@ public class DialogueController : MonoBehaviour {
         currentDialogue = dialogue;
         txtDialogue.text = currentDialogue.text;
         txtSpeaker.text = currentDialogue.speaker;
+
+        if (player != null)
+        {
+            Debug.Log("Player can't move");
+            player.setPlayerCanMove(false);
+        }
     }
     
     // activateDialogueUI
