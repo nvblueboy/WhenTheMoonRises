@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +14,7 @@ Description: This is a script for controlling changes to the game state
 */
 
 // GameController
-public class GameController : MonoBehaviour {        
+public class GameController : MonoBehaviour {
     private static PlayerCharacter player;
     public static GameController instance;    
     
@@ -121,7 +119,9 @@ public class GameController : MonoBehaviour {
             loadedScenes = new List<string>();
         }
         return loadedScenes;
-    } 
+    }
+    
+    // getPlayer 
     public PlayerCharacter getPlayer()
     {
         return player;

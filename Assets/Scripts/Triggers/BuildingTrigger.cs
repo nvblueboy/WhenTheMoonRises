@@ -26,10 +26,15 @@ public class BuildingTrigger : MonoBehaviour {
             {
                 if (scene.Length > 0)
                 {
+                    if(scene == "TownHall")
+                    {
+                        dialogueController.Show(7);
+                        return;
+                    }
                     GameController.LoadScene(scene, player.transform.position);
                 } 
                 else
-                {
+                {                    
                     // Dialogue for all buildings that can't be entered
                     dialogueController.Show(new DialogueComponent(
                         999, 0, "Sunny", "It appears to be locked"));                    
