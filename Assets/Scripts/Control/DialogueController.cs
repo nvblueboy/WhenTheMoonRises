@@ -8,7 +8,7 @@ public class DialogueController : MonoBehaviour {
     private GameObject uiDialogue, canDialogue;
     private PlayerMovementController player;
     private ChoiceSelector choiceSelector;    
-    private Text txtSpeaker, txtDialogue;   
+    private Text txtSpeaker, txtDialogue, actionText;   
     private DialogueComponent currentDialogue;
     private string sceneName;
     private float lastSkipTime, lastShowChoiceTime, oldSkip;
@@ -23,6 +23,15 @@ public class DialogueController : MonoBehaviour {
         canSkip = false;
         dialogueActive = false;
         sceneName = SceneManager.GetActiveScene().name;
+        
+        try
+        {
+            actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
+        }
+        catch (NullReferenceException e)
+        {
+
+        }
 
         try
         {
@@ -76,7 +85,12 @@ public class DialogueController : MonoBehaviour {
         {
            
         }
-	}
+
+        if (actionText != null)
+        {
+            actionText.text = "Actions: " + (6 - ActionController.getActionCount());
+        }
+    }
 
     // Skip
     private void Skip()

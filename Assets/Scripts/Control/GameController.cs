@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /*
@@ -16,6 +17,7 @@ Description: This is a script for controlling changes to the game state
 // GameController
 public class GameController : MonoBehaviour {
     private static PlayerCharacter player;
+    private static Text actionText;
     public static GameController instance;    
     
     private static Vector3 playerPosition;
@@ -43,7 +45,7 @@ public class GameController : MonoBehaviour {
         playerPosition = Vector3.zero;
         previousScene = "";
         currentScene = SceneManager.GetActiveScene().name;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
     }
 
     // Update

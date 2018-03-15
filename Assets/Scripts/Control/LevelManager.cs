@@ -109,6 +109,7 @@ public class LevelManager : MonoBehaviour
 
         if (starsCount == starsTotal)
         {
+            GameController.LoadScene("TitleScreen");
             feedbackController.showFeedback(endDialogue);
             Debug.Log("Collected all stars");
         }
