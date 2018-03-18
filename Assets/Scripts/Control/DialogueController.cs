@@ -40,8 +40,7 @@ public class DialogueController : MonoBehaviour {
         catch (NullReferenceException e)
         {
             // No player in this scene
-        }
-               
+        }               
 
         // Initialize all parent GameObjects for hiding and showing dialogue UI
         uiDialogue = GameObject.FindGameObjectWithTag("DialogueUI");        

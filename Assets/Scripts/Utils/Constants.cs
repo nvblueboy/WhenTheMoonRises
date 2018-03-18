@@ -48,6 +48,7 @@ public class Constants {
 
     // File paths
     public static string DialoguePath = "Assets/Dialogue/{0}.json";
+    public static string BuildDialoguePath = "{0}.json";
 
     // Action codes for performing actions based on dialogue option
     [Serializable]
