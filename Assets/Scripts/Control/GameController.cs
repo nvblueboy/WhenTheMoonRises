@@ -49,9 +49,15 @@ public class GameController : MonoBehaviour {
     }
 
     // Update
-    void Update() {
-        currentScene = SceneManager.GetActiveScene().name;         
-    }   
+    void Update()
+    {
+        currentScene = SceneManager.GetActiveScene().name;
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
+    }         
     
     // getActiveSceneName
     public static string getActiveSceneName()
