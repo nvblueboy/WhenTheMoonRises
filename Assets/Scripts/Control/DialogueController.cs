@@ -69,15 +69,14 @@ public class DialogueController : MonoBehaviour {
         oldNext = newNext;
 
         float close = Input.GetAxis("Close");        
-        if(close > 0)
+        if(close > 0 && ActionController.getActionCount() < 6)
         {
             Close();
         }
 
         float skip = Input.GetAxis("Skip");
-        if(skip > 0)
-        {
-            Debug.Log("Skip");
+        if(skip > 0 && ActionController.getActionCount() < 6)
+        {            
             Skip();
         }
 
@@ -110,7 +109,7 @@ public class DialogueController : MonoBehaviour {
             return;
         }
         else if(next > 0)
-        {
+        {            
             Show(next);
         }
         else
@@ -145,15 +144,12 @@ public class DialogueController : MonoBehaviour {
     public void Skip()
     {
         int id = currentDialogue.id;
-        int prevID = id;
-
-        if (currentDialogue.Next() < 0)
-        {
-            return;
-        }
+        int prevID = id;        
 
         while (id != 0)
         {
+            Debug.Log("ID: " + id);            
+            
             if (id < 0)
             {
                 lastChoiceID = currentDialogue.id;
@@ -161,12 +157,27 @@ public class DialogueController : MonoBehaviour {
                 choiceSelector.ShowChoices(dialogue[prevID].choiceWrapper.choices);
                 canNext = false;                               
                 return;
+            }
+            else
+            {
+                if(dialogue[id].action != Constants.Action.NONE)
+                {
+                    ActionController.performAction(dialogue[id].action);
+                    Show(0);
+                    return;
+                }               
             }            
             prevID = id;
             id = dialogue[id].Next();                        
         }
 
-        if(lastChoiceID == 0)
+        if (currentDialogue.Next() == 0)
+        {
+            Close();
+            return;
+        }
+
+        if (lastChoiceID == 0)
         {
             Close();
             return;
