@@ -49,6 +49,9 @@ public class DialogueController : MonoBehaviour {
                 
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
 
+        // Used only to translate dialogue from CSV into JSON
+        //DialogueUtils.storeDialogueFromFile("Day2", "Day2");
+
         // If there is initial dialogue to display and it hasn't been displayed before
         if (initialDialogueIndex != 0 && !GameController.getLoadedScenes().Contains(sceneName)
             || !sceneName.Contains("Day"))

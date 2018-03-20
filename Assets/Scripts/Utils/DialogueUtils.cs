@@ -8,7 +8,7 @@ public class DialogueUtils : MonoBehaviour {
     private static void storeDialogue(DialogueWrapper dialogue, string scene)
     {
         StreamWriter writer = new StreamWriter(File.OpenWrite(
-            string.Format(Constants.DialoguePath, scene)));
+            string.Format(Constants.StoreDialoguePath, scene)));
         string json = JsonUtility.ToJson(dialogue);
         writer.Write(json);        
         writer.Close();
