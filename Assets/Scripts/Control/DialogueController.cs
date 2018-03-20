@@ -11,8 +11,9 @@ public class DialogueController : MonoBehaviour {
     private Text txtSpeaker, txtDialogue, actionText;   
     private DialogueComponent currentDialogue;
     private string sceneName;
-    private float lastSkipTime, lastShowChoiceTime, oldSkip;
-    private bool canSkip, dialogueActive;
+    private float lastNextTime, lastShowChoiceTime, oldNext;
+    private int lastChoiceID;
+    private bool canNext, dialogueActive;
     private Dictionary<int, DialogueComponent> dialogue;
 
     public string inputFile;
@@ -20,8 +21,9 @@ public class DialogueController : MonoBehaviour {
 
     // Start
     void Start () {
-        canSkip = false;
+        canNext = false;
         dialogueActive = false;
+        lastChoiceID = 0;
         sceneName = SceneManager.GetActiveScene().name;
         
         try {
@@ -42,7 +44,7 @@ public class DialogueController : MonoBehaviour {
 
         choiceSelector = GetComponent<ChoiceSelector>();        
 
-        lastSkipTime = -999f;   
+        lastNextTime = -999f;   
         lastShowChoiceTime = -999f;
                 
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
@@ -59,21 +61,30 @@ public class DialogueController : MonoBehaviour {
 	
 	// Update
 	void Update () {
-        float newSkip = Input.GetAxis("Jump");        
-        if(oldSkip < 1 && newSkip > 0 && Time.time - lastSkipTime > .2f && canSkip)
+        float newNext = Input.GetAxis("Jump");        
+        if(oldNext < 1 && newNext > 0 && Time.time - lastNextTime > .2f && canNext)
         {
-            Skip();            
+            Next();            
         }
-        oldSkip = newSkip;
+        oldNext = newNext;
+
+        float close = Input.GetAxis("Close");        
+        if(close > 0)
+        {
+            Close();
+        }
+
+        float skip = Input.GetAxis("Skip");
+        if(skip > 0)
+        {
+            Debug.Log("Skip");
+            Skip();
+        }
 
         if (!dialogueActive)
         {
             uiDialogue.SetActive(false);
-        }
-        else
-        {
-           
-        }
+        }        
 
         if (actionText != null)
         {
@@ -81,8 +92,8 @@ public class DialogueController : MonoBehaviour {
         }
     }
 
-    // Skip
-    private void Skip()
+    // Next
+    private void Next()
     {
         int next = currentDialogue.Next();        
         if(next == 0)
@@ -111,11 +122,56 @@ public class DialogueController : MonoBehaviour {
             }
             else
             {
+                lastChoiceID = currentDialogue.id;
                 canDialogue.SetActive(false);
                 choiceSelector.ShowChoices(currentDialogue.choiceWrapper.choices);
-                canSkip = false;
+                canNext = false;
             }                                                         
         }
+    }
+
+    // Close
+    public void Close()
+    {
+        Show(0);
+        lastChoiceID = 0;
+        if (!sceneName.Contains("Day"))
+        {
+            GameController.LoadPreviousScene();
+        }
+    }
+
+    // Skip
+    public void Skip()
+    {
+        int id = currentDialogue.id;
+        int prevID = id;
+
+        if (currentDialogue.Next() < 0)
+        {
+            return;
+        }
+
+        while (id != 0)
+        {
+            if (id < 0)
+            {
+                lastChoiceID = currentDialogue.id;
+                canDialogue.SetActive(false);
+                choiceSelector.ShowChoices(dialogue[prevID].choiceWrapper.choices);
+                canNext = false;                               
+                return;
+            }            
+            prevID = id;
+            id = dialogue[id].Next();                        
+        }
+
+        if(lastChoiceID == 0)
+        {
+            Close();
+            return;
+        }
+        Show(lastChoiceID);        
     }
 
     // Select
@@ -125,7 +181,7 @@ public class DialogueController : MonoBehaviour {
         Choice selectedChoice = currentDialogue.choiceWrapper.choices[choice];        
         Show(selectedChoice.next);        
         ActionController.performAction(selectedChoice.actionCode);
-        lastSkipTime = Time.time;
+        lastNextTime = Time.time;
     }
 
     // Show
@@ -164,10 +220,10 @@ public class DialogueController : MonoBehaviour {
     // activateDialogueUI
     private void activateDialogueUI()
     {
-        canSkip = true;
+        canNext = true;
         dialogueActive = true;
         uiDialogue.SetActive(true);
         canDialogue.SetActive(true);
-        lastSkipTime = Time.time;
+        lastNextTime = Time.time;
     }    
 }
