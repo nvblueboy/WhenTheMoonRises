@@ -47,7 +47,7 @@ public class Constants {
     public static string WalkLeft = "sunny walk night left3";
 
     // File paths
-    public static string DialoguePath = "Assets/Dialogue/{0}.json";
+    public static string DialoguePath = "Dialogue/{0}";
     public static string BuildDialoguePath = "{0}.json";
 
     // Action codes for performing actions based on dialogue option

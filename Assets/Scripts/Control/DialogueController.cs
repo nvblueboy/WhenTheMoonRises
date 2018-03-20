@@ -24,23 +24,13 @@ public class DialogueController : MonoBehaviour {
         dialogueActive = false;
         sceneName = SceneManager.GetActiveScene().name;
         
-        try
-        {
+        try {
             actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
-        }
-        catch (NullReferenceException e)
-        {
+        } catch (NullReferenceException e) { }
 
-        }
-
-        try
-        {
+        try {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
-        }
-        catch (NullReferenceException e)
-        {
-            // No player in this scene
-        }               
+        } catch (NullReferenceException e) { }               
 
         // Initialize all parent GameObjects for hiding and showing dialogue UI
         uiDialogue = GameObject.FindGameObjectWithTag("DialogueUI");        

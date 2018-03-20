@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour {
     {
         currentScene = SceneManager.GetActiveScene().name;
 
+        // TODO: Replace this with a complete menu
         if (Input.GetButtonDown("Cancel"))
         {
             Application.Quit();
