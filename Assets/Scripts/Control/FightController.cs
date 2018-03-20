@@ -236,6 +236,10 @@ public class FightController : MonoBehaviour {
             return attack.name + " has no stamina!";
         }
 
+        if (move == "Run") {
+            return "You ran from the fight!";
+        }
+
         //Get the move from the move name.
         Move moveObj = MoveUtils.GetMove(move);
         Dictionary<string, int> moveData = moveObj.processMove(attack, defend);

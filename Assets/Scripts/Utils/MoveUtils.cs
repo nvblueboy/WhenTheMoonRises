@@ -28,7 +28,8 @@ public class MoveUtils {
             new FlourFlick("Flour Flick"),
             new SpinAttack("Spin Attack"),
             new Guard("Guard"),
-            new ItemUse("Item Use")
+            new ItemUse("Item Use"),
+            new Run("Run")
         };       
 
         moveDict = new Dictionary<string, Move>();
