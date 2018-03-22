@@ -29,6 +29,8 @@ public class FightController : MonoBehaviour {
     private string finalStatus;
     private string nextScene;
 
+    public string exitState;
+
     private float oldJump; //What the axis "jump" was in the past frame.
     private bool hasFallen;
     private bool isRising;
@@ -109,14 +111,18 @@ public class FightController : MonoBehaviour {
 
                     string status = processMove(player, enemy, selectedMove);
                     string prefix = "";
-                    if (selectedMove != Constants.ItemUse) {
+                    if (selectedMove != Constants.ItemUse && selectedMove != "Run") {
                         prefix = "You used " + selectedMove + "! ";
                     }
+
                     setStatus(prefix + status);
                     //Set the state to display_wait to allow the player time to read what's happened.
                     state = "display_wait";
                     waitStart = Time.time;
-
+                    if (selectedMove == "Run") {
+                        gameOver = true;
+                        exitState = "run";
+                    }
                     if (gameOver) {
                         nextState = "end";
                     }
@@ -192,8 +198,8 @@ public class FightController : MonoBehaviour {
                             Destroy(o);
                         }
                     }
+                    SceneManager.LoadScene(nextScene);
                 }
-                SceneManager.LoadScene(nextScene);
             }
         }
 
@@ -209,11 +215,13 @@ public class FightController : MonoBehaviour {
 
     public void onFighterDead(Fighter f) {
         if (f == player) {
+            exitState = "loss";
             finalStatus = "You died! Press space to go to the main menu."; //TODO: Fix this based on controller type.
             //Do we want to save anything when the player dies? if so, this is the place to do it.
 
             nextScene = "TitleScreen";
         } else if (f == enemy) {
+            exitState = "win";
             finalStatus = "The enemy died!";
             nextScene = "Night1"; 
         }

@@ -7,8 +7,12 @@ public class SceneSwitchController : MonoBehaviour {
 
     public bool save;
 
+    public bool destroyEnemy;
+
     private bool oldSave;
     private bool upToDate;
+
+    private string exitState;
    
     public FightController fc;
     public GameObject fc_go;
@@ -22,6 +26,7 @@ public class SceneSwitchController : MonoBehaviour {
 	void Start () {
         save = false;
         upToDate = true;
+        destroyEnemy = false;
 
         fc = null;
 
@@ -33,9 +38,16 @@ public class SceneSwitchController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        destroyEnemy = false;
+
         if (fc != null) {
             if (fc.state == "post-fight") {
+
                 save = false;
+                if (fc.exitState == "win") {
+                    destroyEnemy = true;
+                }
                 Destroy(fc_go);
             }
         }
@@ -98,11 +110,15 @@ public class SceneSwitchController : MonoBehaviour {
                 child.parent = null;
             }
 
-            StarSpawnController ssc = passingGameObject.GetComponent<StarSpawnController>();
-            if (ssc != null) {
-                ssc.DropStar();
+            if(destroyEnemy) {
+                StarSpawnController ssc = passingGameObject.GetComponent<StarSpawnController>();
+                if(ssc != null) {
+                    ssc.DropStar();
+                }
+                Destroy(passingGameObject);
+            } else {
+                passingGameObject.GetComponent<EnemyMovement>().tempDisableTrigger();
             }
-            Destroy(passingGameObject);
         }
     }
 }
