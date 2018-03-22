@@ -65,6 +65,7 @@ public class FeedbackController : MonoBehaviour {
                     if (currentInteraction != null)
                     {
                         currentInteraction.triggerAction();
+                        currentInteraction = null;
                     }
                     return;
                 }
