@@ -23,6 +23,6 @@ public class BookstoreManager : MonoBehaviour {
     public void exitStore()
     {
         storeUI.SetActive(false);
-        dController.Show(25);
+        dController.Show(27);
     }
 }

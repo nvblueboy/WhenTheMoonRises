@@ -10,14 +10,13 @@ public class DialogueController : MonoBehaviour {
     private ChoiceSelector choiceSelector;    
     private Text txtSpeaker, txtDialogue, actionText;   
     private DialogueComponent currentDialogue;
-    private string sceneName;
+    private string sceneName, inputFile;
     private float lastNextTime, lastShowChoiceTime, oldNext;
     private int lastChoiceID;
     private bool canNext, dialogueActive;
     private Dictionary<int, DialogueComponent> dialogue;
-
-    public string inputFile;
-    public int initialDialogueIndex, endDialogueIndex;
+    
+    public int startIndexOne, endIndexOne, startIndexTwo, endIndexTwo;
 
     // Start
     void Start () {
@@ -25,6 +24,18 @@ public class DialogueController : MonoBehaviour {
         dialogueActive = false;
         lastChoiceID = 0;
         sceneName = SceneManager.GetActiveScene().name;
+
+        if(sceneName.Contains("Day"))
+        {
+            inputFile = sceneName;                        
+        }
+        else
+        {
+            // Shops will use the JSON dialogue file belonging to the current Day scene
+            inputFile = GameController.GetPreviousScene();
+        }
+
+        inputFile = "Day1";
         
         try {
             actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
@@ -50,13 +61,13 @@ public class DialogueController : MonoBehaviour {
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
 
         // Used only to translate dialogue from CSV into JSON
-        //DialogueUtils.storeDialogueFromFile("Day2", "Day2");
+        //DialogueUtils.storeDialogueFromFile("Day1", "Day1");
 
         // If there is initial dialogue to display and it hasn't been displayed before
-        if (initialDialogueIndex != 0 && !GameController.getLoadedScenes().Contains(sceneName)
+        if (startIndexOne != 0 && !GameController.getLoadedScenes().Contains(sceneName)
             || !sceneName.Contains("Day"))
         {
-            Show(initialDialogueIndex);
+            Show(startIndexOne);
         }
 
         GameController.addLoadedScene(sceneName);
@@ -120,7 +131,7 @@ public class DialogueController : MonoBehaviour {
             Debug.Log("Action count: " + ActionController.getActionCount());
             if(ActionController.getActionCount() >= 6)
             {
-                Show(endDialogueIndex);
+                Show(endIndexOne);
             }
             else
             {
