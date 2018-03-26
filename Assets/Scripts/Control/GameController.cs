@@ -123,6 +123,7 @@ public class GameController : MonoBehaviour {
     // getLoadedScenes
     public static List<string> getLoadedScenes()
     {
+        Debug.Log("Get loaded scenes");
         if (loadedScenes == null)
         {
             loadedScenes = new List<string>();

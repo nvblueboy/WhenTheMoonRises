@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour {
     private DialogueComponent currentDialogue;
     private string sceneName, inputFile;
     private float lastNextTime, lastShowChoiceTime, oldNext;
-    private int lastChoiceID;
+    private int lastChoiceID, startIndex, endIndex;
     private bool canNext, dialogueActive;
     private Dictionary<int, DialogueComponent> dialogue;
     
@@ -27,15 +27,25 @@ public class DialogueController : MonoBehaviour {
 
         if(sceneName.Contains("Day"))
         {
-            inputFile = sceneName;                        
+            inputFile = sceneName;                             
         }
         else
         {
             // Shops will use the JSON dialogue file belonging to the current Day scene
             inputFile = GameController.GetPreviousScene();
-        }
+        }        
 
-        inputFile = "Day1";
+        switch (inputFile[3])
+        {
+            case '1':
+                startIndex = startIndexOne;
+                endIndex = endIndexOne;
+                break;
+            case '2':
+                startIndex = startIndexTwo;
+                endIndex = endIndexTwo;
+                break;
+        }                
         
         try {
             actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
@@ -64,10 +74,10 @@ public class DialogueController : MonoBehaviour {
         //DialogueUtils.storeDialogueFromFile("Day1", "Day1");
 
         // If there is initial dialogue to display and it hasn't been displayed before
-        if (startIndexOne != 0 && !GameController.getLoadedScenes().Contains(sceneName)
+        if (startIndex != 0 && !GameController.getLoadedScenes().Contains(sceneName)
             || !sceneName.Contains("Day"))
         {
-            Show(startIndexOne);
+            Show(startIndex);
         }
 
         GameController.addLoadedScene(sceneName);
@@ -131,7 +141,7 @@ public class DialogueController : MonoBehaviour {
             Debug.Log("Action count: " + ActionController.getActionCount());
             if(ActionController.getActionCount() >= 6)
             {
-                Show(endIndexOne);
+                Show(endIndex);
             }
             else
             {
