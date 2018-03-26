@@ -89,7 +89,7 @@ public class SceneSwitchController : MonoBehaviour {
                 }
             }
 
-            SceneManager.LoadScene("Fight");
+            GameController.LoadScene("Fight");
         } else {
             List<GameObject> rootObjects = new List<GameObject>();
             Scene scene = SceneManager.GetActiveScene();

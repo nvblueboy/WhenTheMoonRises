@@ -122,8 +122,7 @@ public class DialogueController : MonoBehaviour {
         if(next == 0)
         {
             if (player != null)
-            {
-                Debug.Log("Player can move");
+            {                
                 player.setPlayerCanMove(true);
             }
 
@@ -137,8 +136,7 @@ public class DialogueController : MonoBehaviour {
             Show(next);
         }
         else
-        {
-            Debug.Log("Action count: " + ActionController.getActionCount());
+        {           
             if(ActionController.getActionCount() >= 6)
             {
                 Show(endIndex);
@@ -171,9 +169,7 @@ public class DialogueController : MonoBehaviour {
         int prevID = id;        
 
         while (id != 0)
-        {
-            Debug.Log("ID: " + id);            
-            
+        {            
             if (id < 0)
             {
                 lastChoiceID = currentDialogue.id;

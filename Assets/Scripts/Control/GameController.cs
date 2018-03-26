@@ -23,7 +23,8 @@ public class GameController : MonoBehaviour {
     private static Vector3 playerPosition;
     private static PlayerMovementController playerController;
     private static List<string> loadedScenes;
-    private static string currentScene, previousScene, activeScene;    
+    private static string currentScene, previousScene, activeScene;
+    private static int prevSceneIndex;   
 
     // Awake
     void Awake () {
@@ -44,6 +45,7 @@ public class GameController : MonoBehaviour {
     {                
         playerPosition = Vector3.zero;
         previousScene = "";
+        prevSceneIndex = 0;
         currentScene = SceneManager.GetActiveScene().name;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
     }
@@ -75,8 +77,13 @@ public class GameController : MonoBehaviour {
     public static void LoadScene(string sceneName, Vector3 position)
     {
         playerPosition = position;
-        Debug.Log("Saved position: " + playerPosition.x + ", " + playerPosition.y + ", " + playerPosition.z);
-        previousScene = SceneManager.GetActiveScene().name;
+        string currentScene = SceneManager.GetActiveScene().name;
+        if(currentScene != "Fight")
+        {
+            previousScene = SceneManager.GetActiveScene().name;
+            prevSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        }               
+        
         SceneManager.LoadScene(sceneName);
     }
 
@@ -89,20 +96,26 @@ public class GameController : MonoBehaviour {
     // LoadNextScene
     public static void LoadNextScene()
     {        
-        if(GetNextScene() == "Night2")
+        if (GetNextScene() == "Night2")
         {
             // Don't load Night 2; not ready yet
             LoadScene("TitleScreen");
-        }
+        }        
 
         string currentScene = SceneManager.GetActiveScene().name;
-        if(currentScene.Contains("Day") || currentScene.Contains("Night"))
+        Debug.Log("Current Scene: " + currentScene);
+        if (currentScene.Contains("Day") || currentScene.Contains("Night"))
         {
-            previousScene = SceneManager.GetActiveScene().name;
+            Debug.Log("Contains Night");            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else if (currentScene.Contains("Fight"))
+        {            
+            SceneManager.LoadScene(prevSceneIndex + 1);
         }
         else  // called from inside a store/house scene
         {
+            Debug.Log("Does not contain Night");
             int cycle = (int) Char.GetNumericValue(previousScene[3]);
             
             // temp code to prevent unfinished Night 2 from being loaded
