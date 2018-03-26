@@ -29,7 +29,10 @@ public class MoveUtils {
             new SpinAttack("Spin Attack"),
             new Guard("Guard"),
             new ItemUse("Item Use"),
-            new Run("Run")
+            new Run("Run"),
+            new Bash("Bash"),
+            new TwoHandedSwing("Two Handed Swing"),
+            new WrenchThrow("Wrench Throw")
         };       
 
         moveDict = new Dictionary<string, Move>();
@@ -38,6 +41,15 @@ public class MoveUtils {
             moveDict.Add(m.name, m);
         }
 
+    }
+
+    public static string getMoveSet() {
+        //Used entirely for testing.
+        List<string> moves = new List<string>();
+        foreach(KeyValuePair<string, Move> kvp in moveDict) {
+            moves.Add(kvp.Key);
+        }
+        return string.Join(", ", moves.ToArray());
     }
 
     /*

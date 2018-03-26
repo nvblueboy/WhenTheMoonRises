@@ -49,7 +49,6 @@ public class MoveSelector : MonoBehaviour {
     private Dictionary<string, string> types;
 
     public void Start() {
-
         takeControl = true;
         if(fighter == null) {
             Debug.LogWarning("There is no fighter class attached to the move selector. I'm creating a fake player for testing purposes.");
@@ -64,7 +63,6 @@ public class MoveSelector : MonoBehaviour {
 
         selections = new Dictionary<string, object>();
         types = new Dictionary<string, string>();
-        
 
         selectorMap = new Dictionary<SelectorType, GameObject>();
         selectorMap[SelectorType.Loop] = loopObject;
@@ -93,6 +91,7 @@ public class MoveSelector : MonoBehaviour {
             }
         }
 
+
         SelectorNode options = new SelectorNode("run", "Run");
         root.addChild(options);
 
@@ -115,6 +114,8 @@ public class MoveSelector : MonoBehaviour {
                 kvp.Value.SetActive(false);
             }
         }
+
+        updateDescription();
     }
 
     public void Update() {
@@ -122,7 +123,7 @@ public class MoveSelector : MonoBehaviour {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         float jump = Input.GetAxis("Jump");
-        float fire = Input.GetAxis("Fire3");
+        float fire = Input.GetAxis("Back");
 
         float horiz_mag = Mathf.Abs(horiz);
         float vert_mag = Mathf.Abs(vert);
@@ -156,6 +157,10 @@ public class MoveSelector : MonoBehaviour {
 
         if (dir != Direction.None) {
             currentMenu.GetComponent<MoveSelector_Child>().input(dir);
+
+            //Process change in description if it's needed.
+
+            updateDescription();
         }
 
         if (jump < oldJump) {
@@ -221,7 +226,18 @@ public class MoveSelector : MonoBehaviour {
             updateDisplay();
         }
     }
+    public void updateDescription() {
+        MoveSelector_Child kiddo = currentMenu.GetComponent<MoveSelector_Child>();
+        int sel = kiddo.currentSelection;
+        SelectorNode selected = current.children[sel];
 
+        if(types.ContainsKey(selected.name)) {
+            if(types[selected.name] == "move") {
+                Move m = MoveUtils.GetMove(selected.name);
+                kiddo.setDescription(m.description);
+            }
+        }
+    }
 }
 
 public enum SelectorType { Loop, Grid, In_Place }
