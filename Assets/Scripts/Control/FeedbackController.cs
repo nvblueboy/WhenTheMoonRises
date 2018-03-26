@@ -19,8 +19,7 @@ public class FeedbackController : MonoBehaviour {
 
     // Awake
     void Awake()
-    {
-        Debug.Log("Awake");    
+    {            
         oldSkip = 1;
         activeFeedback = "";
         newFeedbackTime = -999f;        
@@ -29,12 +28,7 @@ public class FeedbackController : MonoBehaviour {
         feedbackUI = GameObject.FindGameObjectWithTag("DialogueUI");
         feedbackText = feedbackUI.GetComponentInChildren<Text>();
         speakerText = feedbackUI.transform.GetChild(2).GetComponent<Text>();               
-    }
-
-    void Start()
-    {
-        Debug.Log("Start");
-    }
+    }    
 
     // Update
     void Update()
@@ -48,8 +42,7 @@ public class FeedbackController : MonoBehaviour {
         {            
             float skip = Input.GetAxis("Jump");            
             if (skip > 0 && oldSkip == 0)
-            {
-                Debug.Log("Skip dialogue: " + feedbackIdx);
+            {                
                 try
                 {
                     feedbackIdx++;

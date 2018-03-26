@@ -32,6 +32,7 @@ public class DialogueUtils : MonoBehaviour {
             if(lineCount != 0)
             {
                 data = line.Split(',');
+                data[3] = data[3].Replace('%', ',');
 
                 // init dialogue component
                 DialogueComponent component = new DialogueComponent(int.Parse(data[0]),

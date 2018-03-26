@@ -23,6 +23,15 @@ public class BookstoreManager : MonoBehaviour {
     public void exitStore()
     {
         storeUI.SetActive(false);
-        dController.Show(25);
+
+        string prevScene = GameController.GetPreviousScene();
+        if(prevScene[3] == '1')
+        {
+            dController.Show(27);
+        }
+        else if(prevScene[3] == '2')
+        {            
+            dController.Show(28);
+        }        
     }
 }
