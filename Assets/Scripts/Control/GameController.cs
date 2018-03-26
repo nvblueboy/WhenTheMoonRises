@@ -87,25 +87,47 @@ public class GameController : MonoBehaviour {
     }
 
     // LoadNextScene
-    public static void LoadNextNight()
-    {
+    public static void LoadNextScene()
+    {        
+        if(GetNextScene() == "Night2")
+        {
+            // Don't load Night 2; not ready yet
+            LoadScene("TitleScreen");
+        }
+
         string currentScene = SceneManager.GetActiveScene().name;
-        if(currentScene.Contains("Day"))
+        if(currentScene.Contains("Day") || currentScene.Contains("Night"))
         {
             previousScene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else  // called from inside a store/house scene
         {
-            int cycle = (int) Char.GetNumericValue(previousScene[3]);            
-            LoadScene("Night" + cycle);
-        }        
+            int cycle = (int) Char.GetNumericValue(previousScene[3]);
+            
+            // temp code to prevent unfinished Night 2 from being loaded
+            if("Night" + cycle != "Night2")
+            {
+                LoadScene("Night" + cycle);
+            } 
+            else
+            {
+                LoadScene("TitleScreen");
+            }            
+        }    
     }
 
     // GetPreviousScene
     public static string GetPreviousScene()
     {
         return previousScene;
+    }
+
+    // GetNextScene
+    public static string GetNextScene()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        return SceneManager.GetSceneByBuildIndex(currentIndex + 1).name;
     }
 
     // getLastPlayerPosition
@@ -122,8 +144,7 @@ public class GameController : MonoBehaviour {
     
     // getLoadedScenes
     public static List<string> getLoadedScenes()
-    {
-        Debug.Log("Get loaded scenes");
+    {        
         if (loadedScenes == null)
         {
             loadedScenes = new List<string>();
