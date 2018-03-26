@@ -9,6 +9,8 @@ public class MoveSelector_Child : MonoBehaviour {
 
     public List<Text> labels;
 
+    public Text descriptionLabel;
+
     public int currentSelection;
     private int oldSelection;
 
@@ -77,6 +79,13 @@ public class MoveSelector_Child : MonoBehaviour {
             labels[currentSelection].text = "<" + labels[currentSelection].text + ">";
         } else if (type == SelectorType.In_Place) {
             labels[0].text = getCircular<SelectorNode>(options, currentSelection).display_name;
+        }
+    }
+
+    public void setDescription(string d) {
+        if(descriptionLabel != null) {
+            descriptionLabel.text = d;
+
         }
     }
 
