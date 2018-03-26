@@ -16,6 +16,7 @@ Description: This is a class representing a move to be used in the Fight scene b
 // Move
 public class Move {    
     public string name;
+    public string description;
 
     /*
     Name: Move
@@ -23,7 +24,8 @@ public class Move {
    */
    public Move(string _name)
    {
-       this.name = _name;
+        this.name = _name;
+        this.description = "This move does not have a description.";
    }
 
    /*

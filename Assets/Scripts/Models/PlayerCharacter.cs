@@ -112,7 +112,17 @@ public class PlayerCharacter : Fighter {
     public Move[] getMoves() {
         //TODO: Actually calculate what moves are possible.
         MoveUtils.InitMoves();
-        return new Move[] { MoveUtils.GetMove("Spin Attack"), MoveUtils.GetMove("Strong Swing"), MoveUtils.GetMove("Flour Flick") };
+        List<Move> moves = new List<Move>();
+
+        Debug.Log(MoveUtils.getMoveSet());
+
+        if (weapon == "wrench") {
+            moves.Add(MoveUtils.GetMove("Bash"));
+            moves.Add(MoveUtils.GetMove("Two Handed Swing"));
+            moves.Add(MoveUtils.GetMove("Wrench Throw"));
+        
+        }
+        return moves.ToArray();
     }
 
     /*
