@@ -123,7 +123,7 @@ public class MoveSelector : MonoBehaviour {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         float jump = Input.GetAxis("Jump");
-        float fire = Input.GetAxis("Back");
+        float fire = Input.GetAxis("Close");
 
         float horiz_mag = Mathf.Abs(horiz);
         float vert_mag = Mathf.Abs(vert);
@@ -235,6 +235,9 @@ public class MoveSelector : MonoBehaviour {
             if(types[selected.name] == "move") {
                 Move m = MoveUtils.GetMove(selected.name);
                 kiddo.setDescription(m.description);
+            } else if (types[selected.name] == "item") {
+                Item i = (Item)selections[selected.name];
+                kiddo.setDescription(i.description);
             }
         }
     }

@@ -38,6 +38,7 @@ public class Constants {
     public static string Stunned = "Stunned";
     public static string DefenseEffect = "DefenseEffect";
     public static string ItemUse = "Item Use";
+    public static string Invulnerability = "Invulnerability";
 
     // Player Animations
     public static string NightPrefix = "AnimationControllers/Night/";

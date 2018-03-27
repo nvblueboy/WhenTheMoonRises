@@ -76,7 +76,7 @@ public class MoveSelector_Child : MonoBehaviour {
             labels[1].text = getCircular<SelectorNode>(options, 1).display_name;
             labels[2].text = getCircular<SelectorNode>(options, 2).display_name;
             labels[3].text = getCircular<SelectorNode>(options, 3).display_name;
-            labels[currentSelection].text = "<" + labels[currentSelection].text + ">";
+            labels[currentSelection].text = ">" +labels[currentSelection].text + "<";
         } else if (type == SelectorType.In_Place) {
             labels[0].text = getCircular<SelectorNode>(options, currentSelection).display_name;
         }

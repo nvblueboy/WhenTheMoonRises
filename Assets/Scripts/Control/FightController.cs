@@ -259,14 +259,16 @@ public class FightController : MonoBehaviour {
         if(moveData.ContainsKey(Constants.HP)) {
             int damage = moveData[Constants.HP];
 
-            if(defend.defense <= 4) {
-                defend.takeDamage(damage);
-            } else if(5 <= enemy.defense && enemy.defense <= 9) {
-                defend.takeDamage(damage - 1);
-            } else if(10 <= enemy.defense && enemy.defense <= 19) {
-                defend.takeDamage(damage - 2);
-            } else {
-                defend.takeDamage(damage - 3);
+            if(defend.invulnerable == 0) {
+                if(defend.defense <= 4) {
+                    defend.takeDamage(damage);
+                } else if(5 <= enemy.defense && enemy.defense <= 9) {
+                    defend.takeDamage(damage - 1);
+                } else if(10 <= enemy.defense && enemy.defense <= 19) {
+                    defend.takeDamage(damage - 2);
+                } else {
+                    defend.takeDamage(damage - 3);
+                }
             }
         }
        
@@ -280,11 +282,21 @@ public class FightController : MonoBehaviour {
             }
         }
 
+
+
         if(moveData.ContainsKey(Constants.DefenseEffect)) {
             defenseEffect += moveData[Constants.DefenseEffect];
         }
 
+        if(moveData.ContainsKey(Constants.Invulnerability)) {
+            attack.invulnerable += moveData[Constants.Invulnerability];
+        }
+
         //Calculate damage string here.
+
+        if (defend.invulnerable > 0) {
+            defend.invulnerable--;
+        }
 
 
         return "";
@@ -296,6 +308,8 @@ public class FightController : MonoBehaviour {
         player.currStamina = player.stamina;
 
         if(passedEnemy != null) {
+            enemy.hp = passedEnemy.hp;
+            enemy.stamina = passedEnemy.stamina;
             enemy.currHP = passedEnemy.hp;
             enemy.currStamina = passedEnemy.stamina;
             enemy.strength = passedEnemy.strength;
@@ -308,6 +322,9 @@ public class FightController : MonoBehaviour {
             enemy.currHP = enemy.hp;
             enemy.currStamina = enemy.stamina;
         }
+
+        player.invulnerable = 0;
+        enemy.invulnerable = 0;
     }
 
     void updateUI() {

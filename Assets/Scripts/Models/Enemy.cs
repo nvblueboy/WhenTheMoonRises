@@ -15,6 +15,7 @@ Description: This is a script representing an Enemy and its current state
 // Enemy
 public class Enemy : Fighter {
 
+    public EnemyType type;
 
     // Awake
     void Awake()
@@ -27,18 +28,36 @@ public class Enemy : Fighter {
         string selectedMove = getSelectedMove(false);
         if (selectedMove == null)
         {
-            if(currStamina <= 0) {
-                addSelectedMove("NoStamina");
-            } else {
-                //This is where all fancy logic will go to process what the enemy will do.
-                string[] moves = { "Standard Attack", "Strong Swing", "Spin Attack" };
-                selectedMove = moves[Random.Range(0, 2)];
-                addSelectedMove(selectedMove);
+
+            Dictionary<string, double> distribution = new Dictionary<string, double>();
+
+            if (type == EnemyType.Cosmid) {
+                if (currStamina <= 0) {
+                    distribution.Add("Scratch", 1);
+                } else {
+                    distribution.Add("Scratch", .8);
+                    distribution.Add("Black Hole Warp", .2);
+                }
             }
+
+            double low = 0f;
+            double num = Random.value;
+
+            foreach(KeyValuePair<string, double> kvp in distribution) {
+                double high = low + kvp.Value;
+                Debug.Log(high);
+                if (num < high && num > low) {
+                    selectedMove = kvp.Key;
+                    break;
+                }
+                low = high;
+            }
+
+            addSelectedMove(selectedMove);
         }
-        //For now...
         return getSelectedMove(true);
     }
 }
 
 
+public enum EnemyType { Cosmid };
