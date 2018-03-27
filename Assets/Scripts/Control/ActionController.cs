@@ -49,7 +49,7 @@ public class ActionController : MonoBehaviour {
             case Constants.Action.LOAD_NEXT_SCENE:
                 Debug.Log("Action: Load next scene");
                 actionCount = 0;
-                GameController.LoadNextNight();
+                GameController.LoadNextScene();
                 break;
             default:
                 break;

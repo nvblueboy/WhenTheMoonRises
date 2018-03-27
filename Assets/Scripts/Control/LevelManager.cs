@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour
 
     // Start
     void Start()
-    {
+    {               
         if(SceneManager.GetActiveScene().name.Contains("Night"))
         {
             feedbackController = GameObject.FindGameObjectWithTag(
@@ -51,9 +51,6 @@ public class LevelManager : MonoBehaviour
 
         if(!isDay)
         {
-            //tempUI = GameObject.FindGameObjectWithTag("TempUI");
-            //tempUI.SetActive(false);
-
             CountTotalStarsInLevel();
             countText.text = "0 /";
             feedbackController.showFeedback(startDialogue);
@@ -109,7 +106,7 @@ public class LevelManager : MonoBehaviour
 
         if (starsCount == starsTotal)
         {
-            GameController.LoadScene("TitleScreen");
+            GameController.LoadNextScene();
             feedbackController.showFeedback(endDialogue);
             Debug.Log("Collected all stars");
         }
