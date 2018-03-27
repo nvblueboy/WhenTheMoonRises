@@ -271,6 +271,10 @@ public class FightController : MonoBehaviour {
                 }
             }
         }
+        if (moveData.ContainsKey(Constants.GuaranteedHP)) {
+            int damage = moveData[Constants.GuaranteedHP];
+            defend.takeDamage(damage);
+        }
        
 
         if (moveData.ContainsKey(Constants.Stunned)) {
