@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
+[Serializable]
 public class StaminaPotion : Item {
 
-    int strength;
+    [SerializeField] int strength;
 
     public StaminaPotion(string _name, string _displayName, int _strength) : base(_name, _displayName) {
         strength = _strength;

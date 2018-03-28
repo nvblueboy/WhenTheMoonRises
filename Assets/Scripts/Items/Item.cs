@@ -12,8 +12,8 @@ using UnityEngine;
  */
 [System.Serializable]
 public class Item {
-    private string name;
-    private string displayName;
+    [SerializeField] private string name;
+    [SerializeField] private string displayName;
 
     public Item(string _name, string _displayName) {
         name = _name;

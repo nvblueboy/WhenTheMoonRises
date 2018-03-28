@@ -49,6 +49,8 @@ public class Constants {
     // File paths
     public static string DialoguePath = "Dialogue/{0}";
     public static string StoreDialoguePath = "Assets/Resources/Dialogue/{0}.json";
+    public static string StorePlayerPath = "Assets/Resources/SaveData/Player.json";
+    public static string PlayerPath = "SaveData/Player";
 
     // Action codes for performing actions based on dialogue option
     [Serializable]

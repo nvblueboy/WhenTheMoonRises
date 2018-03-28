@@ -30,8 +30,7 @@ public class EnemyMovement : MonoBehaviour
         Debug.Log("Hitting something");
         if(collision.CompareTag("Player") && triggerEnabled)
         {
-            SceneSwitchController ssc = GameObject.Find("Scene Switcher").GetComponent<SceneSwitchController>();
-            ssc.passObject(GetComponent<Fighter>());
+            SceneSwitchController ssc = GameObject.Find("Scene Switcher").GetComponent<SceneSwitchController>();            
             ssc.passingGameObject = this.gameObject;
             ssc.save = true;
 
