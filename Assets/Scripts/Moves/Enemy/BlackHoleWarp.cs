@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlackHoleWarp : Move {
 
     public BlackHoleWarp(string _name) : base(_name) {
-        this.description = "Become invulnerable for 1 turn. (1 STA)";
+        this.description = "1 STA | Become invulnerable for 1 turn.";
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {
