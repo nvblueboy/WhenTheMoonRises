@@ -42,34 +42,36 @@ public class GameController : MonoBehaviour {
 
     // Start
     void Start()
-    {
-        Debug.Log("Start");    
+    {        
         playerPosition = Vector3.zero;
         previousScene = "";
         prevSceneIndex = 0;
         currentScene = SceneManager.GetActiveScene().name;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
-        SaveHandler.SavePlayer(player);
+        //SaveHandler.SavePlayer(player);
         oldScene = SceneManager.GetActiveScene().name;                
     }
 
     // Update
     void Update()
     {
-        currentScene = SceneManager.GetActiveScene().name;
+        currentScene = SceneManager.GetActiveScene().name;        
 
         if(currentScene != oldScene)
         {
             // Carry over player stats when switching scenes
-            player = LoadHandler.LoadPlayer().updatePlayer(player);
-            Debug.Log("Changed scene");
-            Debug.Log("New player strength: " + player.strength);
-
-            Debug.Log("Inventory: ");
-            foreach(Item item in player.inventory)
+            try
             {
-                Debug.Log("Item: " + item.getDisplayName());                
+                Debug.Log("Player item: " + player.inventory[0].getDisplayName());
+                Debug.Log("Player coins: " + player.coins);
+            } catch (ArgumentOutOfRangeException)
+            {
+
             }
+            
+            //player = LoadHandler.LoadPlayer().updatePlayer(player);
+            Debug.Log("Changed scene");
+            Debug.Log("New player strength: " + player.strength);           
         }
 
         // TODO: Replace this with a complete menu
@@ -96,7 +98,12 @@ public class GameController : MonoBehaviour {
 
     public static void LoadScene(string sceneName, Vector3 position)
     {
-        playerPosition = position;
+        if(SceneManager.GetActiveScene().name.Contains("Day"))
+        {
+            playerPosition = position;
+        }
+       
+        Debug.Log("Player position: " + position.x + ", " + position.y + ", " + position.z);
         string currentScene = SceneManager.GetActiveScene().name;
         if(currentScene != "Fight")
         {
@@ -117,8 +124,8 @@ public class GameController : MonoBehaviour {
 
     // LoadPreviousScene
     public static void LoadPreviousScene()
-    {
-        SceneManager.LoadScene(previousScene);
+    {        
+        LoadScene(previousScene);
     }
 
     // LoadNextScene

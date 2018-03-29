@@ -44,9 +44,8 @@ public class ItemShop : MonoBehaviour
     public Text coinText;
     public Text itemInfo;    
     public int coins;
-    public string item;
+    public string item;   
     
-    //public GameObject inventory = GameObject.Find("EventSystem");
     // Use this for initialization
     void Awake()
     {
@@ -61,8 +60,7 @@ public class ItemShop : MonoBehaviour
         arrow8 = GameObject.Find("arrow8");
         arrow9 = GameObject.Find("arrow9");
         arrow10 = GameObject.Find("arrow10");
-        arrow11 = GameObject.Find("arrow11");
-        GameController.player.increaseCoins(100);
+        arrow11 = GameObject.Find("arrow11");        
         coins = GameController.player.getCoins();
         coinText.text = (GameController.player.getCoins()).ToString() + " C";
         //arrows.Add(arrow1);
@@ -87,6 +85,7 @@ public class ItemShop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameController.player.coins = coins;
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (arrow1.activeInHierarchy)
@@ -268,7 +267,7 @@ public class ItemShop : MonoBehaviour
                     //shopText.text = "You bought a large hp potion";
                     Debug.Log("Large HP pot purchased");
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("large hp potion", "large hp potion"));
+                    GameController.player.addItem(new Item("large hp potion", "large hp potion"));                    
                 }
                 else
                 {
