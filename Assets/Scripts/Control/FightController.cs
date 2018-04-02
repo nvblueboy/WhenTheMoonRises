@@ -14,7 +14,8 @@ public class FightController : MonoBehaviour {
 
     public GameObject moveSelectorDisplay;
     public GameObject statusTextDisplay;
-   
+
+    public Fighter player; //This should be replaced with the player class eventually.
     public Enemy enemy;
 
     public Enemy passedEnemy;
@@ -41,15 +42,12 @@ public class FightController : MonoBehaviour {
         //Set the "state" string to "player" if the player should go first, "enemy" if not.
         state = "player";        
         defenseEffect = 0;
-        baseDefense = GameController.player.defense;
+        baseDefense = player.defense;
         //Link this controller to both fighters.
         enemy.fightController = this;
-        GameController.player.fightController = this;
+        player.fightController = this;
         //Get all moves initialized.
         MoveUtils.InitMoves();
-
-        Debug.Log("Player strength: " + GameController.player.strength);
-        
 
         hasFallen = true;
         isRising = false;
@@ -93,25 +91,25 @@ public class FightController : MonoBehaviour {
         //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(state == "player") {
             //See if the player has selected a move by getting the string and then seeing if it's null.            
-            string selectedMove = GameController.player.getSelectedMove(true);
+            string selectedMove = player.getSelectedMove(true);
             if (selectedMove != null) {
                 moveSelector.GetComponent<MoveSelector>().takeControl = false;
                 //Check if the player has enough stamina for this move.
                 Move m = MoveUtils.GetMove(selectedMove);
 
-                if (m.moveEligible(GameController.player)) {
+                if (m.moveEligible(player)) {
                     // Check if player stats need to be changed this turn      
                     if (defenseEffect - 1 > 0) {
                         defenseEffect -= 1;
                     }
                     else {
                         // Reset defense
-                        GameController.player.defense = baseDefense;
+                        player.defense = baseDefense;
                     }
 
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
 
-                    string status = processMove(GameController.player, enemy, selectedMove);
+                    string status = processMove(player, enemy, selectedMove);
                     string prefix = "";
                     if (selectedMove != Constants.ItemUse && selectedMove != "Run") {
                         prefix = "You used " + selectedMove + "! ";
@@ -146,7 +144,7 @@ public class FightController : MonoBehaviour {
         if(state=="enemy") {
             //Have the enemy player run it's logic.
             string selectedMove = enemy.getMove();
-            string status = processMove(enemy, GameController.player, selectedMove);
+            string status = processMove(enemy, player, selectedMove);
 
             if(selectedMove == Constants.Stunned || selectedMove == "NoStamina") {
                 setStatus(status);
@@ -216,7 +214,7 @@ public class FightController : MonoBehaviour {
     }
 
     public void onFighterDead(Fighter f) {
-        if (f == GameController.player) {
+        if (f == player) {
             exitState = "loss";
             finalStatus = "You died! Press space to go to the main menu."; //TODO: Fix this based on controller type.
             //Do we want to save anything when the player dies? if so, this is the place to do it.
@@ -261,15 +259,21 @@ public class FightController : MonoBehaviour {
         if(moveData.ContainsKey(Constants.HP)) {
             int damage = moveData[Constants.HP];
 
-            if(defend.defense <= 4) {
-                defend.takeDamage(damage);
-            } else if(5 <= enemy.defense && enemy.defense <= 9) {
-                defend.takeDamage(damage - 1);
-            } else if(10 <= enemy.defense && enemy.defense <= 19) {
-                defend.takeDamage(damage - 2);
-            } else {
-                defend.takeDamage(damage - 3);
+            if(defend.invulnerable == 0) {
+                if(defend.defense <= 4) {
+                    defend.takeDamage(damage);
+                } else if(5 <= enemy.defense && enemy.defense <= 9) {
+                    defend.takeDamage(damage - 1);
+                } else if(10 <= enemy.defense && enemy.defense <= 19) {
+                    defend.takeDamage(damage - 2);
+                } else {
+                    defend.takeDamage(damage - 3);
+                }
             }
+        }
+        if (moveData.ContainsKey(Constants.GuaranteedHP)) {
+            int damage = moveData[Constants.GuaranteedHP];
+            defend.takeDamage(damage);
         }
        
 
@@ -282,11 +286,21 @@ public class FightController : MonoBehaviour {
             }
         }
 
+
+
         if(moveData.ContainsKey(Constants.DefenseEffect)) {
             defenseEffect += moveData[Constants.DefenseEffect];
         }
 
+        if(moveData.ContainsKey(Constants.Invulnerability)) {
+            attack.invulnerable += moveData[Constants.Invulnerability];
+        }
+
         //Calculate damage string here.
+
+        if (defend.invulnerable > 0) {
+            defend.invulnerable--;
+        }
 
 
         return "";
@@ -294,7 +308,12 @@ public class FightController : MonoBehaviour {
 
     void InitializeFighters()
     {
-        if (passedEnemy != null) {
+        player.currHP = player.hp;
+        player.currStamina = player.stamina;
+
+        if(passedEnemy != null) {
+            enemy.hp = passedEnemy.hp;
+            enemy.stamina = passedEnemy.stamina;
             enemy.currHP = passedEnemy.hp;
             enemy.currStamina = passedEnemy.stamina;
             enemy.strength = passedEnemy.strength;
@@ -307,6 +326,9 @@ public class FightController : MonoBehaviour {
             enemy.currHP = enemy.hp;
             enemy.currStamina = enemy.stamina;
         }
+
+        player.invulnerable = 0;
+        enemy.invulnerable = 0;
     }
 
     void updateUI() {

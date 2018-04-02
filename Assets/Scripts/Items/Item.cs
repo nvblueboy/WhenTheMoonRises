@@ -12,12 +12,14 @@ using UnityEngine;
  */
 [System.Serializable]
 public class Item {
-    [SerializeField] private string name;
-    [SerializeField] private string displayName;
+    private string name;
+    private string displayName;
+    public string description;
 
     public Item(string _name, string _displayName) {
         name = _name;
         displayName = _displayName;
+        description = "This item does not have a description.";
     }
 
     public virtual void affectPlayer(PlayerCharacter p) {
