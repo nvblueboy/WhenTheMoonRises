@@ -120,8 +120,9 @@ public class PlayerCharacter : Fighter {
             moves.Add(MoveUtils.GetMove("Bash"));
             moves.Add(MoveUtils.GetMove("Two Handed Swing"));
             moves.Add(MoveUtils.GetMove("Wrench Throw"));
-        
         }
+
+        moves.Add(MoveUtils.GetMove("Black Hole Warp"));
         return moves.ToArray();
     }
 

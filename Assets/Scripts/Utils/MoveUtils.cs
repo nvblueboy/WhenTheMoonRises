@@ -32,7 +32,9 @@ public class MoveUtils {
             new Run("Run"),
             new Bash("Bash"),
             new TwoHandedSwing("Two Handed Swing"),
-            new WrenchThrow("Wrench Throw")
+            new WrenchThrow("Wrench Throw"),
+            new BlackHoleWarp("Black Hole Warp"),
+            new Scratch("Scratch")
         };       
 
         moveDict = new Dictionary<string, Move>();

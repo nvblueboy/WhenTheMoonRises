@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwoHandedSwing : Move {
+public class BlackHoleWarp : Move {
 
-    public TwoHandedSwing(string _name) : base(_name) {
-        this.description = "1 STA | Does 4 damage.";
+    public BlackHoleWarp(string _name) : base(_name) {
+        this.description = "1 STA | Become invulnerable for 1 turn.";
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {
         attacker.spendStamina(1);
         return new Dictionary<string, int> {
-            { Constants.HP, 4 }
+            { Constants.Invulnerability, 1 }
         };
     }
 

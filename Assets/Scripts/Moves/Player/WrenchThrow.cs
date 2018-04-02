@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class WrenchThrow : Move {
     public WrenchThrow(string _name) : base(_name) {
-        this.description = "An attack that does 4 damage (2 STA)";
+        this.description = "2 STA | Hits in the front and the back.";
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {
         attacker.spendStamina(2);
         return new Dictionary<string, int> {
-            { Constants.HP, 4 }
+            { Constants.HP, 2 },
+            { Constants.GuaranteedHP, 2 }
         };
     }
 

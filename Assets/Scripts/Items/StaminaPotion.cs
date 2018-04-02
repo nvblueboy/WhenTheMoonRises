@@ -8,6 +8,7 @@ public class StaminaPotion : Item {
 
     public StaminaPotion(string _name, string _displayName, int _strength) : base(_name, _displayName) {
         strength = _strength;
+        description = "This item adds " + _strength.ToString() + " stamina.";
     }
 
     public override void affectPlayer(PlayerCharacter p) {

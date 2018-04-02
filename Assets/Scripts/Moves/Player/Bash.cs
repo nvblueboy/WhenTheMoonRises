@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bash : Move {
 
     public Bash(string _name) : base(_name) {
-        this.description = "A basic attack that does 2 damage.";
+        this.description = "0 STA | Does 2 damage.";
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {

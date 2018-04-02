@@ -19,6 +19,8 @@ public class Fighter : MonoBehaviour {
         level, currHP, currStamina;
     public string weapon, name;
 
+    public int invulnerable;
+
     public FightController fightController;
     
     public override string ToString()

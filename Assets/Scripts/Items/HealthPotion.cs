@@ -8,6 +8,7 @@ public class HealthPotion : Item {
 
     public HealthPotion(string _name, string _displayName, int _strength) : base(_name, _displayName) {
         strength = _strength;
+        description = "This item heals " + _strength.ToString() + " HP.";
     }
 
     public override void affectPlayer(PlayerCharacter p) {
