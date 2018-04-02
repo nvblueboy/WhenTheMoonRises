@@ -19,9 +19,7 @@ public class MoveSelector : MonoBehaviour {
 
     private SelectorNode current;
 
-    private SelectorNode items;
-
-    public PlayerCharacter fighter;
+    private SelectorNode items;    
 
     public GameObject loopObject;
     public GameObject gridObject;
@@ -50,13 +48,14 @@ public class MoveSelector : MonoBehaviour {
 
     public void Start() {
         takeControl = true;
-        if(fighter == null) {
+        Debug.Log("Player in Move Selector: " + GameController.player.strength);
+        /*if(GameController.player == null) {
             Debug.LogWarning("There is no fighter class attached to the move selector. I'm creating a fake player for testing purposes.");
-            fighter = new PlayerCharacter();
-            fighter.testInventory();
-        }
-        if(fighter.name == "[Test_inv]") {
-            fighter.testInventory();
+            GameController.player = new PlayerCharacter();
+            GameController.player.testInventory();
+        }*/
+        if(GameController.player.name == "[Test_inv]") {
+            GameController.player.testInventory();
         }
 
         MoveUtils.InitMoves();
@@ -74,7 +73,7 @@ public class MoveSelector : MonoBehaviour {
         SelectorNode moves = new SelectorNode("moves", "Moves", new List<SelectorNode>(), SelectorType.Loop);
         root.addChild(moves);
 
-        foreach (Move m in fighter.getMoves()) {
+        foreach (Move m in GameController.player.getMoves()) {
             selections.Add(m.name, MoveUtils.GetMove(m.name));
             types.Add(m.name, "move");
             moves.addChild(new SelectorNode(m.name, m.name));
@@ -83,8 +82,8 @@ public class MoveSelector : MonoBehaviour {
         items = new SelectorNode("items", "Items", new List<SelectorNode>(), SelectorType.Loop);
         root.addChild(items);
         
-        if (fighter.inventory.Count > 0) {
-            foreach (Item item in fighter.inventory) {
+        if (GameController.player.inventory.Count > 0) {
+            foreach (Item item in GameController.player.inventory) {
                 selections.Add(item.getName(), item);
                 types.Add(item.getName(), "item");
                 items.addChild(new SelectorNode(item.getName(), item.getDisplayName()));
@@ -179,24 +178,24 @@ public class MoveSelector : MonoBehaviour {
                 }
             } else {
                 if (selected.name == "run") {
-                    fighter.addSelectedMove("Run");
+                    GameController.player.addSelectedMove("Run");
                 }
                 object selectedObj = selections[selected.name];
 
                 if (types[selected.name] == "item") {
                     Item selectedItem = (Item)selections[selected.name];
-                    selectedItem.affectPlayer(fighter);
+                    selectedItem.affectPlayer(GameController.player);
 
-                    fighter.removeItemByName(selectedItem.getName());
+                    GameController.player.removeItemByName(selectedItem.getName());
                     items.removeChildByName(selectedItem.getName());
 
-                    fighter.addSelectedMove("Item Use");
+                    GameController.player.addSelectedMove("Item Use");
 
                     current = root;
 
                 } else if (types[selected.name] == "move") {
                     Debug.Log(selected.name);
-                    fighter.addSelectedMove(selected.name);
+                    GameController.player.addSelectedMove(selected.name);
 
                     current = root;
                 }

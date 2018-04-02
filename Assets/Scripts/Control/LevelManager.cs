@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     public Feedback[] endDialogue; 
 
     private GameObject tempUI;
+    private Text hpText, staminaText;    
     private FeedbackController feedbackController;    
     private string round;    
     private int starsCount = 0;
@@ -38,7 +39,10 @@ public class LevelManager : MonoBehaviour
         {
             feedbackController = GameObject.FindGameObjectWithTag(
             "FeedbackController").GetComponent<FeedbackController>();
-        }        
+        }
+
+        hpText = GameObject.FindGameObjectWithTag("StatsUI").transform.GetChild(1).GetComponent<Text>();
+        staminaText = GameObject.FindGameObjectWithTag("StatsUI").transform.GetChild(2).GetComponent<Text>();
 
         //Check day mode
         Scene scene = SceneManager.GetActiveScene();        
@@ -58,6 +62,8 @@ public class LevelManager : MonoBehaviour
     }
 
     void Update() {
+        hpText.text = GameController.player.currHP + " /" + GameController.player.hp;
+        staminaText.text = GameController.player.currStamina + " /" + GameController.player.stamina;
 
         if (!isDay)
         {

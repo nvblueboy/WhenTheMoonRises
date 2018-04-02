@@ -47,8 +47,7 @@ public class GameController : MonoBehaviour {
         previousScene = "";
         prevSceneIndex = 0;
         currentScene = SceneManager.GetActiveScene().name;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
-        //SaveHandler.SavePlayer(player);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();       
         oldScene = SceneManager.GetActiveScene().name;                
     }
 
@@ -59,19 +58,11 @@ public class GameController : MonoBehaviour {
 
         if(currentScene != oldScene)
         {
-            // Carry over player stats when switching scenes
-            try
+           if(currentScene.Contains("Day"))
             {
-                Debug.Log("Player item: " + player.inventory[0].getDisplayName());
-                Debug.Log("Player coins: " + player.coins);
-            } catch (ArgumentOutOfRangeException)
-            {
-
-            }
-            
-            //player = LoadHandler.LoadPlayer().updatePlayer(player);
-            Debug.Log("Changed scene");
-            Debug.Log("New player strength: " + player.strength);           
+                // Restore player hp and stamina during the day time
+                player.restoreHPAndStamina();
+            }           
         }
 
         // TODO: Replace this with a complete menu

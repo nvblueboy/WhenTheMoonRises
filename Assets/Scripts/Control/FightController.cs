@@ -14,8 +14,7 @@ public class FightController : MonoBehaviour {
 
     public GameObject moveSelectorDisplay;
     public GameObject statusTextDisplay;
-
-    public Fighter player; //This should be replaced with the player class eventually.
+   
     public Enemy enemy;
 
     public Enemy passedEnemy;
@@ -42,12 +41,15 @@ public class FightController : MonoBehaviour {
         //Set the "state" string to "player" if the player should go first, "enemy" if not.
         state = "player";        
         defenseEffect = 0;
-        baseDefense = player.defense;
+        baseDefense = GameController.player.defense;
         //Link this controller to both fighters.
         enemy.fightController = this;
-        player.fightController = this;
+        GameController.player.fightController = this;
         //Get all moves initialized.
         MoveUtils.InitMoves();
+
+        Debug.Log("Player strength: " + GameController.player.strength);
+        
 
         hasFallen = true;
         isRising = false;
@@ -91,25 +93,25 @@ public class FightController : MonoBehaviour {
         //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(state == "player") {
             //See if the player has selected a move by getting the string and then seeing if it's null.            
-            string selectedMove = player.getSelectedMove(true);
+            string selectedMove = GameController.player.getSelectedMove(true);
             if (selectedMove != null) {
                 moveSelector.GetComponent<MoveSelector>().takeControl = false;
                 //Check if the player has enough stamina for this move.
                 Move m = MoveUtils.GetMove(selectedMove);
 
-                if (m.moveEligible(player)) {
+                if (m.moveEligible(GameController.player)) {
                     // Check if player stats need to be changed this turn      
                     if (defenseEffect - 1 > 0) {
                         defenseEffect -= 1;
                     }
                     else {
                         // Reset defense
-                        player.defense = baseDefense;
+                        GameController.player.defense = baseDefense;
                     }
 
                     //This block runs when the player has selected a move. Run any logic needed to process the move.
 
-                    string status = processMove(player, enemy, selectedMove);
+                    string status = processMove(GameController.player, enemy, selectedMove);
                     string prefix = "";
                     if (selectedMove != Constants.ItemUse && selectedMove != "Run") {
                         prefix = "You used " + selectedMove + "! ";
@@ -144,7 +146,7 @@ public class FightController : MonoBehaviour {
         if(state=="enemy") {
             //Have the enemy player run it's logic.
             string selectedMove = enemy.getMove();
-            string status = processMove(enemy, player, selectedMove);
+            string status = processMove(enemy, GameController.player, selectedMove);
 
             if(selectedMove == Constants.Stunned || selectedMove == "NoStamina") {
                 setStatus(status);
@@ -214,7 +216,7 @@ public class FightController : MonoBehaviour {
     }
 
     public void onFighterDead(Fighter f) {
-        if (f == player) {
+        if (f == GameController.player) {
             exitState = "loss";
             finalStatus = "You died! Press space to go to the main menu."; //TODO: Fix this based on controller type.
             //Do we want to save anything when the player dies? if so, this is the place to do it.
@@ -292,10 +294,7 @@ public class FightController : MonoBehaviour {
 
     void InitializeFighters()
     {
-        player.currHP = player.hp;
-        player.currStamina = player.stamina;
-
-        if(passedEnemy != null) {
+        if (passedEnemy != null) {
             enemy.currHP = passedEnemy.hp;
             enemy.currStamina = passedEnemy.stamina;
             enemy.strength = passedEnemy.strength;
