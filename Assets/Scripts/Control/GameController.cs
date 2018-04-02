@@ -72,13 +72,7 @@ public class GameController : MonoBehaviour {
         }
 
         oldScene = currentScene;
-    }         
-    
-    // getActiveSceneName
-    public static string getActiveSceneName()
-    {
-        return activeScene;
-    }
+    }  
 
     // LoadScene
     public static void LoadScene(string sceneName)
@@ -190,10 +184,10 @@ public class GameController : MonoBehaviour {
         }
         return loadedScenes;
     }
-    
-    // getPlayer 
-    public PlayerCharacter getPlayer()
+
+    // getCurrentScene
+    public static string getCurrentScene()
     {
-        return player;
-    }
+        return SceneManager.GetActiveScene().name;
+    }   
 }

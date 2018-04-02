@@ -27,7 +27,7 @@ public class PlayerMovementController : MonoBehaviour {
         Vector3 playerPostion = GameController.getLastPlayerPosition();
 
         Debug.Log("Player position: {" + playerPostion.x + ", " + playerPostion.y + ", " + playerPostion.z + "}");
-        if (playerPostion != Vector3.zero)
+        if (playerPostion != Vector3.zero && GameController.getCurrentScene().Contains("Day"))
         {            
             gameObject.transform.position = playerPostion;
         }
