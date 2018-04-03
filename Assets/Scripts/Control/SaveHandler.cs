@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
 
 /*
@@ -13,58 +12,18 @@ Description: This is a script for saving game and player data
 */
 
 // SaveHandler
-public class SaveHandler : MonoBehaviour {
+public class SaveHandler {      
 
     /*
-    Name: Save
+    Name: SavePlayer
     Parameters: PlayerCharacter player
     */
-    public static void Save(PlayerCharacter player)
+    public static void SavePlayer(PlayerCharacter player)
     {
-        Debug.Log("Game saved");
-        SavePlayerPosition(player);
-        SavePlayerStats(player);
-    }
-
-    /*
-    Name: SavePlayerPosition
-    Parameters: PlayerCharacter player
-    */
-    private static void SavePlayerPosition(PlayerCharacter player)
-    {
-        PlayerPrefs.SetString(Constants.SaveExists, "true");
-        PlayerPrefs.SetFloat(Constants.PlayerX, player.transform.position.x);
-        PlayerPrefs.SetFloat(Constants.PlayerY, player.transform.position.y);
-    }
-
-    /*
-    Name: SavePlayerPosition
-    Parameters: PlayerCharacter player
-    */
-    private static void SavePlayerStats(PlayerCharacter player)
-    {
-        PlayerPrefs.SetInt(Constants.MaxHP, player.hp);
-        PlayerPrefs.SetInt(Constants.MaxStamina, player.stamina);
-        PlayerPrefs.SetInt(Constants.CurrHP, player.currHP);
-        PlayerPrefs.SetInt(Constants.CurrStamina, player.currStamina);
-        PlayerPrefs.SetInt(Constants.Strength, player.strength);
-        PlayerPrefs.SetInt(Constants.Defense, player.defense);
-        PlayerPrefs.SetInt(Constants.Intuition, player.intuition);
-        PlayerPrefs.SetInt(Constants.Experience, player.experience);
-        PlayerPrefs.SetInt(Constants.Level, player.level);
-    }
-
-    /*
-    Name: SaveInventory
-    Parameters: PlayerCharacter player
-    */
-    public static void SaveInventory(PlayerCharacter player)
-    {        
-        foreach(Item i in player.inventory)
-        {
-            //TODO: I don't think this would actually work...
-            string s = JsonUtility.ToJson(i);
-            PlayerPrefs.SetString(Constants.Inventory + i.ToString(), s);
-        }
-    }
+        StreamWriter writer = new StreamWriter(
+            File.OpenWrite(Constants.StorePlayerPath));
+        string json = JsonUtility.ToJson(new PlayerWrapper(player));
+        writer.Write(json);
+        writer.Close();
+    }   
 }

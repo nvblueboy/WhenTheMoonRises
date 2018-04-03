@@ -58,9 +58,7 @@ public class DialogueUtils : MonoBehaviour {
                 }
 
                 component.choiceWrapper = new ChoiceWrapper(choices);
-                dList.Add(component);
-
-                //Debug
+                dList.Add(component);               
                 
             }
             ++lineCount;                        

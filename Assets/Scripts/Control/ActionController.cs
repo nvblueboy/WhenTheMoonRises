@@ -20,14 +20,18 @@ public class ActionController : MonoBehaviour {
                 break;
             case Constants.Action.ADD_STRENGTH:
                 Debug.Log("Action: Strength increased");
+                GameController.player.strength += 1;             
                 ++actionCount;
                 break;
             case Constants.Action.ADD_STAMINA:
                 Debug.Log("Action: Stamina increased");
+                GameController.player.stamina += 1;
+                GameController.player.currStamina += 1;
                 ++actionCount;
                 break;
             case Constants.Action.ADD_INTUITION:
                 Debug.Log("Action: Intuition increased");
+                GameController.player.intuition += 1;
                 ++actionCount;
                 break;
             case Constants.Action.ADD_MAGIC:
@@ -36,10 +40,13 @@ public class ActionController : MonoBehaviour {
                 break;
             case Constants.Action.ADD_DEFENSE:
                 Debug.Log("Action: Defense increased");
+                GameController.player.defense += 1;
                 ++actionCount;
                 break;
             case Constants.Action.ADD_HEALTH:
                 Debug.Log("Action: Health increased");
+                GameController.player.hp += 1;
+                GameController.player.currHP += 1;
                 ++actionCount;
                 break;
             case Constants.Action.LOAD_PREV_SCENE:

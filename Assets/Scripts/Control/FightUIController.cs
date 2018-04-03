@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class FightUIController : MonoBehaviour {
-
-    public Fighter player;
+    
     public Fighter enemy;
 
     public Text playerHP;
@@ -21,23 +20,23 @@ public class FightUIController : MonoBehaviour {
     private int oldEnemyStamina;
 
 	// Use this for initialization
-	void Start () {
-        playerHP.text = player.currHP.ToString() + "/" + player.hp.ToString();
-        playerStamina.text = player.currStamina.ToString() + "/" + player.stamina.ToString();
+	void Start () {        
+        playerHP.text = GameController.player.currHP.ToString() + "/" + GameController.player.hp.ToString();
+        playerStamina.text = GameController.player.currStamina.ToString() + "/" + GameController.player.stamina.ToString();
         enemyHP.text = enemy.currHP.ToString() + "/" + enemy.hp.ToString();
         enemyStamina.text = enemy.currStamina.ToString() + "/" + enemy.stamina.ToString();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (player.currHP != oldPlayerHP)
+        if (GameController.player.currHP != oldPlayerHP)
         {
-            playerHP.text = player.currHP.ToString() + "/" + player.hp.ToString();
+            playerHP.text = GameController.player.currHP.ToString() + "/" + GameController.player.hp.ToString();
         }
 
-        if (player.currStamina != oldPlayerStamina)
+        if (GameController.player.currStamina != oldPlayerStamina)
         {
-            playerStamina.text = player.currStamina.ToString() + "/" + player.stamina.ToString();
+            playerStamina.text = GameController.player.currStamina.ToString() + "/" + GameController.player.stamina.ToString();
         }
 
         if (enemy.currHP != oldEnemyHP)
@@ -51,8 +50,8 @@ public class FightUIController : MonoBehaviour {
         }
 
 
-        oldPlayerHP = player.currHP;
-        oldPlayerStamina = player.currStamina;
+        oldPlayerHP = GameController.player.currHP;
+        oldPlayerStamina = GameController.player.currStamina;
         oldEnemyHP = enemy.currHP;
         oldEnemyStamina = enemy.currStamina;
 	}

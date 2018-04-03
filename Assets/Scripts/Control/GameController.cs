@@ -16,14 +16,14 @@ Description: This is a script for controlling changes to the game state
 
 // GameController
 public class GameController : MonoBehaviour {
-    private static PlayerCharacter player;
+    public static PlayerCharacter player;
     private static Text actionText;
     public static GameController instance;    
     
     private static Vector3 playerPosition;
     private static PlayerMovementController playerController;
     private static List<string> loadedScenes;
-    private static string currentScene, previousScene, activeScene;
+    private static string currentScene, previousScene, activeScene, oldScene;
     private static int prevSceneIndex;   
 
     // Awake
@@ -42,41 +42,53 @@ public class GameController : MonoBehaviour {
 
     // Start
     void Start()
-    {                
+    {        
         playerPosition = Vector3.zero;
         previousScene = "";
         prevSceneIndex = 0;
         currentScene = SceneManager.GetActiveScene().name;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();       
+        oldScene = SceneManager.GetActiveScene().name;                
     }
 
     // Update
     void Update()
     {
-        currentScene = SceneManager.GetActiveScene().name;
+        currentScene = SceneManager.GetActiveScene().name;        
+
+        if(currentScene != oldScene)
+        {
+           if(currentScene.Contains("Day"))
+            {
+                // Restore player hp and stamina during the day time
+                player.restoreHPAndStamina();
+            }           
+        }
 
         // TODO: Replace this with a complete menu
         if (Input.GetButtonDown("Cancel"))
         {
             Application.Quit();
         }
-    }         
-    
-    // getActiveSceneName
-    public static string getActiveSceneName()
-    {
-        return activeScene;
-    }
+
+        oldScene = currentScene;
+    }  
 
     // LoadScene
     public static void LoadScene(string sceneName)
     {
+        SaveHandler.SavePlayer(player);
         LoadScene(sceneName, Vector3.zero);
     }
 
     public static void LoadScene(string sceneName, Vector3 position)
     {
-        playerPosition = position;
+        if(SceneManager.GetActiveScene().name.Contains("Day"))
+        {
+            playerPosition = position;
+        }
+       
+        Debug.Log("Player position: " + position.x + ", " + position.y + ", " + position.z);
         string currentScene = SceneManager.GetActiveScene().name;
         if(currentScene != "Fight")
         {
@@ -87,10 +99,18 @@ public class GameController : MonoBehaviour {
         SceneManager.LoadScene(sceneName);
     }
 
+    public static void LoadScene(int index)
+    {
+        SaveHandler.SavePlayer(player);
+        previousScene = SceneManager.GetActiveScene().name;
+        prevSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(index);
+    }
+
     // LoadPreviousScene
     public static void LoadPreviousScene()
-    {
-        SceneManager.LoadScene(previousScene);
+    {        
+        LoadScene(previousScene);
     }
 
     // LoadNextScene
@@ -107,11 +127,11 @@ public class GameController : MonoBehaviour {
         if (currentScene.Contains("Day") || currentScene.Contains("Night"))
         {
             Debug.Log("Contains Night");            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else if (currentScene.Contains("Fight"))
         {            
-            SceneManager.LoadScene(prevSceneIndex + 1);
+            LoadScene(prevSceneIndex + 1);
         }
         else  // called from inside a store/house scene
         {
@@ -164,10 +184,10 @@ public class GameController : MonoBehaviour {
         }
         return loadedScenes;
     }
-    
-    // getPlayer 
-    public PlayerCharacter getPlayer()
+
+    // getCurrentScene
+    public static string getCurrentScene()
     {
-        return player;
-    }
+        return SceneManager.GetActiveScene().name;
+    }   
 }

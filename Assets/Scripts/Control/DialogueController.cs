@@ -223,8 +223,7 @@ public class DialogueController : MonoBehaviour {
             uiDialogue.SetActive(false);
             dialogueActive = false;
             if(player != null)
-            {
-                Debug.Log("Player can move");
+            {                
                 player.setPlayerCanMove(true);
             }
 
@@ -242,8 +241,7 @@ public class DialogueController : MonoBehaviour {
         txtSpeaker.text = currentDialogue.speaker;
 
         if (player != null)
-        {
-            Debug.Log("Player can't move");
+        {            
             player.setPlayerCanMove(false);
         }
     }
