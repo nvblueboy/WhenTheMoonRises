@@ -2,26 +2,34 @@
 using UnityEngine;
 
 public class BuildingTrigger : MonoBehaviour {
-    Text promptText;
-    GameObject player;
+    Text promptText, nameText, descriptionText;
+    Image backgroundImage;
+    GameObject buildingUI, player;
     DialogueController dialogueController;
-    public string scene;
+    public string scene, buildingName, buildingDescription;
 
     // Start
     void Start () {
+        // initialize UI elements
+        buildingUI = GameObject.FindGameObjectWithTag("BuildingUI");
+        backgroundImage = buildingUI.GetComponent<Image>();
+        backgroundImage.enabled = false;
         promptText = GameObject.FindGameObjectWithTag("PromptText").GetComponent<Text>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        nameText = buildingUI.transform.GetChild(0).GetComponent<Text>();
+        descriptionText = buildingUI.transform.GetChild(1).GetComponent<Text>();        
         dialogueController = GameObject.FindGameObjectWithTag("DialogueController")
-            .GetComponent<DialogueController>();		
+            .GetComponent<DialogueController>();
+
+        player = GameObject.FindGameObjectWithTag("Player");      
+        	
 	}
 
     // OnTriggerStay
     void OnTriggerStay(Collider other)
-    {
-        if(other.gameObject.tag == "Player")
-        {
-            promptText.text = "Press 'E' to enter";
-
+    {        
+        if(other.gameObject.tag == "Player" && !dialogueController.getDialogueActive())
+        {            
+            setUIActive(true);
             if (Input.GetButtonDown("Enter"))
             {
                 if (scene.Length > 0)
@@ -41,14 +49,37 @@ public class BuildingTrigger : MonoBehaviour {
                 }                             
             }
         }
+        else
+        {
+            setUIActive(false);
+        }
     }
 
     // OnTriggerExit
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
-        {            
-            promptText.text = "";
+        {           
+            setUIActive(false);            
         }
+    }
+
+    // activateUI
+    void setUIActive(bool active)
+    {
+        if(active)
+        {
+            backgroundImage.enabled = true;
+            nameText.text = buildingName;
+            descriptionText.text = buildingDescription;
+            promptText.text = "Press 'E' to enter";
+        }
+        else
+        {
+            backgroundImage.enabled = false;
+            nameText.text = "";
+            descriptionText.text = "";
+            promptText.text = "";
+        }        
     }
 }
