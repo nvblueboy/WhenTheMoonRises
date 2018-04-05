@@ -64,6 +64,8 @@ public class MenuController : MonoBehaviour {
                 txtPhase = gameObject.GetComponent<Text>();
             } else if (gameObject.name.Contains("health")) {
                 txtHealth = gameObject.GetComponent<Text>();
+            } else if (gameObject.name.Contains("weapon")) {
+                txtWeapon = gameObject.GetComponent<Text>();
             }
         }
     }
@@ -76,9 +78,23 @@ public class MenuController : MonoBehaviour {
         txtHealth.text = player.currHP + "/" + player.hp;
         txtDefense.text = player.defense.ToString();
         txtStamina.text = player.currStamina + "/" + player.stamina;
-        txtIntuition.text = player.intuition.ToString();
-        txtWeapon.text = player.weapon;
-        txtExperience.text = player.weapon;
+        txtIntuition.text = player.intuition.ToString();        
+        txtExperience.text = player.experience.ToString();
+
+        string weapon = player.weapon;
+        if(weapon != null && weapon != "")
+        {
+            txtWeapon.text = char.ToUpper(weapon[0]) + weapon.Substring(1);
+        }
+
+        string currentScene = GameController.getCurrentScene();
+        if(currentScene.Contains("Day"))
+        {
+            txtPhase.text = currentScene.Substring(0, 3) + " " + currentScene.Substring(3, 1)
+                + ", Actions Left " + (6 - ActionController.getActionCount()) + "/6";
+        } else if(currentScene.Contains("Night")) {
+
+        }
     }
 
     // ShowMenu
