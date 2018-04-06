@@ -128,6 +128,7 @@ public class DialogueController : MonoBehaviour {
 
             canDialogue.SetActive(false);
             uiDialogue.SetActive(false);
+            dialogueActive = false;
             ActionController.performAction(currentDialogue.action);
             return;
         }
@@ -223,8 +224,7 @@ public class DialogueController : MonoBehaviour {
             uiDialogue.SetActive(false);
             dialogueActive = false;
             if(player != null)
-            {
-                Debug.Log("Player can move");
+            {                
                 player.setPlayerCanMove(true);
             }
 
@@ -242,8 +242,7 @@ public class DialogueController : MonoBehaviour {
         txtSpeaker.text = currentDialogue.speaker;
 
         if (player != null)
-        {
-            Debug.Log("Player can't move");
+        {            
             player.setPlayerCanMove(false);
         }
     }
@@ -256,5 +255,11 @@ public class DialogueController : MonoBehaviour {
         uiDialogue.SetActive(true);
         canDialogue.SetActive(true);
         lastNextTime = Time.time;
-    }    
+    }   
+    
+    // getDialogueActive
+    public bool getDialogueActive()
+    {
+        return dialogueActive;
+    } 
 }

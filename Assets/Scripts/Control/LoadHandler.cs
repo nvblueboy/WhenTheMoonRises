@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
 
 /*
@@ -13,74 +12,14 @@ Description: This is a script for loading game and player data
 */
 
 // LoadHandler
-public class LoadHandler : MonoBehaviour { 
+public class LoadHandler {    
 
-    /*
-    Name: Load
-     Parameters: PlayerCharacter player
-    */
-    public static void Load(PlayerCharacter player)
-    {
-        Debug.Log("Attempt to load");
-        if (canLoad())
-        {
-            LoadPlayerPosition(player);
-            LoadPlayerStats(player);
-            LoadInventory(player);
-        }
-    }  
-     
-    /*
-    Name: LoadPlayerPosition
-    Parameters: PlayerCharacter player
-    */
-    private static void LoadPlayerPosition(PlayerCharacter player)
-    {
-        Vector2 playerPosition = new Vector2(PlayerPrefs.GetFloat(
-            Constants.PlayerX), PlayerPrefs.GetFloat(Constants.PlayerY));        
-        player.transform.position = playerPosition;
-        Debug.Log("Loaded player position: " + playerPosition.ToString());
-    }  
-         
-     /*
-     Name: LoadPlayerStats
-     Parameters: PlayerCharacter player
-     */
-     private static void LoadPlayerStats(PlayerCharacter player)
-     {
-        player.hp = PlayerPrefs.GetInt(Constants.MaxHP);
-        player.stamina = PlayerPrefs.GetInt(Constants.MaxStamina);
-        player.currHP = PlayerPrefs.GetInt(Constants.CurrHP);
-        player.currStamina = PlayerPrefs.GetInt(Constants.CurrStamina);
-        player.strength = PlayerPrefs.GetInt(Constants.Strength);
-        player.intuition = PlayerPrefs.GetInt(Constants.Intuition);
-        player.defense = PlayerPrefs.GetInt(Constants.Defense);
-        player.experience = PlayerPrefs.GetInt(Constants.Experience);
-        player.level = PlayerPrefs.GetInt(Constants.Level);
-     }
-
-    /*
-   Name: LoadInventory
-   Parameters: PlayerCharacter player
-   */
-    private static void LoadInventory(PlayerCharacter player)
+    // LoadPlayer
+    public static PlayerWrapper LoadPlayer()
     {        
-        string item;
-        int i = 0;
-        while(true) {  //Ugh.
-            item = PlayerPrefs.GetString(Constants.Inventory + i++.ToString(), "[null]");
-            if (item == "[null]") {
-                break;
-            } else {
-                //TODO: Make this work because inheritance and JSON are not friendly
-            }
-        }
-
-    }
-
-    // canLoad    
-    private static bool canLoad()
-    {
-        return !(PlayerPrefs.GetString(Constants.SaveExists) == "");
-    } 
+        TextAsset playerJson = Resources.Load<TextAsset>(Constants.PlayerPath);
+        Debug.Log("Player json: " + playerJson);
+        PlayerWrapper playerWrapper = JsonUtility.FromJson<PlayerWrapper>(playerJson.text);
+        return playerWrapper;
+    }     
 }
