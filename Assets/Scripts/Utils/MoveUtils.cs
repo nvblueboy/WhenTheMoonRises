@@ -34,7 +34,10 @@ public class MoveUtils {
             new TwoHandedSwing("Two Handed Swing"),
             new WrenchThrow("Wrench Throw"),
             new BlackHoleWarp("Black Hole Warp"),
-            new Scratch("Scratch")
+            new Scratch("Scratch"),
+            new Slash("Slash"),
+            new MightyTackle("Mighty Tackle"),
+            new PierceTheHeart("Pierce The Heart")
         };       
 
         moveDict = new Dictionary<string, Move>();
