@@ -33,8 +33,7 @@ public class MenuController : MonoBehaviour {
 	// Update
 	void Update () {
         float newMenu = Input.GetAxis("Cancel");
-        if (newMenu > 0 && oldMenu < 1  
-            && GameController.getCurrentScene().Contains("Day"))
+        if (newMenu > 0 && oldMenu < 1)
         {
             if(menuActive)
             {
@@ -152,7 +151,11 @@ public class MenuController : MonoBehaviour {
             txtPhase.text = currentScene.Substring(0, 3) + " " + currentScene.Substring(3, 1)
                 + ", Actions Left " + (6 - ActionController.getActionCount()) + "/6";
         } else if(currentScene.Contains("Night")) {
+            LevelManager levelManager = GameObject.FindGameObjectWithTag(
+                "LevelManager").GetComponent<LevelManager>();
 
+            txtPhase.text = currentScene.Substring(0, 5) + " " + currentScene.Substring(5, 1)
+                + ", Shards: " + levelManager.starsCount + "/" + levelManager.starsTotal;
         }
     }
 
@@ -195,7 +198,11 @@ public class MenuController : MonoBehaviour {
             } 
         }
 
-        if (tabIndex == 1)
+        if(tabIndex == 0)
+        {
+            UpdateCharacterMenu();
+        }
+        else if (tabIndex == 1)
         {
             UpdateInventory();
         }

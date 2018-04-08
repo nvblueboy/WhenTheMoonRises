@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     private Text hpText, staminaText;    
     private FeedbackController feedbackController;    
     private string round;    
-    private int starsCount = 0;
+    public int starsCount = 0;
     private int actionCount = 0;
     private int cycleCount = 1;
     private int starsInventory = 0;
