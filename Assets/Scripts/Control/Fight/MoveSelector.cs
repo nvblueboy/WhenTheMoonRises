@@ -83,12 +83,15 @@ public class MoveSelector : MonoBehaviour {
         root.addChild(items);
         
         if (GameController.player.inventory.Count > 0) {
+
             foreach (Item item in GameController.player.inventory) {
+                Debug.Log(item.getName());
                 selections.Add(item.getName(), item);
                 types.Add(item.getName(), "item");
                 items.addChild(new SelectorNode(item.getName(), item.getDisplayName()));
             }
-        }
+        } 
+
 
 
         SelectorNode options = new SelectorNode("run", "Run");
