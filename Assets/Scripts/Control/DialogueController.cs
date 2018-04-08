@@ -128,6 +128,7 @@ public class DialogueController : MonoBehaviour {
 
             canDialogue.SetActive(false);
             uiDialogue.SetActive(false);
+            dialogueActive = false;
             ActionController.performAction(currentDialogue.action);
             return;
         }
@@ -254,5 +255,11 @@ public class DialogueController : MonoBehaviour {
         uiDialogue.SetActive(true);
         canDialogue.SetActive(true);
         lastNextTime = Time.time;
-    }    
+    }   
+    
+    // getDialogueActive
+    public bool getDialogueActive()
+    {
+        return dialogueActive;
+    } 
 }
