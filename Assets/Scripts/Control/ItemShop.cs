@@ -236,7 +236,7 @@ public class ItemShop : MonoBehaviour
                     smallHP.onClick.Invoke();
                     //shopText.text = "You bought a small hp potion";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("small hp potion", "small hp potion"));
+                    GameController.player.addItem(new Item("small hp potion", "Small HP Potion"));
                 }
                 else
                 {
@@ -251,7 +251,7 @@ public class ItemShop : MonoBehaviour
                     medHP.onClick.Invoke();
                     //shopText.text = "You bought a medium hp potion";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("medium hp potion", "medium hp potion"));
+                    GameController.player.addItem(new Item("medium hp potion", "Medium HP Potion"));
                 }
                 else
                 {
@@ -267,7 +267,7 @@ public class ItemShop : MonoBehaviour
                     //shopText.text = "You bought a large hp potion";
                     Debug.Log("Large HP pot purchased");
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("large hp potion", "large hp potion"));                    
+                    GameController.player.addItem(new Item("large hp potion", "Large HP Potion"));                    
                 }
                 else
                 {
@@ -282,7 +282,7 @@ public class ItemShop : MonoBehaviour
                     smallST.onClick.Invoke();
                     //shopText.text = "You bought a small stamina potion";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("small stamina potion", "small stamina potion"));
+                    GameController.player.addItem(new Item("small stamina potion", "Small Stamina Potion"));
                 }
                 else
                 {
@@ -297,7 +297,7 @@ public class ItemShop : MonoBehaviour
                     medST.onClick.Invoke();
                     //shopText.text = "You bought a medium stamina potion";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("medium stamina potion", "medium stamina potion"));
+                    GameController.player.addItem(new Item("medium stamina potion", "Medium Stamina Potion"));
                 }
                 else
                 {
@@ -312,7 +312,7 @@ public class ItemShop : MonoBehaviour
                     largeST.onClick.Invoke();
                     //shopText.text = "You bought a large stamina potion";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("large stamina potion", "large stamina potion"));
+                    GameController.player.addItem(new Item("large stamina potion", "Large Stamina Potion"));
                 }
                 else
                 {
@@ -327,7 +327,7 @@ public class ItemShop : MonoBehaviour
                     fireCrack.onClick.Invoke();
                     //shopText.text = "You bought a fire cracker";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("fire cracker", "fire cracker"));
+                    GameController.player.addItem(new Item("fire cracker", "Fire Cracker"));
                 }
                 else
                 {
@@ -342,7 +342,7 @@ public class ItemShop : MonoBehaviour
                     sBomb.onClick.Invoke();
                     //shopText.text = "You bought a single bomb";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("single bomb", "single bomb"));
+                    GameController.player.addItem(new Item("single bomb", "Single Bomb"));
                 }
                 else
                 {
@@ -357,7 +357,7 @@ public class ItemShop : MonoBehaviour
                     aoeBomb.onClick.Invoke();
                     //shopText.text = "You bought an aoe bomb";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("aoe bomb", "aoe bomb"));
+                    GameController.player.addItem(new Item("aoe bomb", "AOE Bomb"));
                 }
                 else
                 {
@@ -372,7 +372,7 @@ public class ItemShop : MonoBehaviour
                     bundle.onClick.Invoke();
                     //shopText.text = "You bought a mega firework bundle";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("mega firework bundle", "mega firework bundle"));
+                    GameController.player.addItem(new Item("mega firework bundle", "Mega Firework Bundle"));
                 }
                 else
                 {
