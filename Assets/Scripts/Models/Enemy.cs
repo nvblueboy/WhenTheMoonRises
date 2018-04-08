@@ -38,6 +38,13 @@ public class Enemy : Fighter {
                     distribution.Add("Scratch", .8);
                     distribution.Add("Black Hole Warp", .2);
                 }
+            } else if (type == EnemyType.Bear) {
+                if (currStamina <= 3) {
+                    distribution.Add("Slash", 1);
+                } else {
+                    distribution.Add("Slash", .75);
+                    distribution.Add("Mighty Tackle", .25);
+                }
             }
 
             double low = 0f;
@@ -45,7 +52,6 @@ public class Enemy : Fighter {
 
             foreach(KeyValuePair<string, double> kvp in distribution) {
                 double high = low + kvp.Value;
-                Debug.Log(high);
                 if (num < high && num > low) {
                     selectedMove = kvp.Key;
                     break;
@@ -60,4 +66,4 @@ public class Enemy : Fighter {
 }
 
 
-public enum EnemyType { Cosmid };
+public enum EnemyType { Cosmid, Wolf, Bush_Spirit, Bear, Cosmult, Possessed_Wolf, Possessed_Bear, Cosmaster };
