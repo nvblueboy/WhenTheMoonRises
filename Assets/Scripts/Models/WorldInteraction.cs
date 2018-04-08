@@ -29,6 +29,7 @@ public class WorldInteraction : Interaction {
                 return;
             }
 
+            indicator.enabled = false;
             feedbackController.showFeedback(successText, gameObject.name, this);
             actionComplete = true;
             if(!delayAction)
