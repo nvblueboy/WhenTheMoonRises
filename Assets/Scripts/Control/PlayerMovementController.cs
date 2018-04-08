@@ -137,7 +137,8 @@ public class PlayerMovementController : MonoBehaviour {
     }
     
     public void setPlayerCanMove(bool canMove)
-    {        
+    {
+        Debug.Log("Set player can move: " + canMove);      
         isBlocked = !canMove;
     }            
 }

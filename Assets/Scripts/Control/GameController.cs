@@ -165,7 +165,11 @@ public class GameController : MonoBehaviour {
     
     // addLoadedScene
     public static void addLoadedScene(string sceneName)
-    {        
+    {
+        if(loadedScenes == null)
+        {
+            loadedScenes = new List<string>();
+        }        
         loadedScenes.Add(sceneName);
     }
     
