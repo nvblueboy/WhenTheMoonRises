@@ -48,14 +48,19 @@ public class PlayerMovementController : MonoBehaviour {
                 int i = 0;
                 while (i < hitColliders.Length)
                 {
-                    if (hitColliders[i].gameObject.tag == "Interactable")
+                    Collider collider = hitColliders[i];
+                    if(collider.gameObject.tag == "Interactable")
                     {
-                        Interaction[] interactions = hitColliders[i].gameObject.GetComponents<Interaction>();
-                        foreach (Interaction interaction in interactions)
+                        Debug.Log("Collider is trigger: " + collider.isTrigger);
+                        if (!collider.isTrigger || collider.gameObject.name.Contains("log"))
                         {
-                            interaction.interact();
+                            Interaction[] interactions = hitColliders[i].gameObject.GetComponents<Interaction>();
+                            foreach (Interaction interaction in interactions)
+                            {
+                                interaction.interact();
+                            }
                         }
-                    }
+                    }                    
                     i++;
                 }
             }            
