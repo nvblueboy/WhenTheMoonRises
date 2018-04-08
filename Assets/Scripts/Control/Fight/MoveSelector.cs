@@ -122,7 +122,7 @@ public class MoveSelector : MonoBehaviour {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         float jump = Input.GetAxis("Jump");
-        float fire = Input.GetAxis("Cancel");
+        float fire = Input.GetAxis("Close");
 
         float horiz_mag = Mathf.Abs(horiz);
         float vert_mag = Mathf.Abs(vert);
