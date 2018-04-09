@@ -21,6 +21,7 @@ public class InventoryInteraction : Interaction {
     {              
         if(hasPreReq())
         {
+            indicator.enabled = false;
             if (!hasInteracted)
             {                
                 feedbackController.showFeedback(successText, gameObject.name, this);
@@ -42,9 +43,8 @@ public class InventoryInteraction : Interaction {
         hasInteracted = true;
 
         if (gameObject.name.Contains("pickup"))
-        {
-            //Destroy(gameObject);
-            gameObject.SetActive(false);
+        {            
+            gameObject.SetActive(false);            
         }
 
         if (removePreReq)

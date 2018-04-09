@@ -71,22 +71,22 @@ public class DialogueController : MonoBehaviour {
         dialogue = DialogueUtils.initDialogueForScene(inputFile);
 
         // Used only to translate dialogue from CSV into JSON
-        //DialogueUtils.storeDialogueFromFile("Day2", "Day2");
+        //DialogueUtils.storeDialogueFromFile("Day2", "Day2");        
 
         // If there is initial dialogue to display and it hasn't been displayed before
         if (startIndex != 0 && !GameController.getLoadedScenes().Contains(sceneName)
             || !sceneName.Contains("Day"))
-        {
-            Show(startIndex);
+        {            
+            Show(startIndex);            
         }
-
+        
         GameController.addLoadedScene(sceneName);
     }
 	
 	// Update
 	void Update () {
         float newNext = Input.GetAxis("Jump");        
-        if(oldNext < 1 && newNext > 0 && Time.time - lastNextTime > .2f && canNext)
+        if(oldNext < 1 && newNext > 0 && Time.time - lastNextTime > .2f && canNext && dialogueActive)
         {
             Next();            
         }

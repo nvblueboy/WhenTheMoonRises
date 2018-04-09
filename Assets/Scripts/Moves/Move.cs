@@ -17,6 +17,8 @@ Description: This is a class representing a move to be used in the Fight scene b
 public class Move {    
     public string name;
     public string description;
+    public bool animateDefender;
+    public bool animateAttacker;
 
     /*
     Name: Move
@@ -26,6 +28,8 @@ public class Move {
    {
         this.name = _name;
         this.description = "This move does not have a description.";
+        this.animateDefender = true;
+        this.animateAttacker = false;
    }
 
    /*

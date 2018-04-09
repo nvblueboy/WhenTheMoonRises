@@ -131,7 +131,11 @@ public class FightController : MonoBehaviour {
                     state = "display_wait";
                     if (runAnimation) {
                         animationNeeded = true;
-                        animationData = "enemy_damage";
+                        if(m.animateAttacker) {
+                            animationData = "player_buff";
+                        } else if (m.animateDefender) {
+                            animationData = "enemy_damage";
+                        }
                         moveName = selectedMove;
                     }
 
@@ -163,6 +167,8 @@ public class FightController : MonoBehaviour {
             string selectedMove = enemy.getMove();
             string status = processMove(enemy, GameController.player, selectedMove);
 
+            Move m = MoveUtils.GetMove(selectedMove);
+
             if(selectedMove == Constants.Stunned || selectedMove == "NoStamina") {
                 setStatus(status);
             }
@@ -175,7 +181,11 @@ public class FightController : MonoBehaviour {
 
             if(runAnimation) {
                 animationNeeded = true;
-                animationData = "player_damage";
+                if(m.animateAttacker) {
+                    animationData = "enemy_buff";
+                } else if(m.animateDefender) {
+                    animationData = "player_damage";
+                }
                 moveName = selectedMove;
             }
 
@@ -325,6 +335,8 @@ public class FightController : MonoBehaviour {
 
         if(moveData.ContainsKey(Constants.Invulnerability)) {
             attack.invulnerable += moveData[Constants.Invulnerability];
+
+            runAnimation = true;
         }
         
 

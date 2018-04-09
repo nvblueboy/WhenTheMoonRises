@@ -9,6 +9,15 @@ public class HealthPotion : Item {
     public HealthPotion(string _name, string _displayName, int _strength) : base(_name, _displayName) {
         strength = _strength;
         description = "This item heals " + _strength.ToString() + " HP.";
+        if(_name == "fruit_parfait") {
+            description = "A small snack that replenishes 5 HP.";
+        } else if(_name == "black_bean_soup") {
+            description = "A meal on-the-go that replenishes 10 HP.";
+        } else if(_name == "artisanal_sandwich") {
+            description = "A meal on-the-go that replenishes 20 HP.";
+        } else if (_name == "gourmet_pizza") {
+            description = "A large meal that replenishes 50 HP.";
+        }
     }
 
     public override void affectPlayer(PlayerCharacter p) {

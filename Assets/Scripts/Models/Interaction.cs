@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 /*
@@ -20,29 +17,29 @@ public abstract class Interaction : MonoBehaviour {
     public Color32 pulseColor;
     [HideInInspector] public bool displayDialogue;
     public bool removePreReq, delayAction;
-    public float pulseSpeed, pulseStrength;
-    //public int successStart, successEnd, failStart, failEnd;
+    public float pulseSpeed, pulseStrength;    
     public Feedback[] successText, failText;
-
 
     protected bool hasInteracted, actionComplete;
     [SerializeField] protected PlayerCharacter player;
-    protected FeedbackController feedbackController;  
+    protected FeedbackController feedbackController;
+    protected Image indicator;
 
-    private SpriteRenderer renderer;    
+    private SpriteRenderer renderer;      
     private float alpha;    
     private bool dim;
     
     // Awake
     void Awake()
-    {        
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        indicator = GameObject.FindGameObjectWithTag("PromptText").GetComponent<Image>();
+        feedbackController = GameObject.FindGameObjectWithTag("FeedbackController").GetComponent<FeedbackController>();
+        renderer = GetComponent<SpriteRenderer>();
         hasInteracted = false;
         actionComplete = false;
         displayDialogue = successText.Length > 0 || failText.Length > 0;              
-        alpha = 255;  
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
-        feedbackController = GameObject.FindGameObjectWithTag("FeedbackController").GetComponent<FeedbackController>();        
-        renderer = GetComponent<SpriteRenderer>();
+        alpha = 255;        
         pulseColor.a = 255;        
     }      
 
@@ -77,6 +74,7 @@ public abstract class Interaction : MonoBehaviour {
         else
         {
             renderer.color = Color.white;
+            indicator.enabled = false;
         }                
     }
 
@@ -103,6 +101,33 @@ public abstract class Interaction : MonoBehaviour {
     {
         return hasInteracted;
     }
+
+    // OnTriggerEnter
+    void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Player" && !hasInteracted)
+        {
+            Debug.Log("Player entered");
+            indicator.enabled = true;
+        }
+    }
+
+    // OnTriggerExit
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Debug.Log("Player exited");
+            indicator.enabled = false;
+        }
+    }  
+    
+    // OnDestroy
+    void OnDestroy()
+    {
+        indicator.enabled = false;
+        Debug.Log("OnDestroy");
+    }  
 
     // interact
     public abstract void interact();
