@@ -48,24 +48,22 @@ public class PlayerMovementController : MonoBehaviour {
                 int i = 0;
                 while (i < hitColliders.Length)
                 {
-                    if (hitColliders[i].gameObject.tag == "Interactable")
+                    Collider collider = hitColliders[i];
+                    if(collider.gameObject.tag == "Interactable")
                     {
-                        Interaction[] interactions = hitColliders[i].gameObject.GetComponents<Interaction>();
-                        foreach (Interaction interaction in interactions)
+                        Debug.Log("Collider is trigger: " + collider.isTrigger);
+                        if (!collider.isTrigger || collider.gameObject.name.Contains("log"))
                         {
-                            interaction.interact();
+                            Interaction[] interactions = hitColliders[i].gameObject.GetComponents<Interaction>();
+                            foreach (Interaction interaction in interactions)
+                            {
+                                interaction.interact();
+                            }
                         }
-                    }
+                    }                    
                     i++;
                 }
             }            
-
-            // For demo only
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Debug.Log("Exiting...");
-                Application.Quit();
-            }
 
             Vector2 movement = new Vector2(horiz, vert).normalized;
 
@@ -144,7 +142,8 @@ public class PlayerMovementController : MonoBehaviour {
     }
     
     public void setPlayerCanMove(bool canMove)
-    {        
+    {
+        Debug.Log("Set player can move: " + canMove);      
         isBlocked = !canMove;
     }            
 }

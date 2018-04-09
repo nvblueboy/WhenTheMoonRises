@@ -18,4 +18,8 @@ public class PierceTheHeart : Move {
 
         return outDict;
     }
+
+    public override bool moveEligible(Fighter attacker) {
+        return attacker.currStamina > 6;
+    }
 }

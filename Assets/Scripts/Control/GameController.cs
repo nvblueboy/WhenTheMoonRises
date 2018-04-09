@@ -63,13 +63,7 @@ public class GameController : MonoBehaviour {
                 // Restore player hp and stamina during the day time
                 player.restoreHPAndStamina();
             }           
-        }
-
-        // TODO: Replace this with a complete menu
-        if (Input.GetButtonDown("Cancel"))
-        {
-            Application.Quit();
-        }
+        }        
 
         oldScene = currentScene;
     }  
@@ -171,7 +165,11 @@ public class GameController : MonoBehaviour {
     
     // addLoadedScene
     public static void addLoadedScene(string sceneName)
-    {        
+    {
+        if(loadedScenes == null)
+        {
+            loadedScenes = new List<string>();
+        }        
         loadedScenes.Add(sceneName);
     }
     

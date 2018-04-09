@@ -31,7 +31,7 @@ public class FightAnimationDefinitions : MonoBehaviour {
     }
 }
 
-public enum AnimationType { Flash, None };
+public enum AnimationType { Flash, Shake, Fade, None };
 
 [System.Serializable]
 public struct MoveAnimation {

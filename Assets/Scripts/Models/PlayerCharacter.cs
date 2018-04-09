@@ -116,12 +116,12 @@ public class PlayerCharacter : Fighter {
 
         Debug.Log(MoveUtils.getMoveSet());
 
-        if (weapon == "wrench") {
+        //if (weapon == "wrench") {
             moves.Add(MoveUtils.GetMove("Bash"));
             moves.Add(MoveUtils.GetMove("Two Handed Swing"));
             moves.Add(MoveUtils.GetMove("Wrench Throw"));
             moves.Add(MoveUtils.GetMove("Pierce The Heart"));
-        }
+       // }
 
         moves.Add(MoveUtils.GetMove("Black Hole Warp"));
         return moves.ToArray();
@@ -133,9 +133,13 @@ public class PlayerCharacter : Fighter {
     */
     public void testInventory() {
         inventory = new List<Item>();
-        inventory.Add(new HealthPotion("weak_potion", "Weak Potion", 2));
-        inventory.Add(new HealthPotion("potion", "Potion", 5));
-        inventory.Add(new HealthPotion("strong_potion", "Strong Potion", 10));
-        inventory.Add(new StaminaPotion("string_stam_potion", "Strong Stamina Potion", 5));
+        inventory.Add(new HealthPotion("fruit_parfait", "Fruit Parfait", 5));
+        inventory.Add(new HealthPotion("black_bean_soup", "Black Bean Soup", 10));
+        inventory.Add(new HealthPotion("artisanal_sandwich", "Artisanal Sandwich", 20));
+        inventory.Add(new HealthPotion("gourmet_pizza", "Gourmet Pizza", 50));
+        inventory.Add(new StaminaPotion("water_bottle", "Water Bottle", 5));
+        inventory.Add(new StaminaPotion("citrus_cola_can", "Citrus Cola Can", 10));
+        inventory.Add(new StaminaPotion("lemonade_jug", "Lemonade Jug", 20));
+        inventory.Add(new StaminaPotion("coffee_pot", "Coffee Pot", 50));
     }
 }

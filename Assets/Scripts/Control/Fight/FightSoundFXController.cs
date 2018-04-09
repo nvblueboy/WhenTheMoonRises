@@ -34,7 +34,6 @@ public class FightSoundFXController : MonoBehaviour {
         if (fc.animationNeeded) {
             Debug.Log(fc.moveName.ToLower());
             if (soundDict.ContainsKey(fc.moveName.ToLower())) {
-                Debug.Log("gotem");
                 source.clip = soundDict[fc.moveName.ToLower()];
                 source.time = 0f;
                 source.Play();

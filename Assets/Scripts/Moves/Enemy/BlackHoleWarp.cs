@@ -6,6 +6,8 @@ public class BlackHoleWarp : Move {
 
     public BlackHoleWarp(string _name) : base(_name) {
         this.description = "1 STA | Become invulnerable for 1 turn.";
+        this.animateAttacker = true;
+        this.animateDefender = false;
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {
