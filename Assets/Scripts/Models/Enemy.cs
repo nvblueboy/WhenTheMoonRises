@@ -45,6 +45,13 @@ public class Enemy : Fighter {
                     distribution.Add("Slash", .75);
                     distribution.Add("Mighty Tackle", .25);
                 }
+            } else if (type == EnemyType.Wolf) {
+                if (currStamina < 1) {
+                    distribution.Add("Scratch", 1);
+                } else {
+                    distribution.Add("Bite", .5);
+                    distribution.Add("Scratch", .5);
+                }
             }
 
             double low = 0f;

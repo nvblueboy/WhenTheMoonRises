@@ -121,6 +121,7 @@ public class PlayerCharacter : Fighter {
             moves.Add(MoveUtils.GetMove("Two Handed Swing"));
             moves.Add(MoveUtils.GetMove("Wrench Throw"));
             moves.Add(MoveUtils.GetMove("Pierce The Heart"));
+        moves.Add(MoveUtils.GetMove("Heal Wounds"));
        // }
 
         moves.Add(MoveUtils.GetMove("Black Hole Warp"));

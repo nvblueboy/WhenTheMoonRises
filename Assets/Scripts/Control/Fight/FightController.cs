@@ -316,6 +316,13 @@ public class FightController : MonoBehaviour {
 
             runAnimation = true;
         }
+
+        if (moveData.ContainsKey(Constants.Heal)) {
+            int amt = moveData[Constants.Heal];
+            attack.heal(amt);
+
+            runAnimation = true;
+        }
        
 
         if (moveData.ContainsKey(Constants.Stunned)) {

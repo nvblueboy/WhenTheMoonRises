@@ -37,7 +37,9 @@ public class MoveUtils {
             new Scratch("Scratch"),
             new Slash("Slash"),
             new MightyTackle("Mighty Tackle"),
-            new PierceTheHeart("Pierce The Heart")
+            new PierceTheHeart("Pierce The Heart"),
+            new HealWounds("Heal Wounds"),
+            new Bite("Bite")
         };       
 
         moveDict = new Dictionary<string, Move>();

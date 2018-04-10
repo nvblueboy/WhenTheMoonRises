@@ -98,6 +98,14 @@ public class Fighter : MonoBehaviour {
         fightController.onFighterDead(this);
     }
 
+    public void heal(int amt) {
+        currHP += amt;
+        if (currHP > hp) {
+            currHP = hp;
+        }
+        return;
+    }
+
     /*
     Name: restoreHealth
     Parameters: int gained
