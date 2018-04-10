@@ -20,7 +20,7 @@ public class WorldInteraction : Interaction {
 
     // interaction
     public override void interact()
-    {        
+    {
         if (!hasInteracted)
         {
             if (!hasPreReq())
@@ -28,15 +28,31 @@ public class WorldInteraction : Interaction {
                 feedbackController.showFeedback(failText, gameObject.name, this);
                 return;
             }
-
-            indicator.enabled = false;
-            feedbackController.showFeedback(successText, gameObject.name, this);
-            actionComplete = true;
-            if(!delayAction)
+            else if (preReq != "")
             {
-                triggerAction();
+                move.setPlayerCanMove(false);
+                pop.Show(this);
+                if (pop.didWork)
+                {
+                    feedbackController.showFeedback(successText, gameObject.name, this);
+                    actionComplete = true;
+                    if (!delayAction)
+                    {
+                        triggerAction();
+                    }
+                }
             }
-        }        
+            else
+            {
+                feedbackController.showFeedback(successText, gameObject.name, this);
+                actionComplete = true;
+                if (!delayAction)
+                {
+                    triggerAction();
+                }
+            }
+
+        }
     }
     
     // triggerAction
@@ -56,5 +72,17 @@ public class WorldInteraction : Interaction {
                 player.removeItemByName(preReq);
             }
         }        
+    }
+    public void victText()
+    {
+        feedbackController.showFeedback(successText, gameObject.name, this);
+    }
+    public void loseText()
+    {
+        feedbackController.showFeedback(failText, gameObject.name, this);
+    }
+    public void didAction(bool action)
+    {
+        actionComplete = action;
     }
 }

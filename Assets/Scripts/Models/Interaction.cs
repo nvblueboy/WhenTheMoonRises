@@ -28,7 +28,10 @@ public abstract class Interaction : MonoBehaviour {
     private SpriteRenderer renderer;      
     private float alpha;    
     private bool dim;
-    
+    protected PopUpHider pop;
+    protected GameController gameCtrl;
+    protected PlayerMovementController move;
+    protected int count = 0;
     // Awake
     void Awake()
     {
@@ -40,7 +43,11 @@ public abstract class Interaction : MonoBehaviour {
         actionComplete = false;
         displayDialogue = successText.Length > 0 || failText.Length > 0;              
         alpha = 255;        
-        pulseColor.a = 255;        
+        pulseColor.a = 255;
+        pop = GameObject.Find("PopUp").GetComponent<PopUpHider>();
+        pop.Hide();
+        gameCtrl = GameObject.Find("GameController").GetComponent<GameController>();
+        move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
     }      
 
     // FixedUpdate
