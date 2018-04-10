@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,7 +40,9 @@ public class MoveUtils {
             new MightyTackle("Mighty Tackle"),
             new PierceTheHeart("Pierce The Heart"),
             new HealWounds("Heal Wounds"),
-            new Bite("Bite")
+            new Bite("Bite"),
+            new PsychicBlast("Psychic Blast"),
+            new MeteorShower("Meteor Shower")
         };       
 
         moveDict = new Dictionary<string, Move>();
@@ -66,6 +69,11 @@ public class MoveUtils {
    */
     public static Move GetMove(string name)
     {
-        return moveDict[name];        
+        try {
+            return moveDict[name];
+        } catch (ArgumentNullException e) {
+            Debug.LogError("Could not find '" + name + "' in MoveUtils. Did you add it?");
+            return null;
+        }
     }   	
 }
