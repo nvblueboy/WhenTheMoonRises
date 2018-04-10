@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class DialogueController : MonoBehaviour {
-    private GameObject uiDialogue, canDialogue;
+    private GameObject uiDialogue, canDialogue;    
     private PlayerMovementController player;
     private ChoiceSelector choiceSelector;    
-    private Text txtSpeaker, txtDialogue, actionText;   
+    private Text txtSpeaker, txtDialogue;   
     private DialogueComponent currentDialogue;
     private string sceneName, inputFile;
     private float lastNextTime, lastShowChoiceTime, oldNext;
@@ -23,7 +23,7 @@ public class DialogueController : MonoBehaviour {
         canNext = false;
         dialogueActive = false;
         lastChoiceID = 0;
-        sceneName = SceneManager.GetActiveScene().name;
+        sceneName = SceneManager.GetActiveScene().name;        
 
         if(sceneName.Contains("Day"))
         {
@@ -45,12 +45,8 @@ public class DialogueController : MonoBehaviour {
                 startIndex = startIndexTwo;
                 endIndex = endIndexTwo;
                 break;
-        }                
+        }       
         
-        try {
-            actionText = GameObject.FindGameObjectWithTag("TempUI").GetComponent<Text>();
-        } catch (NullReferenceException e) { }
-
         try {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
         } catch (NullReferenceException e) { }               
@@ -108,11 +104,6 @@ public class DialogueController : MonoBehaviour {
         {
             uiDialogue.SetActive(false);
         }        
-
-        if (actionText != null)
-        {
-            actionText.text = "Actions: " + (6 - ActionController.getActionCount());
-        }
     }
 
     // Next
