@@ -125,8 +125,10 @@ public abstract class Interaction : MonoBehaviour {
     // OnDestroy
     void OnDestroy()
     {
-        indicator.enabled = false;
-        Debug.Log("OnDestroy");
+        if(indicator != null)
+        {
+            indicator.enabled = false;
+        }        
     }  
 
     // interact
