@@ -30,6 +30,7 @@ public class PopUpHider : MonoBehaviour
     public Text item6;
     public Text item7;
     public int invSize;
+    private bool isFirstItem;
     private WorldInteraction worldItem;
     private PlayerCharacter player;
     private PlayerMovementController move;
@@ -170,25 +171,31 @@ public class PopUpHider : MonoBehaviour
             {
                 if (arrow1.activeInHierarchy)
                 {
-                    if (item1.text == worldItem.preReq)
+                    if (!isFirstItem)
                     {
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
+                        if (item1.text == worldItem.preReq)
                         {
-                            worldItem.triggerAction();
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+                            this.Hide();
                         }
-                        this.Hide();
+                        else
+                        {
+                            move.setPlayerCanMove(false);
+                            worldItem.loseText();
+                        }
                     }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
+                    move.setPlayerCanMove(false);
+                    isFirstItem = false;
                 }
                 else if (arrow2.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item2.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -196,6 +203,10 @@ public class PopUpHider : MonoBehaviour
                         didWork = true;
                         worldItem.victText();
                         worldItem.didAction(true);
+                        if (!(worldItem.delayAction))
+                        {
+                            worldItem.triggerAction();
+                        }
                         if (!(worldItem.delayAction))
                         {
                             worldItem.triggerAction();
@@ -210,6 +221,7 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow3.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item3.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -231,6 +243,7 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow4.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item4.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -252,6 +265,7 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow5.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item5.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -273,6 +287,7 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow6.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item6.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -295,6 +310,7 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow7.activeInHierarchy)
                 {
+                    isFirstItem = false;
                     if (item7.text == worldItem.preReq)
                     {
                         arrow1.SetActive(true);
@@ -320,12 +336,14 @@ public class PopUpHider : MonoBehaviour
     }
     public void Hide()
     {
+        isFirstItem = true;
         isActive = false;
         canvasGroup.alpha = 0f; //this makes everything transparent
         canvasGroup.blocksRaycasts = false; //this prevents the UI element to receive input events
     }
     public void Show(WorldInteraction item)
     {
+        Debug.Log(item.ToString());
         worldItem = item;
         isActive = true;
         canvasGroup.alpha = 1f;

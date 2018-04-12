@@ -32,15 +32,6 @@ public class WorldInteraction : Interaction {
             {
                 move.setPlayerCanMove(false);
                 pop.Show(this);
-                if (pop.didWork)
-                {
-                    feedbackController.showFeedback(successText, gameObject.name, this);
-                    actionComplete = true;
-                    if (!delayAction)
-                    {
-                        triggerAction();
-                    }
-                }
             }
             else
             {
