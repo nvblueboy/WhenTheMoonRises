@@ -170,21 +170,22 @@ public class PopUpHider : MonoBehaviour
             {
                 if (arrow1.activeInHierarchy)
                 {
-                    int actionsSucceeded = 0;
-                    int actionCount = worldItems.Count;
-                    foreach (WorldInteraction worldItem in worldItems)
+                                       
+                    if (!isFirstItem)
                     {
-                        if (!isFirstItem)
+                        int actionsSucceeded = 0;
+                        int actionCount = worldItems.Count;
+                        foreach (WorldInteraction worldItem in worldItems)
                         {
                             if (item1.text == worldItem.preReq)
                             {
                                 didWork = true;
                                 worldItem.victText();
-                                worldItem.didAction(true);
+                                worldItem.didAction(true);                                
                                 ++actionsSucceeded;
                                 if (!(worldItem.delayAction))
                                 {
-                                    worldItem.triggerAction();                                    
+                                    worldItem.triggerAction();                                                                      
                                 }
 
                                 Hide();
@@ -194,12 +195,12 @@ public class PopUpHider : MonoBehaviour
                                 worldItem.loseText();
                             }
                         }
-                    }
 
-                    if (actionsSucceeded == actionCount)
-                    {
-                        worldItems.Clear();
-                    }
+                        if (actionsSucceeded == actionCount)
+                        {
+                            worldItems.Clear();
+                        }
+                    }                   
                                         
                     isFirstItem = false;
                 }
@@ -239,6 +240,8 @@ public class PopUpHider : MonoBehaviour
                 }
                 else if (arrow3.activeInHierarchy)
                 {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
                     foreach (WorldInteraction worldItem in worldItems)
                     {
                         isFirstItem = false;
@@ -249,31 +252,7 @@ public class PopUpHider : MonoBehaviour
                             didWork = true;
                             worldItem.victText();
                             worldItem.didAction(true);
-                            if (!(worldItem.delayAction))
-                            {
-                                worldItem.triggerAction();
-                            }
-
-                            Hide();
-                        }
-                        else
-                        {                            
-                            worldItem.loseText();
-                        }
-                    }                        
-                }
-                else if (arrow4.activeInHierarchy)
-                {
-                    foreach (WorldInteraction worldItem in worldItems)
-                    {
-                        isFirstItem = false;
-                        if (item4.text == worldItem.preReq)
-                        {
-                            arrow1.SetActive(true);
-                            arrow4.SetActive(false);
-                            didWork = true;
-                            worldItem.victText();
-                            worldItem.didAction(true);
+                            ++actionsSucceeded;
                             if (!(worldItem.delayAction))
                             {
                                 worldItem.triggerAction();
@@ -286,9 +265,49 @@ public class PopUpHider : MonoBehaviour
                             worldItem.loseText();
                         }
                     }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
+                }
+                else if (arrow4.activeInHierarchy)
+                {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
+                    foreach (WorldInteraction worldItem in worldItems)
+                    {
+                        isFirstItem = false;
+                        if (item4.text == worldItem.preReq)
+                        {
+                            arrow1.SetActive(true);
+                            arrow4.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            ++actionsSucceeded;
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+
+                            Hide();
+                        }
+                        else
+                        {                            
+                            worldItem.loseText();
+                        }
+                    }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
                 }
                 else if (arrow5.activeInHierarchy)
                 {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
                     foreach (WorldInteraction worldItem in worldItems)
                     {
                         isFirstItem = false;
@@ -299,6 +318,7 @@ public class PopUpHider : MonoBehaviour
                             didWork = true;
                             worldItem.victText();
                             worldItem.didAction(true);
+                            ++actionsSucceeded;
                             if (!(worldItem.delayAction))
                             {
                                 worldItem.triggerAction();
@@ -310,10 +330,17 @@ public class PopUpHider : MonoBehaviour
                         {                            
                             worldItem.loseText();
                         }
-                    }                        
+                    }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
                 }
                 else if (arrow6.activeInHierarchy)
                 {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
                     foreach (WorldInteraction worldItem in worldItems)
                     {
                         isFirstItem = false;
@@ -324,6 +351,7 @@ public class PopUpHider : MonoBehaviour
                             didWork = true;
                             worldItem.victText();
                             worldItem.didAction(true);
+                            ++actionsSucceeded;
                             if (!(worldItem.delayAction))
                             {
                                 worldItem.triggerAction();
@@ -332,14 +360,20 @@ public class PopUpHider : MonoBehaviour
                             Hide();
                         }
                         else
-                        {
-                            //if you pick wrong one it says you fail                            
+                        {                                                       
                             worldItem.loseText();
                         }
-                    }                        
+                    }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
                 }
                 else if (arrow7.activeInHierarchy)
                 {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
                     foreach (WorldInteraction worldItem in worldItems)
                     {
                         isFirstItem = false;
@@ -350,6 +384,7 @@ public class PopUpHider : MonoBehaviour
                             didWork = true;
                             worldItem.victText();
                             worldItem.didAction(true);
+                            ++actionsSucceeded;
                             if (!(worldItem.delayAction))
                             {
                                 worldItem.triggerAction();
@@ -361,7 +396,12 @@ public class PopUpHider : MonoBehaviour
                         {                            
                             worldItem.loseText();
                         }
-                    }                        
+                    }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
                 }
             }
 

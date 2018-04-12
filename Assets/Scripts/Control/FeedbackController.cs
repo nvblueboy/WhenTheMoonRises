@@ -83,8 +83,7 @@ public class FeedbackController : MonoBehaviour {
     public void showFeedback(Feedback[] feedback, string triggeredObject, Interaction interaction)
     {
         if(feedback.Length == 0)
-        {
-            Debug.Log("No feedback to show, returning");
+        {            
             return;
         }
 

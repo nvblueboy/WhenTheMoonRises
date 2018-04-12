@@ -64,14 +64,17 @@ public class WorldInteraction : Interaction {
             }
         }        
     }
+
     public void victText()
     {
         feedbackController.showFeedback(successText, gameObject.name, this);
     }
+
     public void loseText()
     {
         feedbackController.showFeedback(failText, gameObject.name, this);
     }
+
     public void didAction(bool action)
     {
         actionComplete = action;

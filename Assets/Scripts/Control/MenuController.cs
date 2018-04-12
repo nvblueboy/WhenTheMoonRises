@@ -52,6 +52,10 @@ public class MenuController : MonoBehaviour {
             try
             {
                 tabIndex++;
+                if(tabIndex == 2)
+                {
+                    tabIndex++;                    
+                }
                 SetActiveTab(tabIndex);                
             } catch (ArgumentOutOfRangeException e)
             {                
@@ -66,6 +70,10 @@ public class MenuController : MonoBehaviour {
             try
             {
                 tabIndex--;
+                if(tabIndex == 2)
+                {
+                    tabIndex--;
+                }
                 SetActiveTab(tabIndex);
             }
             catch (ArgumentOutOfRangeException e)
