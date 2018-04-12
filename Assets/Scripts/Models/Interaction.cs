@@ -113,8 +113,7 @@ public abstract class Interaction : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Player" && !hasInteracted)
-        {
-            Debug.Log("Player entered");
+        {            
             indicator.enabled = true;
         }
     }
@@ -123,8 +122,7 @@ public abstract class Interaction : MonoBehaviour {
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
-        {
-            Debug.Log("Player exited");
+        {            
             indicator.enabled = false;
         }
     }  

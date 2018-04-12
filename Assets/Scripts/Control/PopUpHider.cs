@@ -31,10 +31,11 @@ public class PopUpHider : MonoBehaviour
     public Text item7;
     public int invSize;
     private bool isFirstItem;
-    private WorldInteraction worldItem;
+    private List<WorldInteraction> worldItems;
     private PlayerCharacter player;
     private PlayerMovementController move;
     public CanvasGroup canvasGroup;
+
     // Use this for initialization
     void Awake()
     {
@@ -61,11 +62,9 @@ public class PopUpHider : MonoBehaviour
         item7 = GameObject.Find("item7").GetComponent<Text>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
+        worldItems = new List<WorldInteraction>();
     }
-    void Start()
-    {
-
-    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -171,10 +170,82 @@ public class PopUpHider : MonoBehaviour
             {
                 if (arrow1.activeInHierarchy)
                 {
-                    if (!isFirstItem)
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
+                    foreach (WorldInteraction worldItem in worldItems)
                     {
-                        if (item1.text == worldItem.preReq)
+                        if (!isFirstItem)
                         {
+                            if (item1.text == worldItem.preReq)
+                            {
+                                didWork = true;
+                                worldItem.victText();
+                                worldItem.didAction(true);
+                                ++actionsSucceeded;
+                                if (!(worldItem.delayAction))
+                                {
+                                    worldItem.triggerAction();                                    
+                                }
+
+                                Hide();
+                            }
+                            else
+                            {                                
+                                worldItem.loseText();
+                            }
+                        }
+                    }
+
+                    if (actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }
+                                        
+                    isFirstItem = false;
+                }
+                else if (arrow2.activeInHierarchy)
+                {
+                    int actionsSucceeded = 0;
+                    int actionCount = worldItems.Count;
+                    foreach (WorldInteraction worldItem in worldItems)
+                    {
+                        isFirstItem = false;
+                        if (item2.text == worldItem.preReq)
+                        {
+                            arrow1.SetActive(true);
+                            arrow2.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            Debug.Log("Item 2 vict text");
+                            worldItem.didAction(true);
+                            ++actionsSucceeded;
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();                                
+                            }                           
+
+                            Hide();
+                        }
+                        else
+                        {                            
+                            worldItem.loseText();
+                        }
+                    }
+
+                    if(actionsSucceeded == actionCount)
+                    {
+                        worldItems.Clear();
+                    }                    
+                }
+                else if (arrow3.activeInHierarchy)
+                {
+                    foreach (WorldInteraction worldItem in worldItems)
+                    {
+                        isFirstItem = false;
+                        if (item3.text == worldItem.preReq)
+                        {
+                            arrow1.SetActive(true);
+                            arrow3.SetActive(false);
                             didWork = true;
                             worldItem.victText();
                             worldItem.didAction(true);
@@ -182,158 +253,121 @@ public class PopUpHider : MonoBehaviour
                             {
                                 worldItem.triggerAction();
                             }
-                            this.Hide();
+
+                            Hide();
                         }
                         else
-                        {
-                            move.setPlayerCanMove(false);
+                        {                            
                             worldItem.loseText();
                         }
-                    }
-                    move.setPlayerCanMove(false);
-                    isFirstItem = false;
-                }
-                else if (arrow2.activeInHierarchy)
-                {
-                    isFirstItem = false;
-                    if (item2.text == worldItem.preReq)
-                    {
-                        arrow1.SetActive(true);
-                        arrow2.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
-                        {
-                            worldItem.triggerAction();
-                        }
-                        if (!(worldItem.delayAction))
-                        {
-                            worldItem.triggerAction();
-                        }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
-                }
-                else if (arrow3.activeInHierarchy)
-                {
-                    isFirstItem = false;
-                    if (item3.text == worldItem.preReq)
-                    {
-                        arrow1.SetActive(true);
-                        arrow3.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
-                        {
-                            worldItem.triggerAction();
-                        }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
+                    }                        
                 }
                 else if (arrow4.activeInHierarchy)
                 {
-                    isFirstItem = false;
-                    if (item4.text == worldItem.preReq)
+                    foreach (WorldInteraction worldItem in worldItems)
                     {
-                        arrow1.SetActive(true);
-                        arrow4.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
+                        isFirstItem = false;
+                        if (item4.text == worldItem.preReq)
                         {
-                            worldItem.triggerAction();
+                            arrow1.SetActive(true);
+                            arrow4.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+
+                            Hide();
                         }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
+                        else
+                        {                            
+                            worldItem.loseText();
+                        }
                     }
                 }
                 else if (arrow5.activeInHierarchy)
                 {
-                    isFirstItem = false;
-                    if (item5.text == worldItem.preReq)
+                    foreach (WorldInteraction worldItem in worldItems)
                     {
-                        arrow1.SetActive(true);
-                        arrow5.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
+                        isFirstItem = false;
+                        if (item5.text == worldItem.preReq)
                         {
-                            worldItem.triggerAction();
+                            arrow1.SetActive(true);
+                            arrow5.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+
+                            Hide();
                         }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
+                        else
+                        {                            
+                            worldItem.loseText();
+                        }
+                    }                        
                 }
                 else if (arrow6.activeInHierarchy)
                 {
-                    isFirstItem = false;
-                    if (item6.text == worldItem.preReq)
+                    foreach (WorldInteraction worldItem in worldItems)
                     {
-                        arrow1.SetActive(true);
-                        arrow6.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
+                        isFirstItem = false;
+                        if (item6.text == worldItem.preReq)
                         {
-                            worldItem.triggerAction();
+                            arrow1.SetActive(true);
+                            arrow6.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+
+                            Hide();
                         }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        //if you pick wrong one it says you fail
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
+                        else
+                        {
+                            //if you pick wrong one it says you fail                            
+                            worldItem.loseText();
+                        }
+                    }                        
                 }
                 else if (arrow7.activeInHierarchy)
                 {
-                    isFirstItem = false;
-                    if (item7.text == worldItem.preReq)
+                    foreach (WorldInteraction worldItem in worldItems)
                     {
-                        arrow1.SetActive(true);
-                        arrow7.SetActive(false);
-                        didWork = true;
-                        worldItem.victText();
-                        worldItem.didAction(true);
-                        if (!(worldItem.delayAction))
+                        isFirstItem = false;
+                        if (item7.text == worldItem.preReq)
                         {
-                            worldItem.triggerAction();
+                            arrow1.SetActive(true);
+                            arrow7.SetActive(false);
+                            didWork = true;
+                            worldItem.victText();
+                            worldItem.didAction(true);
+                            if (!(worldItem.delayAction))
+                            {
+                                worldItem.triggerAction();
+                            }
+
+                            Hide();
                         }
-                        this.Hide();
-                    }
-                    else
-                    {
-                        move.setPlayerCanMove(false);
-                        worldItem.loseText();
-                    }
+                        else
+                        {                            
+                            worldItem.loseText();
+                        }
+                    }                        
                 }
             }
 
         }
     }
+
     public void Hide()
     {
         isFirstItem = true;
@@ -341,10 +375,11 @@ public class PopUpHider : MonoBehaviour
         canvasGroup.alpha = 0f; //this makes everything transparent
         canvasGroup.blocksRaycasts = false; //this prevents the UI element to receive input events
     }
+
     public void Show(WorldInteraction item)
     {
         Debug.Log(item.ToString());
-        worldItem = item;
+        worldItems.Add(item);
         isActive = true;
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
