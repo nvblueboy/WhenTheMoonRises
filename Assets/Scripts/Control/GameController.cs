@@ -70,8 +70,7 @@ public class GameController : MonoBehaviour {
 
     // LoadScene
     public static void LoadScene(string sceneName)
-    {
-        SaveHandler.SavePlayer(player);
+    {        
         LoadScene(sceneName, Vector3.zero);
     }
 
@@ -94,8 +93,7 @@ public class GameController : MonoBehaviour {
     }
 
     public static void LoadScene(int index)
-    {
-        SaveHandler.SavePlayer(player);
+    {        
         previousScene = SceneManager.GetActiveScene().name;
         prevSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(index);

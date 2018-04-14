@@ -122,7 +122,7 @@ public class PlayerMovementController : MonoBehaviour {
             }
             else
             {
-                animator.speed = .1f * speed;
+                animator.speed = .12f * speed;
             }
 
             Vector3 movement3d = new Vector3(movement.x, 0, movement.y);
