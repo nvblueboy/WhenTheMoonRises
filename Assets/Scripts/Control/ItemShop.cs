@@ -83,10 +83,10 @@ public class ItemShop : MonoBehaviour
         arrow6.SetActive(false);
         arrow7.SetActive(false);
         arrow8.SetActive(false);
-        arrow9.SetActive(false);
+        /*arrow9.SetActive(false);
         arrow10.SetActive(false);
         arrow11.SetActive(false);
-        arrow12.SetActive(false);
+        arrow12.SetActive(false);*/
         arrow13.SetActive(false);
         itemInfo.text = "A small snack that replenishes 5 HP ";
     }
@@ -143,8 +143,8 @@ public class ItemShop : MonoBehaviour
             {
                 itemInfo.text = "An explosive that can cause decent damage and even burn things close by ";
                 arrow8.SetActive(false);
-                arrow9.SetActive(true);
-            }
+                arrow13.SetActive(true);
+            }/*
             else if (arrow9.activeInHierarchy)
             {
                 itemInfo.text = "An explosive that can cause significant damage to things close by ";
@@ -169,23 +169,11 @@ public class ItemShop : MonoBehaviour
                 arrow12.SetActive(false);
                 arrow13.SetActive(true);
 
-            }
-            else if (arrow13.activeInHierarchy)
-            {
-                itemInfo.text = "A small snack that replenishes 5 HP ";
-                arrow13.SetActive(false);
-                arrow1.SetActive(true);
-            }
+            }*/            
         }
         if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (arrow1.activeInHierarchy)
-            {
-                itemInfo.text = "";
-                arrow1.SetActive(false);
-                arrow13.SetActive(true);
-            }
-            else if (arrow2.activeInHierarchy)
+        {            
+            if (arrow2.activeInHierarchy)
             {
                 itemInfo.text = "A small snack that replenishes 5 HP ";
                 arrow2.SetActive(false);
@@ -228,7 +216,7 @@ public class ItemShop : MonoBehaviour
                 arrow8.SetActive(false);
                 arrow7.SetActive(true);
             }
-            else if (arrow9.activeInHierarchy)
+            /*else if (arrow9.activeInHierarchy)
             {
                 itemInfo.text = "A large drink that replenishes 50 STA ";
                 arrow9.SetActive(false);
@@ -251,12 +239,12 @@ public class ItemShop : MonoBehaviour
                 itemInfo.text = "An item that allows Sunny to perform more actions during the day ";
                 arrow12.SetActive(false);
                 arrow11.SetActive(true);
-            }
+            }*/
             else if (arrow13.activeInHierarchy)
             {
-                itemInfo.text = "-A mysterious item that brings Sunny back to life if her HP hits 0 ";
+                itemInfo.text = "Exit";
                 arrow13.SetActive(false);
-                arrow12.SetActive(true);
+                arrow8.SetActive(true);
             }
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -267,13 +255,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 5;
                     smallHP.onClick.Invoke();
-                    //shopText.text = "You bought a small hp potion";
+                    itemInfo.text = "You bought a Fruit Parfait.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("fruit parfait", "Fruit Parfait"));
+                    GameController.player.addItem(new HealthPotion("fruit_parfait", "Fruit Parfait", 5));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow2.activeInHierarchy)
@@ -282,13 +270,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 10;
                     smMedHP.onClick.Invoke();
-                    //shopText.text = "You bought a medium hp potion";
+                    itemInfo.text = "You bought some Black Bean Soup.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("black bean soup", "Black Bean Soup"));
+                    GameController.player.addItem(new HealthPotion("black_bean_soup", "Black Bean Soup", 10));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow3.activeInHierarchy)
@@ -297,14 +285,14 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 20;
                     medHP.onClick.Invoke();
-                    //shopText.text = "You bought a large hp potion";
+                    itemInfo.text = "You bought an Artisinal Sandwich.";
                     Debug.Log("Large HP pot purchased");
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("artisanal sandwich", "Artisanal Sandwich"));                    
+                    GameController.player.addItem(new HealthPotion("artisanal_sandwich", "Artisanal Sandwich", 20));                    
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow4.activeInHierarchy)
@@ -313,13 +301,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 50;
                     largeHP.onClick.Invoke();
-                    //shopText.text = "You bought a small stamina potion";
+                    itemInfo.text = "You bought a Gourmet Pizza.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("gourmet pizza", "Gourmet Pizza"));
+                    GameController.player.addItem(new HealthPotion("gourmet_pizza", "Gourmet Pizza", 50));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow5.activeInHierarchy)
@@ -328,13 +316,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 5;
                     smallST.onClick.Invoke();
-                    //shopText.text = "You bought a medium stamina potion";
+                    itemInfo.text = "You bought a Water Bottle.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("water bottle", "Water Bottle"));
+                    GameController.player.addItem(new StaminaPotion("water_bottle", "Water Bottle"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow6.activeInHierarchy)
@@ -343,13 +331,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 10;
                     smMedST.onClick.Invoke();
-                    //shopText.text = "You bought a large stamina potion";
+                    itemInfo.text = "You bought a Citrus Cola Can.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("citrus cola can", "citrus cola can"));
+                    GameController.player.addItem(new StaminaPotion("citrus_cola_can", "citrus cola can"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow7.activeInHierarchy)
@@ -358,13 +346,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 20;
                     medST.onClick.Invoke();
-                    //shopText.text = "You bought a fire cracker";
+                    itemInfo.text = "You bought a Lemonade Jug";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("lemonade jug", "Lemonade Jug"));
+                    GameController.player.addItem(new StaminaPotion("lemonade_jug", "Lemonade Jug"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow8.activeInHierarchy)
@@ -373,28 +361,28 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 50;
                     largeST.onClick.Invoke();
-                    //shopText.text = "You bought a single bomb";
+                    itemInfo.text = "You bought a Coffee Pot.";
                     coinText.text = coins + " C";
-                    GameController.player.addItem(new Item("coffee pot", "Coffee Pot"));
+                    GameController.player.addItem(new StaminaPotion("coffee_pot", "Coffee Pot"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
-            else if (arrow9.activeInHierarchy)
+            /*else if (arrow9.activeInHierarchy)
             {
                 if (coins >= 10)
                 {
                     coins = coins - 10;
                     fireCrack.onClick.Invoke();
-                    //shopText.text = "You bought an aoe bomb";
+                    //itemInfo.text = "You bought an aoe bomb";
                     coinText.text = coins + " C";
                     GameController.player.addItem(new Item("fire cracker", "Fire Cracker"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow10.activeInHierarchy)
@@ -403,13 +391,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 30;
                     bundle.onClick.Invoke();
-                    //shopText.text = "You bought a mega firework bundle";
+                    //itemInfo.text = "You bought a mega firework bundle";
                     coinText.text = coins + " C";
                     GameController.player.addItem(new Item("mega firework bundle", "Mega Firework Bundle"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow11.activeInHierarchy)
@@ -418,13 +406,13 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 100;
                     watch.onClick.Invoke();
-                    //shopText.text = "You bought a mega firework bundle";
+                    //itemInfo.text = "You bought a mega firework bundle";
                     coinText.text = coins + " C";
                     GameController.player.addItem(new Item("wrist watch", "Wrist Watch"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
             }
             else if (arrow12.activeInHierarchy)
@@ -433,22 +421,21 @@ public class ItemShop : MonoBehaviour
                 {
                     coins = coins - 75;
                     pendant.onClick.Invoke();
-                    //shopText.text = "You bought a mega firework bundle";
+                    //itemInfo.text = "You bought a mega firework bundle";
                     coinText.text = coins + " C";
                     GameController.player.addItem(new Item("protective pendant", "Protective Pendant"));
                 }
                 else
                 {
-                    shopText.text = "You don't have enough \n coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that";
                 }
-            }
+            }*/
             else if (arrow13.activeInHierarchy)
             {
                 exit.onClick.Invoke();
             }
 
         }
-
     }
 }
 
