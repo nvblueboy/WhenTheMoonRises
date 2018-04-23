@@ -82,6 +82,11 @@ public class FeedbackController : MonoBehaviour {
     */
     public void showFeedback(Feedback[] feedback, string triggeredObject, Interaction interaction)
     {
+        if(feedback.Length == 0)
+        {            
+            return;
+        }
+
         // if the dialogue should be displayed and dialogue isn't
         // associated with currently active interaction        
         if (activeFeedback == triggeredObject)
