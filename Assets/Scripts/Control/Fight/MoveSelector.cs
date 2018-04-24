@@ -177,7 +177,7 @@ public class MoveSelector : MonoBehaviour {
             if(selected.hasChildren()) {
                 if(selected.children.Count > 0) {
                     current = selected;
-                    updateDisplay();
+                    updateDisplay();                    
                 }
             } else {
                 if (selected.name == "run") {

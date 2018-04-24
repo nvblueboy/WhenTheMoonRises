@@ -47,7 +47,7 @@ public class ItemShop : MonoBehaviour
     public Text shopText;
     public Text coinText;
     public Text itemInfo;    
-    public int coins;
+    public int coins, itemCount, itemCode;
     public string item;   
     
     // Use this for initialization
@@ -89,10 +89,13 @@ public class ItemShop : MonoBehaviour
         arrow12.SetActive(false);*/
         arrow13.SetActive(false);
         itemInfo.text = "A small snack that replenishes 5 HP ";
+        itemCode = 0;
     }
     // Update is called once per frame
     void Update()
     {
+        itemCount = GameController.player.inventory.Count;
+        Debug.Log("Item count: " + itemCount);
         GameController.player.coins = coins;
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -253,87 +256,135 @@ public class ItemShop : MonoBehaviour
             {
                 if (coins >= 5)
                 {
-                    coins = coins - 5;
-                    smallHP.onClick.Invoke();
-                    itemInfo.text = "You bought a Fruit Parfait.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new HealthPotion("fruit_parfait", "Fruit Parfait", 5));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 5;
+                        smallHP.onClick.Invoke();
+                        itemInfo.text = "You bought a Fruit Parfait.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new HealthPotion("fruit_parfait" + itemCode, "Fruit Parfait"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
-                    itemInfo.text = "You don't have enough coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that.";
                 }
             }
             else if (arrow2.activeInHierarchy)
             {
                 if (coins >= 10)
                 {
-                    coins = coins - 10;
-                    smMedHP.onClick.Invoke();
-                    itemInfo.text = "You bought some Black Bean Soup.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new HealthPotion("black_bean_soup", "Black Bean Soup", 10));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 10;
+                        smMedHP.onClick.Invoke();
+                        itemInfo.text = "You bought some Black Bean Soup.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new HealthPotion("black_bean_soup" + itemCode, "Black Bean Soup"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
-                    itemInfo.text = "You don't have enough coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that.";
                 }
             }
             else if (arrow3.activeInHierarchy)
             {
                 if (coins >= 20)
                 {
-                    coins = coins - 20;
-                    medHP.onClick.Invoke();
-                    itemInfo.text = "You bought an Artisinal Sandwich.";
-                    Debug.Log("Large HP pot purchased");
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new HealthPotion("artisanal_sandwich", "Artisanal Sandwich", 20));                    
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 20;
+                        medHP.onClick.Invoke();
+                        itemInfo.text = "You bought an Artisinal Sandwich.";
+                        Debug.Log("Large HP pot purchased");
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new HealthPotion("artisanal_sandwich" + itemCode, "Artisanal Sandwich"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                                      
                 }
                 else
                 {
-                    itemInfo.text = "You don't have enough coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that.";
                 }
             }
             else if (arrow4.activeInHierarchy)
             {
                 if (coins >= 50)
                 {
-                    coins = coins - 50;
-                    largeHP.onClick.Invoke();
-                    itemInfo.text = "You bought a Gourmet Pizza.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new HealthPotion("gourmet_pizza", "Gourmet Pizza", 50));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 50;
+                        largeHP.onClick.Invoke();
+                        itemInfo.text = "You bought a Gourmet Pizza.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new HealthPotion("gourmet_pizza" + itemCode, "Gourmet Pizza"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
-                    itemInfo.text = "You don't have enough coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that.";
                 }
             }
             else if (arrow5.activeInHierarchy)
             {
                 if (coins >= 5)
                 {
-                    coins = coins - 5;
-                    smallST.onClick.Invoke();
-                    itemInfo.text = "You bought a Water Bottle.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new StaminaPotion("water_bottle", "Water Bottle"));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 5;
+                        smallST.onClick.Invoke();
+                        itemInfo.text = "You bought a Water Bottle.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new StaminaPotion("water_bottle" + itemCode, "Water Bottle"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
-                    itemInfo.text = "You don't have enough coins to buy that";
+                    itemInfo.text = "You don't have enough coins to buy that.";
                 }
             }
             else if (arrow6.activeInHierarchy)
             {
                 if (coins >= 10)
                 {
-                    coins = coins - 10;
-                    smMedST.onClick.Invoke();
-                    itemInfo.text = "You bought a Citrus Cola Can.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new StaminaPotion("citrus_cola_can", "citrus cola can"));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 10;
+                        smMedST.onClick.Invoke();
+                        itemInfo.text = "You bought a Citrus Cola Can.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new StaminaPotion("citrus_cola_can" + itemCode, "Citrus Cola Can"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
@@ -344,11 +395,19 @@ public class ItemShop : MonoBehaviour
             {
                 if (coins >= 20)
                 {
-                    coins = coins - 20;
-                    medST.onClick.Invoke();
-                    itemInfo.text = "You bought a Lemonade Jug";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new StaminaPotion("lemonade_jug", "Lemonade Jug"));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 20;
+                        medST.onClick.Invoke();
+                        itemInfo.text = "You bought a Lemonade Jug";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new StaminaPotion("lemonade_jug" + itemCode, "Lemonade Jug"));
+                        ++itemCode;
+                    } 
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {
@@ -359,11 +418,19 @@ public class ItemShop : MonoBehaviour
             {
                 if (coins >= 50)
                 {
-                    coins = coins - 50;
-                    largeST.onClick.Invoke();
-                    itemInfo.text = "You bought a Coffee Pot.";
-                    coinText.text = coins + " C";
-                    GameController.player.addItem(new StaminaPotion("coffee_pot", "Coffee Pot"));
+                    if(itemCount < 5)
+                    {
+                        coins = coins - 50;
+                        largeST.onClick.Invoke();
+                        itemInfo.text = "You bought a Coffee Pot.";
+                        coinText.text = coins + " C";
+                        GameController.player.addItem(new StaminaPotion("coffee_pot" + itemCode, "Coffee Pot"));
+                        ++itemCode;
+                    }
+                    else
+                    {
+                        itemInfo.text = "Your inventory is full.";
+                    }                    
                 }
                 else
                 {

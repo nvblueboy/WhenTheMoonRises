@@ -6,17 +6,20 @@ using UnityEngine;
 public class HealthPotion : Item {
     [SerializeField] int strength;
 
-    public HealthPotion(string _name, string _displayName, int _strength) : base(_name, _displayName) {
-        strength = _strength;
-        description = "This item heals " + _strength.ToString() + " HP.";
-        if(_name == "fruit_parfait") {
+    public HealthPotion(string _name, string _displayName) : base(_name, _displayName) {        
+        
+        if(_name.Contains("fruit")) {
             description = "A small snack that replenishes 5 HP.";
-        } else if(_name == "black_bean_soup") {
+            strength = 5;
+        } else if(_name.Contains("black")) {
             description = "A meal on-the-go that replenishes 10 HP.";
-        } else if(_name == "artisanal_sandwich") {
+            strength = 10;
+        } else if(_name.Contains("artisanal")) {
             description = "A meal on-the-go that replenishes 20 HP.";
-        } else if (_name == "gourmet_pizza") {
+            strength = 20;
+        } else if (_name.Contains("gourmet")) {
             description = "A large meal that replenishes 50 HP.";
+            strength = 50;
         }
     }
 
