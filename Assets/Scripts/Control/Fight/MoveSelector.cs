@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 /*
@@ -171,10 +170,19 @@ public class MoveSelector : MonoBehaviour {
 
         if (jump > oldJump && oldJump == 0 && takeControl) {
             jump_hasFallen = false;
-            int sel = currentMenu.GetComponent<MoveSelector_Child>().currentSelection;
-            SelectorNode selected = current.children[sel];
+            int sel = currentMenu.GetComponent<MoveSelector_Child>().currentSelection;           
+            SelectorNode selected;
 
-            if(selected.hasChildren()) {
+            try
+            {
+                selected = current.children[sel];
+            } 
+            catch (ArgumentOutOfRangeException e)
+            {
+                selected = current.children[0];
+            }
+            
+            if (selected.hasChildren()) {
                 if(selected.children.Count > 0) {
                     current = selected;
                     updateDisplay();                    
@@ -230,8 +238,17 @@ public class MoveSelector : MonoBehaviour {
     }
     public void updateDescription() {
         MoveSelector_Child kiddo = currentMenu.GetComponent<MoveSelector_Child>();
-        int sel = kiddo.currentSelection;
-        SelectorNode selected = current.children[sel];
+        int sel = kiddo.currentSelection;        
+        SelectorNode selected;
+
+        try
+        {
+            selected = current.children[sel];
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            selected = current.children[0];
+        }        
 
         if(types.ContainsKey(selected.name)) {
             if(types[selected.name] == "move") {
