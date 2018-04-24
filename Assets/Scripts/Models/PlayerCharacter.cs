@@ -133,13 +133,13 @@ public class PlayerCharacter : Fighter {
     */
     public void testInventory() {
         inventory = new List<Item>();
-        inventory.Add(new HealthPotion("fruit_parfait", "Fruit Parfait", 5));
-        inventory.Add(new HealthPotion("black_bean_soup", "Black Bean Soup", 10));
-        inventory.Add(new HealthPotion("artisanal_sandwich", "Artisanal Sandwich", 20));
-        inventory.Add(new HealthPotion("gourmet_pizza", "Gourmet Pizza", 50));
-        inventory.Add(new StaminaPotion("water_bottle", "Water Bottle", 5));
-        inventory.Add(new StaminaPotion("citrus_cola_can", "Citrus Cola Can", 10));
-        inventory.Add(new StaminaPotion("lemonade_jug", "Lemonade Jug", 20));
-        inventory.Add(new StaminaPotion("coffee_pot", "Coffee Pot", 50));
+        inventory.Add(new HealthPotion("fruit_parfait", "Fruit Parfait"));
+        inventory.Add(new HealthPotion("black_bean_soup", "Black Bean Soup"));
+        inventory.Add(new HealthPotion("artisanal_sandwich", "Artisanal Sandwich"));
+        inventory.Add(new HealthPotion("gourmet_pizza", "Gourmet Pizza"));
+        inventory.Add(new StaminaPotion("water_bottle", "Water Bottle"));
+        inventory.Add(new StaminaPotion("citrus_cola_can", "Citrus Cola Can"));
+        inventory.Add(new StaminaPotion("lemonade_jug", "Lemonade Jug"));
+        inventory.Add(new StaminaPotion("coffee_pot", "Coffee Pot"));
     }
 }
