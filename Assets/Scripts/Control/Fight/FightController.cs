@@ -258,7 +258,9 @@ public class FightController : MonoBehaviour {
         } else if (f == enemy) {
             exitState = "win";
             finalStatus = "The enemy died!";
-            nextScene = "Night1"; 
+            nextScene = "Night1";            
+            GameController.player.gainExperience(((Enemy)f).getExperience());
+            Debug.Log("Player level: " + GameController.player.level);
         }
 
         gameOver = true;
