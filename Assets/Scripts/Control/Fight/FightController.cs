@@ -122,7 +122,7 @@ public class FightController : MonoBehaviour {
 
                     string status = processMove(GameController.player, enemy, selectedMove);
                     string prefix = "";
-                    if (selectedMove != Constants.ItemUse && selectedMove != "Run") {
+                    if (selectedMove != Constants.ItemUse && selectedMove != Constants.Stunned && selectedMove != "Run") {
                         prefix = "You used " + selectedMove + "! ";
                     }
 

@@ -59,9 +59,9 @@ public class MoveSelector : MonoBehaviour {
             GameController.player = new PlayerCharacter();
             GameController.player.testInventory();
         }*/
-        if(GameController.player.name == "[Test_inv]") {
+        //if(GameController.player.name == "[Test_inv]") {
             GameController.player.testInventory();
-        }
+        //}
 
         MoveUtils.InitMoves();
 

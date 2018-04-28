@@ -5,7 +5,7 @@ using UnityEngine;
 public class PierceTheHeart : Move {
 
 	public PierceTheHeart(string _name) : base(_name) {
-        this.description = "6 STA | A startling attack that can potentially stun the enemy as well as cause damage.";
+        this.description = "6 STA | A startling attack that can potentially stun the enemy.";
     }
 
     override public Dictionary<string, int> processMove(Fighter attacker, Fighter target) {
@@ -20,6 +20,6 @@ public class PierceTheHeart : Move {
     }
 
     public override bool moveEligible(Fighter attacker) {
-        return attacker.currStamina > 6;
+        return attacker.currStamina >= 6;
     }
 }

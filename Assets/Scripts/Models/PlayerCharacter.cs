@@ -112,19 +112,37 @@ public class PlayerCharacter : Fighter {
     public Move[] getMoves() {
         //TODO: Actually calculate what moves are possible.
         MoveUtils.InitMoves();
+        List<string> names = new List<string>();
         List<Move> moves = new List<Move>();
 
-        Debug.Log(MoveUtils.getMoveSet());
+        if (weapon == "Wrench") {
+            names.Add("Bash");
+            if (level >= 2) {
+                names.Add("Wrench Throw");
+            }
+            if (level >= 3) {
+                names.Add("Two-Handed Swing");
+            }
+        } else if(weapon == "Fan Sword") {
+            if (level >= 4) {
+                names.Add("Slash");
+                names.Add("Two-Handed Swing");
+            }
+            if (defense >= 5) {
+                names.Add("Pierce The Heart");
+            }
+        } else {
+            Debug.LogWarning("The weapon held by the PlayerCharacter script doesn't have logic!");
+        }
 
-        //if (weapon == "wrench") {
-            moves.Add(MoveUtils.GetMove("Bash"));
-            moves.Add(MoveUtils.GetMove("Two Handed Swing"));
-            moves.Add(MoveUtils.GetMove("Wrench Throw"));
-            moves.Add(MoveUtils.GetMove("Pierce The Heart"));
-        moves.Add(MoveUtils.GetMove("Heal Wounds"));
-       // }
+        List<string> addedMoves = new List<string>();
 
-        moves.Add(MoveUtils.GetMove("Black Hole Warp"));
+        foreach (string name in names) {
+            if (!addedMoves.Contains(name)) {
+                addedMoves.Add(name);
+                moves.Add(MoveUtils.GetMove(name));
+            }
+        }
         return moves.ToArray();
     }
 

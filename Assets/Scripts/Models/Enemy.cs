@@ -48,9 +48,13 @@ public class Enemy : Fighter {
             } else if(type == EnemyType.Wolf) {
                 if(currStamina < 1) {
                     distribution.Add("Scratch", 1);
-                } else {
+                } else if(currStamina < 4) {
                     distribution.Add("Bite", .5);
                     distribution.Add("Scratch", .5);
+                } else {
+                    distribution.Add("Bite", .5);
+                    distribution.Add("Scratch", .2);
+                    distribution.Add("Mighty Tackle", .3);
                 }
             } else if(type == EnemyType.Cosmult) {
                 if (currStamina > 3) {
