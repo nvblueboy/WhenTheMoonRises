@@ -139,11 +139,13 @@ public class MenuController : MonoBehaviour {
     // UpdateCharacterMenu
     private void UpdateCharacterMenu()
     {
-        PlayerCharacter player = GameController.player;   
-             
+        PlayerCharacter player = GameController.player;
+
+        txtLevel.text = "Lvl " + player.level.ToString();
         txtHealth.text = player.currHP + "/" + player.hp;
         txtDefense.text = player.defense.ToString();
         txtStamina.text = player.currStamina + "/" + player.stamina;
+        txtStrength.text = player.strength.ToString();
         txtIntuition.text = player.intuition.ToString();        
         txtExperience.text = player.experience.ToString();
 

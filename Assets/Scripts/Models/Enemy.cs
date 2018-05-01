@@ -16,11 +16,23 @@ Description: This is a script representing an Enemy and its current state
 public class Enemy : Fighter {
 
     public EnemyType type;
+    private int experience;
 
-    // Awake
-    void Awake()
+    // Start
+    void Start ()
     {
-
+        switch(type)
+        {
+            case EnemyType.Cosmid:
+                experience = 2;
+                break;
+            case EnemyType.Cosmult:
+                experience = 6;
+                break;
+            case EnemyType.Bear:
+                experience = 8;
+                break;            
+        }                
     }
 
     public string getMove()
@@ -62,6 +74,11 @@ public class Enemy : Fighter {
             addSelectedMove(selectedMove);
         }
         return getSelectedMove(true);
+    }
+
+    public int getExperience()
+    {
+        return experience;
     }
 }
 

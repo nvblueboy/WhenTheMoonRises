@@ -20,6 +20,6 @@ public class PierceTheHeart : Move {
     }
 
     public override bool moveEligible(Fighter attacker) {
-        return attacker.currStamina > 6;
+        return attacker.currStamina >= 6;
     }
 }

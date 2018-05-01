@@ -6,7 +6,7 @@ public class Constants {
     // Dictionary mapping level to necessary xp
     public static Dictionary<int, int> LevelMap = new Dictionary<int, int>
     {
-        {2, 2}, {3, 4}, {4, 8}, {5, 16}, {6, 32},
+        {2, 6}, {3, 10}, {4, 22}, {5, 16}, {6, 32},
         {7, 64}, {8, 128}, {9, 256}, {10, 512} 
     };   
 

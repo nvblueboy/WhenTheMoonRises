@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -27,6 +26,12 @@ public class PlayerCharacter : Fighter {
     private void levelUp()
     {
         level++;
+        hp += 2;
+        stamina += 2;
+        strength += 2;
+        defense += 2;
+        restoreHPAndStamina();
+        Debug.Log("Level up: " + level);
     }
     //returns amount of coins
     public int getCoins()
@@ -51,9 +56,10 @@ public class PlayerCharacter : Fighter {
     Name: gainExperience
     Parameters: int experience
     */
-    public void gainExperience(int experience)
+    public void gainExperience(int gainedExperience)
     {
-        experience += experience;
+        Debug.Log("Player gained experience: " + gainedExperience);
+        experience += gainedExperience;
         if (Constants.LevelMap[level + 1] <= experience)
         {
             levelUp();

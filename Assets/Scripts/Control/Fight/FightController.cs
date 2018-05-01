@@ -258,7 +258,7 @@ public class FightController : MonoBehaviour {
         } else if (f == enemy) {
             exitState = "win";
             finalStatus = "The enemy died!";
-            nextScene = "Night1"; 
+            nextScene = "Night1";            
         }
 
         gameOver = true;
