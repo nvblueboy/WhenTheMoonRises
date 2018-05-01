@@ -46,6 +46,11 @@ public class MoveSelector : MonoBehaviour {
     private Dictionary<string, string> types;
 
     public void Start() {
+        if (GameController.player == null) {
+            GameController.player = new PlayerCharacter();
+            Debug.LogWarning("Can't find PlayerCharacter script in the scene. This may cause issues.");
+        }
+
         takeControl = true;
         Debug.Log("Player in Move Selector: " + GameController.player.strength);
         /*if(GameController.player == null) {
@@ -53,9 +58,9 @@ public class MoveSelector : MonoBehaviour {
             GameController.player = new PlayerCharacter();
             GameController.player.testInventory();
         }*/
-        if(GameController.player.name == "[Test_inv]") {
+        //if(GameController.player.name == "[Test_inv]") {
             GameController.player.testInventory();
-        }
+        //}
 
         MoveUtils.InitMoves();
 

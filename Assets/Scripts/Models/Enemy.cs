@@ -43,20 +43,44 @@ public class Enemy : Fighter {
 
             Dictionary<string, double> distribution = new Dictionary<string, double>();
 
-            if (type == EnemyType.Cosmid) {
-                if (currStamina <= 0) {
+            if(type == EnemyType.Cosmid) {
+                if(currStamina <= 0) {
                     distribution.Add("Scratch", 1);
                 } else {
                     distribution.Add("Scratch", .8);
                     distribution.Add("Black Hole Warp", .2);
                 }
-            } else if (type == EnemyType.Bear) {
-                if (currStamina <= 3) {
+            } else if(type == EnemyType.Bear) {
+                if(currStamina <= 3) {
                     distribution.Add("Slash", 1);
                 } else {
                     distribution.Add("Slash", .75);
                     distribution.Add("Mighty Tackle", .25);
                 }
+            } else if(type == EnemyType.Wolf) {
+                if(currStamina < 1) {
+                    distribution.Add("Scratch", 1);
+                } else if(currStamina < 4) {
+                    distribution.Add("Bite", .5);
+                    distribution.Add("Scratch", .5);
+                } else {
+                    distribution.Add("Bite", .5);
+                    distribution.Add("Scratch", .2);
+                    distribution.Add("Mighty Tackle", .3);
+                }
+            } else if(type == EnemyType.Cosmult) {
+                if (currStamina > 3) {
+                    distribution.Add("Meteor Shower", .2);
+                    distribution.Add("Psychic Blast", .5);
+                    distribution.Add("Black Hole Warp", .3);
+                } else if (currStamina > 1) {
+                    distribution.Add("Psychic Blast", .75);
+                    distribution.Add("Black Hole Warp", .25);
+                } else {
+                    distribution.Add("Psychic Blast", 1);
+                }
+            } else {
+                Debug.LogError("This enemy is not defined.");
             }
 
             double low = 0f;

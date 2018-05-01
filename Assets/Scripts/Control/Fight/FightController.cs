@@ -122,7 +122,7 @@ public class FightController : MonoBehaviour {
 
                     string status = processMove(GameController.player, enemy, selectedMove);
                     string prefix = "";
-                    if (selectedMove != Constants.ItemUse && selectedMove != "Run") {
+                    if (selectedMove != Constants.ItemUse && selectedMove != Constants.Stunned && selectedMove != "Run") {
                         prefix = "You used " + selectedMove + "! ";
                     }
 
@@ -313,6 +313,13 @@ public class FightController : MonoBehaviour {
         if (moveData.ContainsKey(Constants.GuaranteedHP)) {
             int damage = moveData[Constants.GuaranteedHP];
             defend.takeDamage(damage);
+
+            runAnimation = true;
+        }
+
+        if (moveData.ContainsKey(Constants.Heal)) {
+            int amt = moveData[Constants.Heal];
+            attack.heal(amt);
 
             runAnimation = true;
         }
