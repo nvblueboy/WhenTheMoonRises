@@ -21,6 +21,7 @@ public class SceneSwitchController : MonoBehaviour {
     public GameObject passingGameObject;
 
     private GameObject parentGO;
+    private FeedbackController feedbackController;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,9 @@ public class SceneSwitchController : MonoBehaviour {
         destroyEnemy = false;
 
         fc = null;
+
+        feedbackController = GameObject.FindGameObjectWithTag(
+            "FeedbackController").GetComponent<FeedbackController>();
 
         parentGO = new GameObject("Inactive Scene");
         parentGO.transform.parent = this.transform;
@@ -112,8 +116,24 @@ public class SceneSwitchController : MonoBehaviour {
 
             if(destroyEnemy) {
                 StarSpawnController ssc = passingGameObject.GetComponent<StarSpawnController>();
+                Enemy enemy = passingGameObject.GetComponent<Enemy>();
                 if(ssc != null) {
                     ssc.DropStar();
+                }
+
+                if(enemy != null)
+                {
+                    int oldLevel = GameController.player.level;
+                    GameController.player.gainExperience(enemy.getExperience());
+                    int newLevel = GameController.player.level;
+
+                    if(oldLevel != newLevel)
+                    {
+                        Feedback levelUp;
+                        levelUp.speaker = "";
+                        levelUp.text = "Congratulations, you've reached level " + newLevel + "!";
+                        feedbackController.showFeedback(new Feedback[] { levelUp });
+                    }                    
                 }
                 Destroy(passingGameObject);
             } else {
