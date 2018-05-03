@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StarSpawnController : MonoBehaviour {
 
+    public Vector3 offset = new Vector3(0, 0, 0);
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,6 +18,6 @@ public class StarSpawnController : MonoBehaviour {
 
     public void DropStar() {
         GameObject star = (GameObject)Instantiate(Resources.Load("items/StarShard"));
-        star.transform.position = this.transform.position;
+        star.transform.position = this.transform.position + offset;
     }
 }
