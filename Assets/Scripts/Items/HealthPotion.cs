@@ -9,17 +9,17 @@ public class HealthPotion : Item {
     public HealthPotion(string _name, string _displayName) : base(_name, _displayName) {        
         
         if(_name.Contains("fruit")) {
-            description = "A small snack that replenishes 5 HP.";
-            strength = 5;
+            description = "A small snack that replenishes 3 HP.";
+            strength = 3;
         } else if(_name.Contains("black")) {
-            description = "A meal on-the-go that replenishes 10 HP.";
-            strength = 10;
+            description = "A meal on-the-go that replenishes 5 HP.";
+            strength = 5;
         } else if(_name.Contains("artisanal")) {
-            description = "A meal on-the-go that replenishes 20 HP.";
-            strength = 20;
+            description = "A meal on-the-go that replenishes 7 HP.";
+            strength = 7;
         } else if (_name.Contains("gourmet")) {
-            description = "A large meal that replenishes 50 HP.";
-            strength = 50;
+            description = "A large meal that replenishes 10 HP.";
+            strength = 10;
         }
     }
 

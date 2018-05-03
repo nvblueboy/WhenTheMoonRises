@@ -88,7 +88,7 @@ public class ItemShop : MonoBehaviour
         arrow11.SetActive(false);
         arrow12.SetActive(false);*/
         arrow13.SetActive(false);
-        itemInfo.text = "A small snack that replenishes 5 HP ";
+        itemInfo.text = "A small snack that replenishes 3 HP ";
         itemCode = 0;
     }
     // Update is called once per frame
@@ -101,44 +101,44 @@ public class ItemShop : MonoBehaviour
         {
             if (arrow1.activeInHierarchy)
             {
-                itemInfo.text = "A meal-on-the-go that replenishes 10 HP ";
+                itemInfo.text = "A meal-on-the-go that replenishes 5 HP ";
                 arrow1.SetActive(false);
                 arrow2.SetActive(true);
             }
             else if (arrow2.activeInHierarchy)
             {
-                itemInfo.text = "A meal on-the-go that replenishes 20 HP ";
+                itemInfo.text = "A meal on-the-go that replenishes 7 HP ";
                 arrow2.SetActive(false);
                 arrow3.SetActive(true);
             }
             else if (arrow3.activeInHierarchy)
             {
-                itemInfo.text = "A large meal that replenishes 50 HP ";
+                itemInfo.text = "A large meal that replenishes 10 HP ";
                 arrow3.SetActive(false);
                 arrow4.SetActive(true);
             }
             else if (arrow4.activeInHierarchy)
             {
-                itemInfo.text = "A small drink that replenishes 5 STA ";
+                itemInfo.text = "A small drink that replenishes 3 STA ";
                 arrow4.SetActive(false);
                 arrow5.SetActive(true);
             }
             else if (arrow5.activeInHierarchy)
             {
-                itemInfo.text = "A small drink that replenishes 10 STA ";
+                itemInfo.text = "A small drink that replenishes 5 STA ";
                 arrow5.SetActive(false);
                 arrow6.SetActive(true);
 
             }
             else if (arrow6.activeInHierarchy)
             {
-                itemInfo.text = "A medium drink that replenishes 20 STA ";
+                itemInfo.text = "A medium drink that replenishes 7 STA ";
                 arrow6.SetActive(false);
                 arrow7.SetActive(true);
             }
             else if (arrow7.activeInHierarchy)
             {
-                itemInfo.text = "A large drink that replenishes 50 STA ";
+                itemInfo.text = "A large drink that replenishes 10 STA ";
                 arrow7.SetActive(false);
                 arrow8.SetActive(true);
             }
@@ -178,44 +178,44 @@ public class ItemShop : MonoBehaviour
         {            
             if (arrow2.activeInHierarchy)
             {
-                itemInfo.text = "A small snack that replenishes 5 HP ";
+                itemInfo.text = "A small snack that replenishes 3 HP ";
                 arrow2.SetActive(false);
                 arrow1.SetActive(true);
             }
             else if (arrow3.activeInHierarchy)
             {
-                itemInfo.text = "A meal-on-the-go that replenishes 10 HP ";
+                itemInfo.text = "A meal-on-the-go that replenishes 5 HP ";
                 arrow3.SetActive(false);
                 arrow2.SetActive(true);
             }
             else if (arrow4.activeInHierarchy)
             {
-                itemInfo.text = "A meal on-the-go that replenishes 20 HP ";
+                itemInfo.text = "A meal on-the-go that replenishes 7 HP ";
                 arrow4.SetActive(false);
                 arrow3.SetActive(true);
             }
             else if (arrow5.activeInHierarchy)
             {
-                itemInfo.text = "A large meal that replenishes 50 HP ";
+                itemInfo.text = "A large meal that replenishes 10 HP ";
                 arrow5.SetActive(false);
                 arrow4.SetActive(true);
 
             }
             else if (arrow6.activeInHierarchy)
             {
-                itemInfo.text = "A small drink that replenishes 5 STA ";
+                itemInfo.text = "A small drink that replenishes 3 STA ";
                 arrow6.SetActive(false);
                 arrow5.SetActive(true);
             }
             else if (arrow7.activeInHierarchy)
             {
-                itemInfo.text = "A small drink that replenishes 10 STA ";
+                itemInfo.text = "A small drink that replenishes 5 STA ";
                 arrow7.SetActive(false);
                 arrow6.SetActive(true);
             }
             else if (arrow8.activeInHierarchy)
             {
-                itemInfo.text = "A medium drink that replenishes 20 STA ";
+                itemInfo.text = "A medium drink that replenishes 7 STA ";
                 arrow8.SetActive(false);
                 arrow7.SetActive(true);
             }

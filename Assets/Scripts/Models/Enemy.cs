@@ -24,7 +24,7 @@ public class Enemy : Fighter {
         switch(type)
         {
             case EnemyType.Cosmid:
-                experience = 2;
+                experience = 4;
                 break;
             case EnemyType.Cosmult:
                 experience = 6;
