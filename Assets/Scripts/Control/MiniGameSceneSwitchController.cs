@@ -109,6 +109,11 @@ public class MiniGameSceneSwitchController : MonoBehaviour {
             }
 
             //Handle star dropping here.
+            Feedback fb = new Feedback();
+            fb.text = "There was a star shard in the well!";
+            FeedbackController feedbackController = GameObject.FindGameObjectWithTag("FeedbackController").GetComponent<FeedbackController>();
+            feedbackController.showFeedback(new Feedback[] { fb });
+
             spawnController.DropStar();
         }
     }

@@ -127,12 +127,12 @@ public class PlayerCharacter : Fighter {
                 names.Add("Wrench Throw");
             }
             if (level >= 3) {
-                names.Add("Two-Handed Swing");
+                names.Add("Two Handed Swing");
             }
         } else if(weapon == "Fan Sword") {
             if (level >= 4) {
                 names.Add("Slash");
-                names.Add("Two-Handed Swing");
+                names.Add("Two Handed Swing");
             }
             if (defense >= 5) {
                 names.Add("Pierce The Heart");

@@ -69,9 +69,11 @@ public class FightController : MonoBehaviour {
         }
 
         if (ssc != null) {
+            Debug.Log("TEST");
             ssc.fc = this;
             ssc.fc_go = this.gameObject;
             passedEnemy = (Enemy)ssc.passingObject;
+            Debug.Log(passedEnemy.name);
         }
 
         InitializeFighters();

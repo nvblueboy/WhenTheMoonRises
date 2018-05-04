@@ -32,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
         {
             SceneSwitchController ssc = GameObject.Find("Scene Switcher").GetComponent<SceneSwitchController>();            
             ssc.passingGameObject = this.gameObject;
+            ssc.passingObject = this.gameObject.GetComponent<Enemy>();
             ssc.save = true;
 
         }

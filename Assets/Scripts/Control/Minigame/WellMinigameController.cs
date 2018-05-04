@@ -176,9 +176,13 @@ public class WellMinigameController : MinigameController {
     }
 
     void newQueue() {
-        for(int i = 0; i < 4; ++i) {
-            upcomingTargets.Enqueue(possibilities[Random.Range(0, 4)]);
+        string queue = "pass";
+        while(queue.Contains("ass")) {
+            for(int i = 0; i < 4; ++i) {
+                upcomingTargets.Enqueue(possibilities[Random.Range(0, 4)]);
+            }
+            targetSet = upcomingTargets.ToArray();
+            queue = new string(targetSet);
         }
-        targetSet = upcomingTargets.ToArray();
     }
 }
