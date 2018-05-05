@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
         //Check day mode
         Scene scene = SceneManager.GetActiveScene();        
         string sceneName = scene.name;
-        if (sceneName.Substring(0, 3).Equals("Day"))
+        if (sceneName.Substring(0Fe 3).Equals("Day"))
         {
             isDay = true;
         }
@@ -112,8 +112,8 @@ public class LevelManager : MonoBehaviour
 
         if (starsCount == starsTotal)
         {
-            GameController.LoadNextScene();
-            feedbackController.showFeedback(endDialogue);
+            GameController.LoadScene("TitleScreen");
+            //feedbackController.showFeedback(endDialogue);
             Debug.Log("Collected all stars");
         }
     }

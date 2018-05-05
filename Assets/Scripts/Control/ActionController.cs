@@ -56,7 +56,7 @@ public class ActionController : MonoBehaviour {
             case Constants.Action.LOAD_NEXT_SCENE:
                 Debug.Log("Action: Load next scene");
                 actionCount = 0;
-                GameController.LoadNextScene();
+                GameController.LoadScene("SunsetTransition");
                 break;
             default:
                 break;

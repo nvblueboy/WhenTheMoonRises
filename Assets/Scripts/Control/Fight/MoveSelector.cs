@@ -90,9 +90,12 @@ public class MoveSelector : MonoBehaviour {
 
             foreach (Item item in GameController.player.inventory) {
                 Debug.Log(item.getName());
-                selections.Add(item.getName(), item);
-                types.Add(item.getName(), "item");
-                items.addChild(new SelectorNode(item.getName(), item.getDisplayName()));
+                if(item.getName() != "Rock" && item.getName() != "Ladder")
+                {
+                    selections.Add(item.getName(), item);
+                    types.Add(item.getName(), "item");
+                    items.addChild(new SelectorNode(item.getName(), item.getDisplayName()));
+                }                
             }
         } 
 
@@ -195,6 +198,7 @@ public class MoveSelector : MonoBehaviour {
             } else {
                 if (selected.name == "run") {
                     GameController.player.addSelectedMove("Run");
+                    return;
                 }
                 object selectedObj = selections[selected.name];
 
