@@ -121,7 +121,12 @@ public class PlayerCharacter : Fighter {
         List<string> names = new List<string>();
         List<Move> moves = new List<Move>();
 
-        if (weapon == "Wrench") {
+        names.Add("Bash");
+        names.Add("Wrench Throw");
+        names.Add("Two Handed Swing");
+        names.Add("Pierce The Heart");
+
+        /*if (weapon == "Wrench") {
             names.Add("Bash");
             if (level >= 2) {
                 names.Add("Wrench Throw");
@@ -139,7 +144,7 @@ public class PlayerCharacter : Fighter {
             }
         } else {
             Debug.LogWarning("The weapon held by the PlayerCharacter script doesn't have logic!");
-        }
+        }*/
 
         List<string> addedMoves = new List<string>();
 
