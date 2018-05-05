@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
     
     private static Vector3 playerPosition;
     private static PlayerMovementController playerController;
+    private static GameObject controllerObject;
     private static List<string> loadedScenes;
     private static string currentScene, previousScene, activeScene, oldScene;
     private static int prevSceneIndex;   
@@ -48,7 +49,8 @@ public class GameController : MonoBehaviour {
         prevSceneIndex = 0;
         currentScene = SceneManager.GetActiveScene().name;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();       
-        oldScene = SceneManager.GetActiveScene().name;                
+        oldScene = SceneManager.GetActiveScene().name;
+        controllerObject = gameObject;               
     }
 
     // Update
@@ -160,6 +162,12 @@ public class GameController : MonoBehaviour {
     {
         return playerPosition;
     }
+
+    // resetPlayerPosition
+    public static void resetPlayerPosition()
+    {
+        playerPosition = Vector3.zero;
+    }
     
     // addLoadedScene
     public static void addLoadedScene(string sceneName)
@@ -179,6 +187,21 @@ public class GameController : MonoBehaviour {
             loadedScenes = new List<string>();
         }
         return loadedScenes;
+    }
+
+    // resetLoadedScenes
+    public static void resetLoadedScenes()
+    {
+        if(loadedScenes != null)
+        {
+            loadedScenes.Clear();
+        }       
+    }
+
+    // reset
+    public static void reset()
+    {
+        Destroy(controllerObject);
     }
 
     // getCurrentScene
